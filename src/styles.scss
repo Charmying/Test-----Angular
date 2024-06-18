@@ -43,3 +43,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/* Tailwind CSS */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Tailwind CSS 官方 CSS 寫法 (SCSS 也可以用) */
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;

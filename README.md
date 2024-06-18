@@ -25,3 +25,13 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Tailwind CSS
+
+[Install Tailwind CSS with Angular](https://tailwindcss.com/docs/guides/angular)
+
+安裝 Tailwind CSS `npm install -D tailwindcss postcss autoprefixer`
+
+初始化 Tailwind CSS `npx tailwindcss init`
+
+安裝 & 初始化完要重新啟動 `ng serve`
