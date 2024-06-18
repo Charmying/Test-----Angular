@@ -35,3 +35,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 初始化 Tailwind CSS `npx tailwindcss init`
 
 安裝 & 初始化完要重新啟動 `ng serve`
+
+## 建立 Component
+
+`ng generate component ComponentName`
+
+`ng g c ComponentName`
