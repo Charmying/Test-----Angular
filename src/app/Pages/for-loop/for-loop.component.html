@@ -1,0 +1,35 @@
+<app-header></app-header>
+
+<main class="leading-normal">
+  <h1 class="text-2xl font-black text-center my-4 p-2">For 迴圈</h1>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">Array</h2>
+    <div>
+      <ul>
+        <li *ngFor="let basicItem of array">{{ basicItem }}</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">Array of Objects 物件陣列</h2>
+    <div>
+      <ul>
+        <li *ngFor="let item of arrayObjects">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">Array of Objects 加上索引值</h2>
+    <div>
+      <ul>
+        <li *ngFor="let item of arrayObjects; index as i">{{ i + 1 }}. {{ item.name }} - {{ item.description }}</li>
+      </ul>
+    </div>
+  </section>
+</main>
