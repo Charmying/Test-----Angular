@@ -18,6 +18,6 @@ export class ForLoopComponent {
     { name: 'Array of Objects Item 1', description: 'This is array of objects item 1' },
     { name: 'Array of Objects Item 2', description: 'This is array of objects item 2' },
     { name: 'Array of Objects Item 3', description: 'This is array of objects item 3' },
-    { name: 'Array of Objects Item 4', description: 'This is array of objects item 4' }
+    { name: 'Array of Objects Item 4', description: 'This is array of objects item 4' },
   ];
 }
