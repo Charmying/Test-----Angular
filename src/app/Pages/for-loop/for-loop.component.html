@@ -32,4 +32,17 @@
       </ul>
     </div>
   </section>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">Practice</h2>
+    <div class="text-base font-bold" *ngFor="let category of categoryList; let categoryIndex = index">
+      <h3 class="text-sm font-bold my-2">{{ categoryIndex + 1 }}. {{ category.name }}</h3>
+      <div class="text-xs font-bold my-2" *ngFor="let product of category.products; let productIndex = index">
+        <h4 class="my-1">{{ categoryIndex + 1 }}.{{ productIndex + 1 }} {{ product.name }}</h4>
+        <ul>
+          <li *ngFor="let attribute of product.attributes; let attributeIndex = index">{{ categoryIndex + 1 }}.{{ productIndex + 1 }}.{{ attributeIndex + 1 }} {{ attribute.name }}: {{ attribute.value }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 </main>
