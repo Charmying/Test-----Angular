@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<main class="leading-normal">
+  <h1 class="text-2xl font-black text-center my-4 p-2">if 判別式</h1>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">if</h2>
+    <div class="flex gap-4">
+      <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" (click)="if_isVisible = !if_isVisible">切換顯示狀態</button>
+      <p class="self-center" *ngIf="if_isVisible">這段文字會根據 if_isVisible 的值來顯示或隱藏。</p>
+    </div>
+  </section>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">if</h2>
+    <div class="flex gap-4">
+      <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" (click)="setStatus('success')">Success</button>
+      <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" (click)="setStatus('warning')">Warning</button>
+      <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" (click)="setStatus('error')">Error</button>
+      <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" (click)="setStatus('default')">Default</button>
+      <div *ngIf="status === 'success'">操作成功！</div>
+      <div *ngIf="status === 'warning'">警告：請注意！</div>
+      <div *ngIf="status === 'error'">錯誤：操作失敗。</div>
+      <div *ngIf="status === 'default'">未知狀態。</div>
+    </div>
+  </section>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">if else</h2>
+    <div class="flex gap-4">
+      <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" (click)="ifelse_isVisible = !ifelse_isVisible">切換顯示狀態</button>
+      <p class="self-center" *ngIf="ifelse_isVisible; else elseBlock">這段文字會在 ifelse_isVisible 為 true 時顯示。</p>
+      <ng-template #elseBlock>
+        <p class="self-center">這段文字會在 ifelse_isVisible 為 false 時顯示。</p>
+      </ng-template>
+    </div>
+  </section>
+</main>
