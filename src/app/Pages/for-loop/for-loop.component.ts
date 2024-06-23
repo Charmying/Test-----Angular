@@ -4,11 +4,11 @@ import { HeaderComponent } from "../../Component/header/header.component";
 import { Category, CategoryInterface } from './category.types';
 
 @Component({
-    selector: 'app-for-loop',
-    standalone: true,
-    templateUrl: './for-loop.component.html',
-    styleUrl: './for-loop.component.scss',
-    imports: [CommonModule, HeaderComponent]
+  selector: 'app-for-loop',
+  standalone: true,
+  templateUrl: './for-loop.component.html',
+  styleUrl: './for-loop.component.scss',
+  imports: [CommonModule, HeaderComponent]
 })
 export class ForLoopComponent {
   /* Array */

@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common'; // 導入 CommonModule，*ngIf �
 import { HeaderComponent } from "../../Component/header/header.component";
 
 @Component({
-    selector: 'app-if-condition',
-    standalone: true,
-    templateUrl: './if-condition.component.html',
-    styleUrl: './if-condition.component.scss',
-    imports: [CommonModule, HeaderComponent]
+  selector: 'app-if-condition',
+  standalone: true,
+  templateUrl: './if-condition.component.html',
+  styleUrl: './if-condition.component.scss',
+  imports: [CommonModule, HeaderComponent]
 })
 export class IfConditionComponent {
   /* if */
