@@ -1,0 +1,51 @@
+<app-header></app-header>
+
+<main class="leading-normal">
+  <h1 class="text-2xl font-black text-center my-4 p-2">FormGroup</h1>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">FormGroup 簡單範例 (在 constructor() 裡初始化)</h2>
+    <div class="my-4">
+      <form [formGroup]="myForm1" (ngSubmit)="onSubmit1()">
+        <div class="mt-2">
+          <label class="text-gray-700 block" for="name">Name:</label>
+          <input class="w-full  px-3 py-2 block border border-gray-300 rounded-md" id="name" formControlName="name">
+        </div>
+        <div class="mt-2">
+          <label class="text-gray-700 block" for="email">Email:</label>
+          <input class="w-full px-3 py-2 block border border-gray-300 rounded-md" id="email" formControlName="email">
+        </div>
+        <div class="mt-4">
+          <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="my-8" *ngIf="formData1">
+      <h3 class="font-bold">Submitted Data</h3>
+      <pre class="bg-gray-100 p-2 rounded">{{ formData1 | json }}</pre>
+    </div>
+  </section>
+
+  <section class="my-4 p-2">
+    <h2 class="text-lg font-bold mb-2 text-purple-900">FormGroup 簡單範例 (用 非空斷言操作符(!) 在 ngOnInit() 裡初始化)</h2>
+    <div class="my-4">
+      <form [formGroup]="myForm2" (ngSubmit)="onSubmit2()">
+        <div class="mt-2">
+          <label class="text-gray-700 block" for="name">Name:</label>
+          <input class="w-full  px-3 py-2 block border border-gray-300 rounded-md" id="name" formControlName="name">
+        </div>
+        <div class="mt-2">
+          <label class="text-gray-700 block" for="email">Email:</label>
+          <input class="w-full px-3 py-2 block border border-gray-300 rounded-md" id="email" formControlName="email">
+        </div>
+        <div class="mt-4">
+          <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="my-8" *ngIf="formData2">
+      <h3 class="font-bold">Submitted Data</h3>
+      <pre class="bg-gray-100 p-2 rounded">{{ formData2 | json }}</pre>
+    </div>
+  </section>
+</main>
