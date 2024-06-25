@@ -11,6 +11,8 @@ import { HeaderComponent } from "../../Component/header/header.component";
     imports: [CommonModule, ReactiveFormsModule, HeaderComponent] // 直接在這裡導入 ReactiveFormsModule，FormGroup 要用
 })
 export class FormGroupComponent {
+  headerTitle = 'FormGroup';
+
   myForm1: FormGroup;
   myForm2!: FormGroup;
   formData1: any; // 用來保存表單數據

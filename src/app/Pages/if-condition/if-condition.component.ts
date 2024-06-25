@@ -10,6 +10,8 @@ import { HeaderComponent } from "../../Component/header/header.component";
   imports: [CommonModule, HeaderComponent]
 })
 export class IfConditionComponent {
+  headerTitle = 'if 判別式';
+
   /* if */
   if_isVisible: boolean = true;
 

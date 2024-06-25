@@ -11,6 +11,8 @@ import { Category, CategoryInterface } from './category.types';
   imports: [CommonModule, HeaderComponent]
 })
 export class ForLoopComponent {
+  headerTitle = 'For 迴圈';
+
   /* Array */
   array = ['arrayItem 1', 'arrayItem 2', 'arrayItem 3', 'arrayItem 4'];
   

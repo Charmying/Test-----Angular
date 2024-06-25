@@ -10,6 +10,8 @@ import { InputOutputChildComponent } from '../../Component/input-output-child/in
     imports: [HeaderComponent, InputOutputChildComponent]
 })
 export class InputOutputParentComponent {
+  headerTitle = 'Input & Output'
+
   title = 'Parent Component';
   parentMessage = 'Message from Parent';
   message!: string;
