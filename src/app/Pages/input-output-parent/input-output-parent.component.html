@@ -1,11 +1,10 @@
 <app-header [headerTitle]="headerTitle"></app-header>
 
 <main class="leading-normal">
-  <section class="my-4 p-2">
-    <h2 class="text-lg font-bold mb-2 text-purple-900">{{ title }} aaa</h2>
+  <app-section [sectionTitle]="section1Title">
     <div>
       <app-input-output-child [childMessage]="parentMessage" (messageEvent)="receiveMessage($event)"></app-input-output-child>
       <p>{{ message }}</p>
     </div>
-  </section>
+  </app-section>
 </main>

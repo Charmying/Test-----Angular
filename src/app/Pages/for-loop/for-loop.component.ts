@@ -2,16 +2,21 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // 導入 CommonModule，*ngFor 需要，不然會產生警告
 import { HeaderComponent } from "../../Component/header/header.component";
 import { Category, CategoryInterface } from './category.types';
+import { SectionComponent } from "../../Component/section/section.component";
 
 @Component({
-  selector: 'app-for-loop',
-  standalone: true,
-  templateUrl: './for-loop.component.html',
-  styleUrl: './for-loop.component.scss',
-  imports: [CommonModule, HeaderComponent]
+    selector: 'app-for-loop',
+    standalone: true,
+    templateUrl: './for-loop.component.html',
+    styleUrl: './for-loop.component.scss',
+    imports: [CommonModule, HeaderComponent, SectionComponent]
 })
 export class ForLoopComponent {
   headerTitle = 'For 迴圈';
+  section1Title = 'Array';
+  section2Title = 'Array of Objects 物件陣列';
+  section3Title = 'Array of Objects 加上索引值';
+  section4Title = 'Practice';
 
   /* Array */
   array = ['arrayItem 1', 'arrayItem 2', 'arrayItem 3', 'arrayItem 4'];

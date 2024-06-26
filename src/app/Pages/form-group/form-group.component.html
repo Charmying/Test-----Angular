@@ -1,8 +1,7 @@
 <app-header [headerTitle]="headerTitle"></app-header>
 
 <main class="leading-normal">
-  <section class="my-4 p-2">
-    <h2 class="text-lg font-bold mb-2 text-purple-900">FormGroup 簡單範例 (在 constructor() 裡初始化)</h2>
+  <app-section [sectionTitle]="section1Title">
     <div class="my-4">
       <form [formGroup]="myForm1" (ngSubmit)="onSubmit1()">
         <div class="mt-2">
@@ -19,13 +18,12 @@
       </form>
     </div>
     <div class="my-8" *ngIf="formData1">
-      <h3 class="font-bold">Submitted Data</h3>
+      <h3 class="text-lg font-bold mt-4 mb-2">Submitted Data</h3>
       <pre class="bg-gray-100 p-2 rounded">{{ formData1 | json }}</pre>
     </div>
-  </section>
+  </app-section>
 
-  <section class="my-4 p-2">
-    <h2 class="text-lg font-bold mb-2 text-purple-900">FormGroup 簡單範例 (用 非空斷言操作符(!) 在 ngOnInit() 裡初始化)</h2>
+  <app-section [sectionTitle]="section2Title">
     <div class="my-4">
       <form [formGroup]="myForm2" (ngSubmit)="onSubmit2()">
         <div class="mt-2">
@@ -42,8 +40,8 @@
       </form>
     </div>
     <div class="my-8" *ngIf="formData2">
-      <h3 class="font-bold">Submitted Data</h3>
+      <h3 class="text-lg font-bold mt-4 mb-2">Submitted Data</h3>
       <pre class="bg-gray-100 p-2 rounded">{{ formData2 | json }}</pre>
     </div>
-  </section>
+  </app-section>
 </main>
