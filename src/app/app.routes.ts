@@ -6,6 +6,7 @@ import { ForLoopComponent } from './Pages/for-loop/for-loop.component';
 import { IfConditionComponent } from './Pages/if-condition/if-condition.component';
 import { FormGroupComponent } from './Pages/form-group/form-group.component';
 import { InputOutputParentComponent } from './Pages/input-output-parent/input-output-parent.component';
+import { PipeComponent } from './Pages/pipe/pipe.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // 首頁
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: 'if-condition', component: IfConditionComponent }, // if 判別式練習
   { path: 'FormGroup', component: FormGroupComponent }, // FormGroup 練習
   { path: 'InputOutputParent', component: InputOutputParentComponent }, // @Input() @Output() 練習
+  { path: 'Pipe', component: PipeComponent }, // Pipe 練習
 ];
