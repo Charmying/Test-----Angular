@@ -7,11 +7,11 @@ import { delay, of } from 'rxjs';
 import { DiscountPipe } from "../../Formate/DiscountPipe";
 
 @Component({
-    selector: 'app-pipe',
-    standalone: true,
-    templateUrl: './pipe.component.html',
-    styleUrl: './pipe.component.scss',
-    imports: [CommonModule, HeaderComponent, SectionComponent, DiscountPipe]
+  selector: 'app-pipe',
+  standalone: true,
+  templateUrl: './pipe.component.html',
+  styleUrl: './pipe.component.scss',
+  imports: [CommonModule, HeaderComponent, SectionComponent, DiscountPipe]
 })
 export class PipeComponent {
   headerTitle = 'Pipe';

@@ -5,11 +5,11 @@ import { Category, CategoryInterface } from './category.types';
 import { SectionComponent } from "../../Component/section/section.component";
 
 @Component({
-    selector: 'app-for-loop',
-    standalone: true,
-    templateUrl: './for-loop.component.html',
-    styleUrl: './for-loop.component.scss',
-    imports: [CommonModule, HeaderComponent, SectionComponent]
+  selector: 'app-for-loop',
+  standalone: true,
+  templateUrl: './for-loop.component.html',
+  styleUrl: './for-loop.component.scss',
+  imports: [CommonModule, HeaderComponent, SectionComponent]
 })
 export class ForLoopComponent {
   headerTitle = 'For 迴圈';

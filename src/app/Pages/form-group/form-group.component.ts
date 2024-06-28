@@ -5,11 +5,11 @@ import { HeaderComponent } from "../../Component/header/header.component";
 import { SectionComponent } from "../../Component/section/section.component";
 
 @Component({
-    selector: 'app-form-group',
-    standalone: true,
-    templateUrl: './form-group.component.html',
-    styleUrl: './form-group.component.scss',
-    imports: [CommonModule, ReactiveFormsModule, HeaderComponent, SectionComponent] // 直接在這裡導入 ReactiveFormsModule，FormGroup 要用
+  selector: 'app-form-group',
+  standalone: true,
+  templateUrl: './form-group.component.html',
+  styleUrl: './form-group.component.scss',
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent, SectionComponent] // 直接在這裡導入 ReactiveFormsModule，FormGroup 要用
 })
 export class FormGroupComponent {
   headerTitle = 'FormGroup';

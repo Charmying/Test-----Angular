@@ -4,11 +4,11 @@ import { HeaderComponent } from "../../Component/header/header.component";
 import { SectionComponent } from "../../Component/section/section.component";
 
 @Component({
-    selector: 'app-if-condition',
-    standalone: true,
-    templateUrl: './if-condition.component.html',
-    styleUrl: './if-condition.component.scss',
-    imports: [CommonModule, HeaderComponent, SectionComponent]
+  selector: 'app-if-condition',
+  standalone: true,
+  templateUrl: './if-condition.component.html',
+  styleUrl: './if-condition.component.scss',
+  imports: [CommonModule, HeaderComponent, SectionComponent]
 })
 export class IfConditionComponent {
   headerTitle = 'if 判別式';
