@@ -52,4 +52,13 @@
       <p>{{ observableData | async }}</p> <!-- 當 observable 發出數據後，自動顯示結果 -->
     </div>
   </app-section>
+
+  <app-section [sectionTitle]="section2Title">
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content9Title }}</h3>
+      <ul>
+        <li *ngFor="let product of products">{{ product.name }}: {{ product.price | discount: 20 }}</li>
+      </ul>
+    </div>
+  </app-section>
 </main>

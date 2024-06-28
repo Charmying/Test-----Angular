@@ -4,13 +4,14 @@ import { HeaderComponent } from "../../Component/header/header.component";
 import { SectionComponent } from "../../Component/section/section.component";
 import { Observable } from 'rxjs/internal/Observable';
 import { delay, of } from 'rxjs';
+import { DiscountPipe } from "../../Formate/DiscountPipe";
 
 @Component({
     selector: 'app-pipe',
     standalone: true,
     templateUrl: './pipe.component.html',
     styleUrl: './pipe.component.scss',
-    imports: [CommonModule, HeaderComponent, SectionComponent]
+    imports: [CommonModule, HeaderComponent, SectionComponent, DiscountPipe]
 })
 export class PipeComponent {
   headerTitle = 'Pipe';
@@ -23,6 +24,8 @@ export class PipeComponent {
   content6Title = 'PercentPipe: 將數字轉換為百分比格式';
   content7Title = 'JsonPipe: 轉換為 JSON 字符串格式，方便調試和顯示';
   content8Title = 'AsyncPipe: 訂閱 Observable 或 Promise 並自動解開其值，方便在模板中使用非同步數據';
+  section2Title = '自訂 Pipe';
+  content9Title = 'DiscountPipe: 自訂價格折扣 Pipe';
   
   today: number = Date.now();
   string = 'Hello World'
@@ -33,4 +36,9 @@ export class PipeComponent {
     interest: ['LOL', 'Apex']
   };
   observableData: Observable<string> = of('Hello from Observable!').pipe(delay(5000));
+  products = [
+    { name: 'Product 1', price: 1000 }, // discount: 20 = 打 8 折 → price = 800
+    { name: 'Product 2', price: 2000 }, // discount: 20 = 打 8 折 → price = 1600
+    { name: 'Product 3', price: 3000 }, // discount: 20 = 打 8 折 → price = 2400
+  ];
 }
