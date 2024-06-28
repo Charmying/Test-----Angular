@@ -5,13 +5,14 @@ import { SectionComponent } from "../../Component/section/section.component";
 import { Observable } from 'rxjs/internal/Observable';
 import { delay, of } from 'rxjs';
 import { DiscountPipe } from "../../Formate/DiscountPipe";
+import { ComplexCalculationPipe } from '../../Formate/ComplexCalculationPipe';
 
 @Component({
   selector: 'app-pipe',
   standalone: true,
   templateUrl: './pipe.component.html',
   styleUrl: './pipe.component.scss',
-  imports: [CommonModule, HeaderComponent, SectionComponent, DiscountPipe]
+  imports: [CommonModule, HeaderComponent, SectionComponent, DiscountPipe, ComplexCalculationPipe]
 })
 export class PipeComponent {
   headerTitle = 'Pipe';
@@ -26,6 +27,7 @@ export class PipeComponent {
   content8Title = 'AsyncPipe: 訂閱 Observable 或 Promise 並自動解開其值，方便在模板中使用非同步數據';
   section2Title = '自訂 Pipe';
   content9Title = 'DiscountPipe: 自訂價格折扣 Pipe';
+  content10Title = 'ComplexCalculationPipe: 接受一個數字 Array 並返回其平方根的和，然後除以數組中所有偶數的乘積';
   
   today: number = Date.now();
   string = 'Hello World'
@@ -41,4 +43,5 @@ export class PipeComponent {
     { name: 'Product 2', price: 2000 }, // discount: 20 = 打 8 折 → price = 1600
     { name: 'Product 3', price: 3000 }, // discount: 20 = 打 8 折 → price = 2400
   ];
+  tryComplexCalculationArray = [1, 2, 3, 4, 5, 6];
 }
