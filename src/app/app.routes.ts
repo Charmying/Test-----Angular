@@ -7,6 +7,7 @@ import { IfConditionComponent } from './Pages/if-condition/if-condition.componen
 import { FormGroupComponent } from './Pages/form-group/form-group.component';
 import { InputOutputParentComponent } from './Pages/input-output-parent/input-output-parent.component';
 import { PipeComponent } from './Pages/pipe/pipe.component';
+import { DependencyInjectionComponent } from './Pages/dependency-injection/dependency-injection.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // 首頁
@@ -17,4 +18,5 @@ export const routes: Routes = [
   { path: 'FormGroup', component: FormGroupComponent }, // FormGroup 練習
   { path: 'InputOutputParent', component: InputOutputParentComponent }, // @Input() @Output() 練習
   { path: 'Pipe', component: PipeComponent }, // Pipe 練習
+  { path: 'DependencyInjection', component: DependencyInjectionComponent }, // Dependency Injection 練習
 ];

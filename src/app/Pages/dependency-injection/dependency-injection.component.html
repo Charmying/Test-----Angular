@@ -1,0 +1,17 @@
+<app-header [headerTitle]="headerTitle"></app-header>
+
+<main class="leading-normal">
+  <app-section [sectionTitle]="section1Title">
+    <p>{{ injectData }}</p>
+  </app-section>
+
+  <app-section [sectionTitle]="section1Title">
+    <p>{{ certificationStatus }}: {{ isAuthenticated ? certified : uncertified }}</p>
+  </app-section>
+
+  <app-section [sectionTitle]="section1Title">
+    <ul>
+      <li *ngFor="let user of users">{{ user.name }} - {{ certificationStatus }}: {{ user.isAuthenticated2 ? certified : uncertified }}</li>
+    </ul>
+  </app-section>
+</main>
