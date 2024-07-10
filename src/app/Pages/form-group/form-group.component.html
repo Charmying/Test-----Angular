@@ -5,12 +5,10 @@
     <div class="my-4">
       <form [formGroup]="myForm1" (ngSubmit)="onSubmit1()">
         <div class="mt-2">
-          <label class="text-gray-700 block" for="name">Name:</label>
-          <input class="w-full  px-3 py-2 block border border-gray-300 rounded-md" id="name" formControlName="name">
+          <app-label-input [label]="name1" [inputType]="nameInputType1" [form]="myForm1" [controlName]="nameControlName1"></app-label-input>
         </div>
         <div class="mt-2">
-          <label class="text-gray-700 block" for="email">Email:</label>
-          <input class="w-full px-3 py-2 block border border-gray-300 rounded-md" id="email" formControlName="email">
+          <app-label-input [label]="email1" [inputType]="emailInputType1" [form]="myForm1" [controlName]="emailControlName1"></app-label-input>
         </div>
         <div class="mt-4">
           <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" type="submit">Submit</button>
@@ -27,12 +25,10 @@
     <div class="my-4">
       <form [formGroup]="myForm2" (ngSubmit)="onSubmit2()">
         <div class="mt-2">
-          <label class="text-gray-700 block" for="name">Name:</label>
-          <input class="w-full  px-3 py-2 block border border-gray-300 rounded-md" id="name" formControlName="name">
+          <app-label-input [label]="name2" [inputType]="nameInputType2" [form]="myForm2" [controlName]="nameControlName2"></app-label-input>
         </div>
         <div class="mt-2">
-          <label class="text-gray-700 block" for="email">Email:</label>
-          <input class="w-full px-3 py-2 block border border-gray-300 rounded-md" id="email" formControlName="email">
+          <app-label-input [label]="email2" [inputType]="emailInputType2" [form]="myForm2" [controlName]="emailControlName2"></app-label-input>
         </div>
         <div class="mt-4">
           <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" type="submit">Submit</button>
