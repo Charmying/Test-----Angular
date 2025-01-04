@@ -11,7 +11,6 @@ import { LabelInputComponent } from "../../Component/label-input/label-input.com
   templateUrl: './form-group.component.html',
   styleUrl: './form-group.component.scss',
   imports: [CommonModule, ReactiveFormsModule, HeaderComponent, SectionComponent, LabelInputComponent] // 直接在這裡導入 ReactiveFormsModule，FormGroup 要用
- // 直接在這裡導入 ReactiveFormsModule，FormGroup 要用
 })
 export class FormGroupComponent {
   headerTitle = 'FormGroup';
@@ -33,6 +32,9 @@ export class FormGroupComponent {
   emailControlName2 = 'email';
   email3 = 'Email';
   phoneNumber3 = 'phoneNumber';
+  showErrors = false;
+  emailError3 = 'Please enter a valid email address.';
+  phoneNumberError3 = 'Please enter a valid phone number.';
   labelType3: string = '';
   inputType3: string = '';
   controlName3: string = '';
@@ -67,21 +69,25 @@ export class FormGroupComponent {
 
   onSubmit1() {
     console.log(this.myForm1.value);
-    this.formData1 = this.myForm1.value; // 保存表單數據到 formData
+    this.formData1 = this.myForm1.value;
   }
 
   onSubmit2() {
     console.log(this.myForm2.value);
-    this.formData2 = this.myForm2.value; // 保存表單數據到 formData
+    this.formData2 = this.myForm2.value;
   }
 
   onSubmit3() {
-    this.formData3 = null;
-    console.log(this.myForm3.value);
-    this.formData3 = this.myForm3.value; // 保存表單數據到 formData
+    if (this.myForm3.valid) {
+      console.log(this.myForm3.value);
+      this.formData3 = this.myForm3.value;
+    } else {
+      this.showErrors = true;
+    }
   }
 
   onOptionChange(option: 'email' | 'phone') {
+    this.showErrors = false;
     this.selectedOption = option;
 
     if (option === 'email') {

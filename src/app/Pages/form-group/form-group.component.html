@@ -57,15 +57,21 @@
             <label>
               <app-label-input [label]="labelType3" [inputType]="inputType3" [form]="myForm3" [controlName]="controlName3"></app-label-input>
             </label>
+            <div *ngIf="showErrors" class="error">
+              {{ emailError3 }}
+            </div>
           </div>
           <div *ngIf="myForm3.get('option')?.value === 'phone'">
             <label>
               <app-label-input [label]="labelType3" [inputType]="inputType3" [form]="myForm3" [controlName]="controlName3"></app-label-input>
             </label>
+            <div *ngIf="showErrors" class="error">
+              {{ phoneNumberError3 }}
+            </div>
           </div>
         </div>
         <div class="mt-4" *ngIf="myForm3.get('option')?.value !== ''">
-          <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" type="submit" [disabled]="myForm3.invalid">Submit</button>
+          <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" type="submit">Submit</button>
         </div>
       </form>
     </div>
