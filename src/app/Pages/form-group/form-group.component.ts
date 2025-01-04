@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderComponent } from "../../Component/header/header.component";
 import { SectionComponent } from "../../Component/section/section.component";
 import { LabelInputComponent } from "../../Component/label-input/label-input.component";
@@ -17,6 +17,7 @@ export class FormGroupComponent {
   headerTitle = 'FormGroup';
   section1Title = 'FormGroup 簡單範例 (在 constructor() 裡初始化)';
   section2Title = 'FormGroup 簡單範例 (用 非空斷言操作符(!) 在 ngOnInit() 裡初始化)';
+  section3Title = 'FormGroup 簡單範例 (使用 FormGroup 和 FormBuilder 在 constructor() 裡初始化)';
 
   name1 = 'Name:';
   nameInputType1 = 'text';
@@ -30,18 +31,30 @@ export class FormGroupComponent {
   email2 = 'Email:';
   emailInputType2 = 'text';
   emailControlName2 = 'email';
-
+  email3 = 'Email';
+  phoneNumber3 = 'phoneNumber';
+  labelType3: string = '';
+  inputType3: string = '';
+  controlName3: string = '';
+  selectedOption: 'email' | 'phone' | null = null;
   myForm1: FormGroup;
   myForm2!: FormGroup;
+  myForm3: FormGroup;
   formData1: any; // 用來保存表單數據
   formData2: any; // 用來保存表單數據
+  formData3: any; // 用來保存表單數據
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.myForm1 = new FormGroup({
       name: new FormControl('Charmy1'), // 預設 name 的 input value 是 Charmy1
       email: new FormControl('')
     });
     
+    this.myForm3 = this.fb.group({
+      option: [''],
+      email: [''],
+      phone: [''],
+    });
   }
 
   ngOnInit() {
@@ -60,5 +73,34 @@ export class FormGroupComponent {
   onSubmit2() {
     console.log(this.myForm2.value);
     this.formData2 = this.myForm2.value; // 保存表單數據到 formData
+  }
+
+  onSubmit3() {
+    this.formData3 = null;
+    console.log(this.myForm3.value);
+    this.formData3 = this.myForm3.value; // 保存表單數據到 formData
+  }
+
+  onOptionChange(option: 'email' | 'phone') {
+    this.selectedOption = option;
+
+    if (option === 'email') {
+      this.labelType3 = 'Email:';
+      this.inputType3 = 'email';
+      this.controlName3 = 'email';
+      this.myForm3.get('phone')?.setValue('');
+      this.myForm3.get('email')?.setValidators([Validators.required, Validators.email]);
+      this.myForm3.get('phone')?.clearValidators();
+    } else if (option === 'phone') {
+      this.labelType3 = 'Phone:';
+      this.inputType3 = 'text';
+      this.controlName3 = 'phone';
+      this.myForm3.get('email')?.setValue('');
+      this.myForm3.get('phone')?.setValidators([Validators.required, Validators.pattern(/^[0-9]{10}$/)]);
+      this.myForm3.get('email')?.clearValidators();
+    }
+
+    this.myForm3.get('email')?.updateValueAndValidity();
+    this.myForm3.get('phone')?.updateValueAndValidity();
   }
 }

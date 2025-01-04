@@ -40,4 +40,38 @@
       <pre class="bg-gray-100 p-2 rounded">{{ formData2 | json }}</pre>
     </div>
   </app-section>
+
+  <app-section [sectionTitle]="section3Title">
+    <div class="my-4">
+      <form [formGroup]="myForm3" (ngSubmit)="onSubmit3()">
+        <div class="mt-2">
+          <label>
+            <input type="radio" formControlName="option" value="email" (change)="onOptionChange('email')" /> {{ email3 }}
+          </label>
+          <label>
+            <input type="radio" formControlName="option" value="phone" (change)="onOptionChange('phone')" /> {{ phoneNumber3 }}
+          </label>
+        </div>
+        <div class="mt-2">
+          <div *ngIf="myForm3.get('option')?.value === 'email'">
+            <label>
+              <app-label-input [label]="labelType3" [inputType]="inputType3" [form]="myForm3" [controlName]="controlName3"></app-label-input>
+            </label>
+          </div>
+          <div *ngIf="myForm3.get('option')?.value === 'phone'">
+            <label>
+              <app-label-input [label]="labelType3" [inputType]="inputType3" [form]="myForm3" [controlName]="controlName3"></app-label-input>
+            </label>
+          </div>
+        </div>
+        <div class="mt-4" *ngIf="myForm3.get('option')?.value !== ''">
+          <button class="text-white bg-blue-500 py-1 px-2 rounded hover:bg-blue-700" type="submit" [disabled]="myForm3.invalid">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="my-8" *ngIf="formData3">
+      <h3 class="text-lg font-bold mt-4 mb-2">Submitted Data</h3>
+      <pre class="bg-gray-100 p-2 rounded">{{ formData3 | json }}</pre>
+    </div>
+  </app-section>
 </main>
