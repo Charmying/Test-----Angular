@@ -21,3 +21,9 @@ Angular CLI version 18.0.4.
 `ng generate component ComponentName`
 
 `ng g c ComponentName`
+
+<br />
+
+## 加入 i18n 設定
+
+`npm install @ngx-translate/core @ngx-translate/http-loader`

@@ -1,0 +1,8 @@
+{
+  "HomePage": "首頁",
+  "Title": "這是 {{name}}!",
+  "Language": {
+    "en": "英文",
+    "zh": "中文"
+  }
+}

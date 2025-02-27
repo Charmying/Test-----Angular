@@ -1,0 +1,8 @@
+{
+  "HomePage": "Home Page",
+  "Title": "It's {{name}}!",
+  "Language": {
+    "en": "English",
+    "zh": "Chinese"
+  }
+}
