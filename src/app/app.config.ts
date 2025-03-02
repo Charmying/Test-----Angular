@@ -1,7 +1,7 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     /** 如果需要 SSR 或 hydration */
     provideClientHydration(),
     /** 提供 HttpClient，TranslateHttpLoader 會依賴 */
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     /** 匯入 TranslateModule 的配置 */
     ...TranslateModule.forRoot({
       loader: {
