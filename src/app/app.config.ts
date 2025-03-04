@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, PLATFORM_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import { firstValueFrom } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 /** 定義 i18n 檔案的載入方式 */
 export function HttpLoaderFactory(http: HttpClient) {
@@ -14,12 +15,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 /** 定義應用程式啟動時的初始化函數 */
-export function initializeApp(translate: TranslateService) {
+export function initializeApp(translate: TranslateService, platformId: Object) {
   return async () => {
+    /** 檢查是否在瀏覽器環境中 */
+    const savedLang = isPlatformBrowser(platformId) ? localStorage.getItem('i18nLang') || 'zh-tw' : 'zh-tw';
     /** 設置預設語言 */
     translate.setDefaultLang('zh-tw');
-    /** 等 i18n 載入完成 */
-    await firstValueFrom(translate.use('zh-tw'));
+    /** 使用從 localStorage 取得的語系 */
+    await firstValueFrom(translate.use(savedLang));
   };
 }
 
@@ -43,7 +46,7 @@ export const appConfig: ApplicationConfig = {
     {
       provide: 'APP_INITIALIZER',
       useFactory: initializeApp,
-      deps: [TranslateService],
+      deps: [TranslateService, PLATFORM_ID],
       multi: true,
     },
   ],
