@@ -1,4 +1,4 @@
-# Test And Practice Angular
+# Try And Practice Angular
 
 Angular CLI version 18.0.4.
 
