@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HeaderComponent } from "../../Component/header/header.component";
-import { SectionComponent } from "../../Component/section/section.component";
-import { LabelInputComponent } from "../../Component/label-input/label-input.component";
+import { HeaderComponent } from "../../component/header/header.component";
+import { SectionComponent } from "../../component/section/section.component";
+import { LabelInputComponent } from "../../component/label-input/label-input.component";
 
 @Component({
   selector: 'app-form-group',

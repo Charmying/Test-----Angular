@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './Pages/home/home.component';
-import { PageComponent } from './Pages/page/page.component';
-import { OriginComponent } from './Pages/origin/origin.component';
-import { ForLoopComponent } from './Pages/for-loop/for-loop.component';
-import { IfConditionComponent } from './Pages/if-condition/if-condition.component';
-import { FormGroupComponent } from './Pages/form-group/form-group.component';
-import { InputOutputParentComponent } from './Pages/input-output-parent/input-output-parent.component';
-import { PipeComponent } from './Pages/pipe/pipe.component';
-import { DependencyInjectionComponent } from './Pages/dependency-injection/dependency-injection.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PageComponent } from './pages/page/page.component';
+import { OriginComponent } from './pages/origin/origin.component';
+import { ForLoopComponent } from './pages/for-loop/for-loop.component';
+import { IfConditionComponent } from './pages/if-condition/if-condition.component';
+import { FormGroupComponent } from './pages/form-group/form-group.component';
+import { InputOutputParentComponent } from './pages/input-output-parent/input-output-parent.component';
+import { PipeComponent } from './pages/pipe/pipe.component';
+import { DependencyInjectionComponent } from './pages/dependency-injection/dependency-injection.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // 首頁
@@ -18,5 +18,5 @@ export const routes: Routes = [
   { path: 'FormGroup', component: FormGroupComponent }, // FormGroup 練習
   { path: 'InputOutputParent', component: InputOutputParentComponent }, // @Input() @Output() 練習
   { path: 'Pipe', component: PipeComponent }, // Pipe 練習
-  { path: 'DependencyInjection', component: DependencyInjectionComponent }, // Dependency Injection 練習
+  { path: 'dependency-injection', component: DependencyInjectionComponent }, // Dependency Injection 練習
 ];

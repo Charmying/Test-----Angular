@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Component1Component } from "../../Component/component1/component1.component";
-import { Component2Component } from "../../Component/component2/component2.component";
-import { HeaderComponent } from "../../Component/header/header.component";
+import { Component1Component } from "../../component/component1/component1.component";
+import { Component2Component } from "../../component/component2/component2.component";
+import { HeaderComponent } from "../../component/header/header.component";
 
 @Component({
   selector: 'app-origin',

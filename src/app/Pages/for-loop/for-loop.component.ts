@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // 導入 CommonModule，*ngFor 需要，不然會產生警告
-import { HeaderComponent } from "../../Component/header/header.component";
-import { Category, CategoryInterface } from './category.types';
-import { SectionComponent } from "../../Component/section/section.component";
+import { HeaderComponent } from "../../component/header/header.component";
+import { Category, CategoryInterface } from './shared/category-types';
+import { SectionComponent } from "../../component/section/section.component";
 
 @Component({
   selector: 'app-for-loop',

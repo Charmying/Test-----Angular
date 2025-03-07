@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DependencyInjectionComponent } from './dependency-injection.component';
+import { dependency-injectionComponent } from './dependency-injection.component';
 
-describe('DependencyInjectionComponent', () => {
-  let component: DependencyInjectionComponent;
-  let fixture: ComponentFixture<DependencyInjectionComponent>;
+describe('dependency-injectionComponent', () => {
+  let component: dependency-injectionComponent;
+  let fixture: ComponentFixture<dependency-injectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DependencyInjectionComponent]
+      imports: [dependency-injectionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DependencyInjectionComponent);
+    fixture = TestBed.createComponent(dependency-injectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

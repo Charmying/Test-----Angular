@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "../../Component/header/header.component";
-import { SectionComponent } from "../../Component/section/section.component";
-import { DataService, AuthService1, UserService2, AuthService2 } from '../../Service/DependencyInjection';
+import { HeaderComponent } from "../../component/header/header.component";
+import { SectionComponent } from "../../component/section/section.component";
+import { DataService, AuthService1, UserService2, AuthService2 } from '../../service/dependency-injection';
 
 @Component({
   selector: 'app-dependency-injection',
