@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "../../component/header/header.component";
-import { SectionComponent } from "../../component/section/section.component";
+import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { SectionComponent } from '../../../shared/components/test/section/section.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { delay, of } from 'rxjs';
-import { DiscountPipe } from "../../formate/discount.pipe";
-import { ComplexCalculationPipe } from '../../formate/complex-calculation.pipe';
+import { DiscountPipe } from '../../../shared/pipes/discount.pipe';
+import { ComplexCalculationPipe } from '../../../shared/pipes/complex-calculation.pipe';
 
 @Component({
   selector: 'app-pipe',

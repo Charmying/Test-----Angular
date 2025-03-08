@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // 導入 CommonModule，*ngIf 需要，不然會產生警告
-import { HeaderComponent } from "../../component/header/header.component";
-import { SectionComponent } from "../../component/section/section.component";
+import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { SectionComponent } from '../../../shared/components/test/section/section.component';
 
 @Component({
   selector: 'app-if-condition',

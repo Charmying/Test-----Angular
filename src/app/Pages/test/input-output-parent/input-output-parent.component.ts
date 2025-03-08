@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../../component/header/header.component";
-import { InputOutputChildComponent } from '../../component/input-output-child/input-output-child.component';
-import { SectionComponent } from "../../component/section/section.component";
+import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { InputOutputChildComponent } from '../../../shared/components/test/input-output-child/input-output-child.component';
+import { SectionComponent } from '../../../shared/components/test/section/section.component';
 
 @Component({
   selector: 'app-input-output-parent',
