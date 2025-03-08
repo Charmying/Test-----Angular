@@ -8,13 +8,13 @@ import { DiscountPipe } from '../../../shared/pipes/discount.pipe';
 import { ComplexCalculationPipe } from '../../../shared/pipes/complex-calculation.pipe';
 
 @Component({
-  selector: 'app-pipe',
+  selector: 'app-test-pipe',
   standalone: true,
-  templateUrl: './pipe.component.html',
-  styleUrl: './pipe.component.scss',
+  templateUrl: './test-pipe.component.html',
+  styleUrl: './test-pipe.component.scss',
   imports: [CommonModule, HeaderComponent, SectionComponent, DiscountPipe, ComplexCalculationPipe]
 })
-export class PipeComponent {
+export class TestPipeComponent {
   headerTitle = 'Pipe';
   section1Title = '內建 Pipe';
   content1Title = 'DatePipe: 將日期對象格式化為用戶可讀的字符串格式';

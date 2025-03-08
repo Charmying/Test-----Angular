@@ -5,13 +5,13 @@ import { Category, CategoryInterface } from './shared/category-types';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 
 @Component({
-  selector: 'app-for-loop',
+  selector: 'app-test-for-loop',
   standalone: true,
-  templateUrl: './for-loop.component.html',
-  styleUrl: './for-loop.component.scss',
+  templateUrl: './test-for-loop.component.html',
+  styleUrl: './test-for-loop.component.scss',
   imports: [CommonModule, HeaderComponent, SectionComponent]
 })
-export class ForLoopComponent {
+export class TestForLoopComponent {
   headerTitle = 'For 迴圈';
   section1Title = 'Array';
   section2Title = 'Array of Objects 物件陣列';

@@ -4,13 +4,13 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 
 @Component({
-  selector: 'app-if-condition',
+  selector: 'app-test-if-condition',
   standalone: true,
-  templateUrl: './if-condition.component.html',
-  styleUrl: './if-condition.component.scss',
+  templateUrl: './test-if-condition.component.html',
+  styleUrl: './test-if-condition.component.scss',
   imports: [CommonModule, HeaderComponent, SectionComponent]
 })
-export class IfConditionComponent {
+export class TestIfConditionComponent {
   headerTitle = 'if 判別式';
   section1Title = 'if';
   section2Title = 'if';

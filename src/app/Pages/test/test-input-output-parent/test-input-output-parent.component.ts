@@ -4,13 +4,13 @@ import { InputOutputChildComponent } from '../../../shared/components/test/input
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 
 @Component({
-  selector: 'app-input-output-parent',
+  selector: 'app-test-input-output-parent',
   standalone: true,
-  templateUrl: './input-output-parent.component.html',
-  styleUrl: './input-output-parent.component.scss',
+  templateUrl: './test-input-output-parent.component.html',
+  styleUrl: './test-input-output-parent.component.scss',
   imports: [HeaderComponent, InputOutputChildComponent, SectionComponent]
 })
-export class InputOutputParentComponent {
+export class TestInputOutputParentComponent {
   headerTitle = 'Input & Output'
   section1Title = 'Parent Component';
   parentMessage = 'Message from Parent';

@@ -5,13 +5,13 @@ import { SectionComponent } from '../../../shared/components/test/section/sectio
 import { AuthService1, AuthService2, DataService, UserService2 } from '../../../shared/service/test/dependency-injection.service';
 
 @Component({
-  selector: 'app-dependency-injection',
+  selector: 'app-test-dependency-injection',
   standalone: true,
-  templateUrl: './dependency-injection.component.html',
-  styleUrl: './dependency-injection.component.scss',
+  templateUrl: './test-dependency-injection.component.html',
+  styleUrl: './test-dependency-injection.component.scss',
   imports: [CommonModule, HeaderComponent, SectionComponent]
 })
-export class DependencyInjectionComponent {
+export class TestDependencyInjectionComponent {
   headerTitle = 'Dependency Injection (DI) 依賴注入';
   section1Title = '嘗試注入 string';
   certificationStatus = '認證狀態';

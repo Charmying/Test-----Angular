@@ -6,13 +6,13 @@ import { SectionComponent } from '../../../shared/components/test/section/sectio
 import { LabelInputComponent } from '../../../shared/components/test/label-input/label-input.component';
 
 @Component({
-  selector: 'app-form-group',
+  selector: 'app-test-form-group',
   standalone: true,
-  templateUrl: './form-group.component.html',
-  styleUrl: './form-group.component.scss',
+  templateUrl: './test-form-group.component.html',
+  styleUrl: './test-form-group.component.scss',
   imports: [CommonModule, ReactiveFormsModule, HeaderComponent, SectionComponent, LabelInputComponent] // 直接在這裡導入 ReactiveFormsModule，FormGroup 要用
 })
-export class FormGroupComponent {
+export class TestFormGroupComponent {
   headerTitle = 'FormGroup';
   section1Title = 'FormGroup 簡單範例 (在 constructor() 裡初始化)';
   section2Title = 'FormGroup 簡單範例 (用 非空斷言操作符(!) 在 ngOnInit() 裡初始化)';
