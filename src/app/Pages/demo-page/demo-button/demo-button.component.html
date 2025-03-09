@@ -1,1 +1,25 @@
-demo-button
+<table class="w-full">
+  <thead>
+    <tr class="bg-gray-300">
+      <th class="border p-4">
+        <div class="text-h1">button</div>
+      </th>
+      <th class="border p-4 text-left">
+        <div class="text-h1">description</div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-center align-middle">
+        <div>
+          <app-button [text]="'按鈕'" (buttonClick)="click()"></app-button>
+        </div>
+      </td>
+      <td>
+        <div class="text-body1">[text] => 按鈕文字</div>
+        <div class="text-body1">(buttonClick)  => 點擊按鈕觸發 click 事件</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
