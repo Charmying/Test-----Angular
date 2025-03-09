@@ -8,6 +8,7 @@ import { TestFormGroupComponent } from './pages/test/test-form-group/test-form-g
 import { TestInputOutputParentComponent } from './pages/test/test-input-output-parent/test-input-output-parent.component';
 import { TestPipeComponent } from './pages/test/test-pipe/test-pipe.component';
 import { TestDependencyInjectionComponent } from './pages/test/test-dependency-injection/test-dependency-injection.component';
+import { DemoIndexComponent } from './pages/demo-page/demo-index/demo-index.component';
 
 export const routes: Routes = [
   /** 首頁 */
@@ -22,4 +23,6 @@ export const routes: Routes = [
   { path: 'InputOutputParent', component: TestInputOutputParentComponent }, // @Input() @Output() 練習
   { path: 'Pipe', component: TestPipeComponent }, // Pipe 練習
   { path: 'dependency-injection', component: TestDependencyInjectionComponent }, // Dependency Injection 練習
+  /** demo */
+  { path: 'demo', component: DemoIndexComponent },
 ];
