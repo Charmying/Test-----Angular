@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HeaderComponent } from "../../../shared/components/header/header.component";
 import { DemoTextComponent } from "../demo-text/demo-text.component";
+import { DemoButtonComponent } from "../demo-button/demo-button.component";
 
 @Component({
   selector: 'app-demo-index',
@@ -12,12 +13,18 @@ import { DemoTextComponent } from "../demo-text/demo-text.component";
     CommonModule,
     HeaderComponent,
     DemoTextComponent,
+    DemoButtonComponent,
   ],
 })
 export class DemoIndexComponent {
   options = 'text'
 
   demoLinks: any[] = [
-    { title: '文字' },
+    { title: 'text' },
+    { title: 'button' },
   ]
+
+  changeOptions(title: string) {
+    this.options = title
+  }
 }

@@ -7,17 +7,16 @@
       <nav>
         <ul>
           <li class="min-w-max mb-4" *ngFor="let link of demoLinks">
-            <div class="text-h3">{{ link.title }}</div>
+            <div class="text-h3 cursor-pointer" (click)="changeOptions(link.title)">{{ link.title }}</div>
           </li>
         </ul>
       </nav>
     </div>
     <!-- demo 內容 -->
     <div class="w-full">
-      <div class="p-4">
-        @if (options === 'text') {
-          <app-demo-text></app-demo-text>
-        }
+      <div class="p-4" [ngSwitch]="options">
+        <app-demo-text *ngSwitchCase="'text'"></app-demo-text>
+        <app-demo-button *ngSwitchCase="'button'"></app-demo-button>
       </div>
     </div>
   </div>
