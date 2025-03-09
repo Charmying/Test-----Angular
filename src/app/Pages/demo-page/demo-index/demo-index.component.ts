@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HeaderComponent } from "../../../shared/components/header/header.component";
 import { DemoTextComponent } from "../demo-text/demo-text.component";
+import { DemoIconComponent } from "../demo-icon/demo-icon.component";
 import { DemoButtonComponent } from "../demo-button/demo-button.component";
 
 @Component({
@@ -13,6 +14,7 @@ import { DemoButtonComponent } from "../demo-button/demo-button.component";
     CommonModule,
     HeaderComponent,
     DemoTextComponent,
+    DemoIconComponent,
     DemoButtonComponent,
   ],
 })
@@ -21,6 +23,7 @@ export class DemoIndexComponent {
 
   demoLinks: any[] = [
     { title: 'text' },
+    { title: 'icon' },
     { title: 'button' },
   ]
 
