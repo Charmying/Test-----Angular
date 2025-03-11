@@ -21,5 +21,57 @@
         <div class="text-body1">(buttonClick)  => 點擊按鈕觸發 click 事件</div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div>
+          <app-button [text]="'按鈕'" [leftIcon]="'cheveron-up'" (buttonClick)="click()"></app-button>
+        </div>
+      </td>
+      <td>
+        <div class="text-body1">[text] => 按鈕文字</div>
+        <div class="text-body1">[leftIcon] => 顯示文字左邊 icon (填入 icon name)</div>
+        <div class="text-body1">(buttonClick)  => 點擊按鈕觸發 click 事件</div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div>
+          <app-button [text]="'按鈕'" [rightIcon]="'cheveron-down'" (buttonClick)="click()"></app-button>
+        </div>
+      </td>
+      <td>
+        <div class="text-body1">[text] => 按鈕文字</div>
+        <div class="text-body1">[rightIcon] => 顯示文字右邊 icon (填入 icon name)</div>
+        <div class="text-body1">(buttonClick)  => 點擊按鈕觸發 click 事件</div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div>
+          <app-button [text]="'按鈕'" [leftIcon]="'cheveron-up'" [rightIcon]="'cheveron-down'" (buttonClick)="click()"></app-button>
+        </div>
+      </td>
+      <td>
+        <div class="text-body1">[text] => 按鈕文字</div>
+        <div class="text-body1">[leftIcon] => 顯示文字左邊 icon (填入 icon name)</div>
+        <div class="text-body1">[rightIcon] => 顯示文字右邊 icon (填入 icon name)</div>
+        <div class="text-body1">(buttonClick)  => 點擊按鈕觸發 click 事件</div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div>
+          <app-button [text]="'按鈕'" [leftIcon]="'cheveron-up'" [rightIcon]="'cheveron-down'" [border]="false" (buttonClick)="click()"></app-button>
+        </div>
+        
+      </td>
+      <td>
+        <div class="text-body1">[text] => 按鈕文字</div>
+        <div class="text-body1">[leftIcon] => 顯示文字左邊 icon (填入 icon name)</div>
+        <div class="text-body1">[rightIcon] => 顯示文字右邊 icon (填入 icon name)</div>
+        <div class="text-body1">[border] => false 按鈕不會有邊框 (預設為 true)</div>
+        <div class="text-body1">(buttonClick) => 點擊按鈕觸發 click 事件</div>
+      </td>
+    </tr>
   </tbody>
 </table>

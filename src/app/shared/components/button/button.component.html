@@ -1,5 +1,17 @@
 <div>
-  <button class="border-2 border-solid border-black rounded-lg px-4 py-1" (click)="click()">
-    <div class="text-body1">{{ text }}</div>
+  <button class="w-max rounded-lg px-3 py-1" [ngClass]="{'border-2 border-solid border-black': border}" (click)="click()">
+    <div class="flex">
+      @if (leftIcon) {
+        <div class="mr-1 self-center">
+          <app-icon name="{{ leftIcon }}"></app-icon>
+        </div>
+      }
+      <div class="text-body1">{{ text }}</div>
+      @if (rightIcon) {
+        <div class="ml-1 self-center">
+          <app-icon name="{{ rightIcon }}"></app-icon>
+        </div>
+      }
+    </div>
   </button>
 </div>
