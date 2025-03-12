@@ -7,7 +7,7 @@
       <nav>
         <ul>
           <li class="min-w-max mb-4">
-            <div class="text-h3 cursor-pointer pb-4 border-b-2 border-solid border-black">Demo List</div>
+            <div class="text-h3 cursor-default pb-4 border-b-2 border-solid border-black">Demo List</div>
           </li>
           <li class="min-w-max mb-4" *ngFor="let link of demoLinks">
             <div class="text-h3 cursor-pointer" (click)="changeOptions(link.title)">{{ link.title }}</div>
