@@ -4,6 +4,7 @@ import { HeaderComponent } from "../../../shared/components/header/header.compon
 import { DemoTextComponent } from "../demo-text/demo-text.component";
 import { DemoIconComponent } from "../demo-icon/demo-icon.component";
 import { DemoButtonComponent } from "../demo-button/demo-button.component";
+import { DemoFormsComponent } from "../demo-forms/demo-forms.component";
 
 @Component({
   selector: 'app-demo-index',
@@ -16,6 +17,7 @@ import { DemoButtonComponent } from "../demo-button/demo-button.component";
     DemoTextComponent,
     DemoIconComponent,
     DemoButtonComponent,
+    DemoFormsComponent,
   ],
 })
 export class DemoIndexComponent {
@@ -25,6 +27,7 @@ export class DemoIndexComponent {
     { title: 'text' },
     { title: 'icon' },
     { title: 'button' },
+    { title: 'forms' },
   ]
 
   changeOptions(title: string) {
