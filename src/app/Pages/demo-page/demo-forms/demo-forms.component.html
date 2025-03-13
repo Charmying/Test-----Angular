@@ -1,6 +1,9 @@
-<table class="w-full">
+<table class="w-full mb-8">
   <thead>
     <tr class="bg-gray-300">
+      <th class="border p-4">
+        <div class="text-h1">tag name</div>
+      </th>
       <th class="border p-4">
         <div class="text-h1">function</div>
       </th>
@@ -9,5 +12,62 @@
       </th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-text</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">文字輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'input 標題'" [type]="'text'" [formControlName]="'inputText_text'" [placeHolder]="'type => text'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-text</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">數字輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'input 標題'" [type]="'tel'" [formControlName]="'inputText_number'" [placeHolder]="'type => number'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-text</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">Email 輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'input 標題'" [type]="'email'" [formControlName]="'inputText_email'" [placeHolder]="'type => email'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-text</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">電話輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'input 標題'" [type]="'tel'" [formControlName]="'inputText_tel'" [placeHolder]="'type => tel'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
+
+<div class="flex justify-center">
+  <app-button [text]="'檢查 FormGroup'" (buttonClick)="click()"></app-button>
+</div>

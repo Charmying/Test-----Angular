@@ -1,0 +1,11 @@
+<div [formGroup]="form">
+  <div *ngIf="title" class="text-h3 mb-2">{{ title }}</div>
+  <div>
+    <input
+      class="w-full h-full px-2 py-1 border border-solid border-black rounded [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+      [type]="type"
+      [formControlName]="formControlName"
+      [placeholder]="placeHolder"
+    />
+  </div>
+</div>
