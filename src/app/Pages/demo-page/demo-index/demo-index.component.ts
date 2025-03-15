@@ -5,6 +5,7 @@ import { DemoTextComponent } from "../demo-text/demo-text.component";
 import { DemoIconComponent } from "../demo-icon/demo-icon.component";
 import { DemoButtonComponent } from "../demo-button/demo-button.component";
 import { DemoFormsComponent } from "../demo-forms/demo-forms.component";
+import { DemoFormsValidatorsComponent } from "../demo-forms-validators/demo-forms-validators.component";
 
 @Component({
   selector: 'app-demo-index',
@@ -18,6 +19,7 @@ import { DemoFormsComponent } from "../demo-forms/demo-forms.component";
     DemoIconComponent,
     DemoButtonComponent,
     DemoFormsComponent,
+    DemoFormsValidatorsComponent,
   ],
 })
 export class DemoIndexComponent {
@@ -28,6 +30,7 @@ export class DemoIndexComponent {
     { title: 'icon' },
     { title: 'button' },
     { title: 'forms' },
+    { title: 'formValidators' },
   ]
 
   changeOptions(title: string) {
