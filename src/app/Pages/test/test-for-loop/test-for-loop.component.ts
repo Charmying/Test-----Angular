@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // 導入 CommonModule，*ngFor 需要，不然會產生警告
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { TestHeaderComponent } from '../../../shared/components/test/test-header/test-header.component';
 import { Category, CategoryInterface } from './shared/category-types';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 
@@ -9,7 +10,7 @@ import { SectionComponent } from '../../../shared/components/test/section/sectio
   standalone: true,
   templateUrl: './test-for-loop.component.html',
   styleUrl: './test-for-loop.component.scss',
-  imports: [CommonModule, HeaderComponent, SectionComponent]
+  imports: [CommonModule, HeaderComponent, TestHeaderComponent, SectionComponent]
 })
 export class TestForLoopComponent {
   headerTitle = 'For 迴圈';

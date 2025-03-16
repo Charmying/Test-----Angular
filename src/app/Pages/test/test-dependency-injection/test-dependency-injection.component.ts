@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { TestHeaderComponent } from '../../../shared/components/test/test-header/test-header.component';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 import { AuthService1, AuthService2, DataService, UserService2 } from '../../../shared/service/test/dependency-injection.service';
 
@@ -9,7 +10,7 @@ import { AuthService1, AuthService2, DataService, UserService2 } from '../../../
   standalone: true,
   templateUrl: './test-dependency-injection.component.html',
   styleUrl: './test-dependency-injection.component.scss',
-  imports: [CommonModule, HeaderComponent, SectionComponent]
+  imports: [CommonModule, HeaderComponent, TestHeaderComponent, SectionComponent]
 })
 export class TestDependencyInjectionComponent {
   headerTitle = 'Dependency Injection (DI) 依賴注入';

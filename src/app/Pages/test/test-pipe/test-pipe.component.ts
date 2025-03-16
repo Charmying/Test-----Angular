@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { TestHeaderComponent } from '../../../shared/components/test/test-header/test-header.component';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { delay, of } from 'rxjs';
@@ -12,7 +13,7 @@ import { ComplexCalculationPipe } from '../../../shared/pipes/complex-calculatio
   standalone: true,
   templateUrl: './test-pipe.component.html',
   styleUrl: './test-pipe.component.scss',
-  imports: [CommonModule, HeaderComponent, SectionComponent, DiscountPipe, ComplexCalculationPipe]
+  imports: [CommonModule, HeaderComponent, TestHeaderComponent, SectionComponent, DiscountPipe, ComplexCalculationPipe]
 })
 export class TestPipeComponent {
   headerTitle = 'Pipe';

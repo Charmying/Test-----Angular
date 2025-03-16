@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // 導入 CommonModule，*ngIf 需要，不然會產生警告
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { TestHeaderComponent } from '../../../shared/components/test/test-header/test-header.component';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 
 @Component({
@@ -8,7 +9,7 @@ import { SectionComponent } from '../../../shared/components/test/section/sectio
   standalone: true,
   templateUrl: './test-if-condition.component.html',
   styleUrl: './test-if-condition.component.scss',
-  imports: [CommonModule, HeaderComponent, SectionComponent]
+  imports: [CommonModule, HeaderComponent, TestHeaderComponent, SectionComponent]
 })
 export class TestIfConditionComponent {
   headerTitle = 'if 判別式';

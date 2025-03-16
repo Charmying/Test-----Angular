@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { TestHeaderComponent } from '../../../shared/components/test/test-header/test-header.component';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 import { LabelInputComponent } from '../../../shared/components/test/label-input/label-input.component';
 
@@ -10,7 +11,7 @@ import { LabelInputComponent } from '../../../shared/components/test/label-input
   standalone: true,
   templateUrl: './test-form-group.component.html',
   styleUrl: './test-form-group.component.scss',
-  imports: [CommonModule, ReactiveFormsModule, HeaderComponent, SectionComponent, LabelInputComponent] // 直接在這裡導入 ReactiveFormsModule，FormGroup 要用
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent, TestHeaderComponent, SectionComponent, LabelInputComponent] // 直接在這裡導入 ReactiveFormsModule，FormGroup 要用
 })
 export class TestFormGroupComponent {
   headerTitle = 'FormGroup';
