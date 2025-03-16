@@ -27,4 +27,12 @@ export class FormInputPasswordComponent {
   showPassword(): void {
     this.isPassword = !this.isPassword;
   }
+
+  get control() {
+    return this.form.get(this.formControlName);
+  }
+
+  get showError(): boolean {
+    return (this.control?.invalid && this.control?.touched) ?? false;
+  }
 }

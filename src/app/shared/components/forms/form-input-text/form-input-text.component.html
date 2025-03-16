@@ -8,4 +8,7 @@
       [placeholder]="placeHolder"
     />
   </div>
+  <div *ngIf="showError" class="mt-1 text-body3 text-red-600">
+    {{ form.get(formControlName)?.errors?.['errorMessage'] }}
+  </div>
 </div>

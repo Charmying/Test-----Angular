@@ -20,4 +20,12 @@ export class FormInputTextComponent {
   @Input() formControlName = '';
   /** placeHolder */
   @Input() placeHolder = '';
+
+  get control() {
+    return this.form.get(this.formControlName);
+  }
+
+  get showError(): boolean {
+    return (this.control?.invalid && this.control?.touched) ?? false;
+  }
 }

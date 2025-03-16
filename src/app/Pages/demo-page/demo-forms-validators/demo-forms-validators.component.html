@@ -12,5 +12,32 @@
       </th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.required()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核必填欄位 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核必填欄位'" [type]="'text'" [formControlName]="'required1'" [placeHolder]="'檢核必填欄位'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.required()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核必填欄位 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核必填欄位'" [type]="'text'" [formControlName]="'required2'" [placeHolder]="'檢核必填欄位'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
