@@ -1,0 +1,9 @@
+<div [formGroup]="form">
+  <div *ngIf="title" class="text-h3 mb-2">{{ title }}</div>
+  <div class="flex gap-4">
+    <div *ngFor="let item of data; let i = index" class="flex items-center">
+      <input class="mr-2" type="checkbox" [id]="'checkbox-' + i" [value]="item.id" [checked]="isChecked(item.id)" (change)="onCheckboxChange(item.id, $event)"/>
+      <label [for]="'checkbox-' + i">{{ item.name }}</label>
+    </div>
+  </div>
+</div>

@@ -5,13 +5,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormInputPasswordComponent } from '../../../shared/components/forms/form-input-password/form-input-password.component';
 import { FormButtonListComponent } from '../../../shared/components/forms/form-button-list/form-button-list.component';
 import { BaseCommonObj } from '../../../shared/class/common';
+import { FormCheckboxListComponent } from '../../../shared/components/forms/form-checkbox-list/form-checkbox-list.component';
 
 @Component({
   selector: 'app-demo-forms',
   standalone: true,
   templateUrl: './demo-forms.component.html',
   styleUrl: './demo-forms.component.scss',
-  imports: [FormInputTextComponent, ButtonComponent, FormInputPasswordComponent, FormButtonListComponent],
+  imports: [FormInputTextComponent, ButtonComponent, FormInputPasswordComponent, FormButtonListComponent, FormCheckboxListComponent],
 })
 export class DemoFormsComponent {
   /** FormGroup */
@@ -21,7 +22,12 @@ export class DemoFormsComponent {
     { id: '1', name: 'item 1' },
     { id: '2', name: 'item 2' },
   ];
-  
+
+  checkboxListData: BaseCommonObj[] = [
+    { id: '1', name: 'item 1' },
+    { id: '2', name: 'item 2' },
+  ];
+
   constructor(
     private fb: FormBuilder,
   ) {
@@ -32,6 +38,7 @@ export class DemoFormsComponent {
       inputText_tel: [''],
       inputPassword: [''],
       buttonList: [['1']],
+      checkboxList: [['2']],
     });
   }
 
