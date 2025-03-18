@@ -1,7 +1,7 @@
 <div [formGroup]="form">
   <div *ngIf="title" class="text-h3 mb-2">{{ title }}</div>
   <div class="w-fit relative border-2 border-solid border-black">
-    <button class="absolute top-2 left-2" (click)="decrease()">
+    <button class="absolute top-[0.3rem] left-2" (click)="decrease()">
       <app-icon [name]="'minus'"></app-icon>
     </button>
     <input
@@ -10,7 +10,7 @@
       [formControlName]="formControlName"
       (input)="onInput($event)"
     />
-    <button class="absolute top-2 right-2" (click)="increase()">
+    <button class="absolute top-[0.3rem] right-2" (click)="increase()">
       <app-icon [name]="'plus'"></app-icon>
     </button>
   </div>
