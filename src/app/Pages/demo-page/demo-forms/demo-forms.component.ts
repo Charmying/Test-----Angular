@@ -6,13 +6,14 @@ import { FormInputPasswordComponent } from '../../../shared/components/forms/for
 import { FormButtonListComponent } from '../../../shared/components/forms/form-button-list/form-button-list.component';
 import { BaseCommonObj } from '../../../shared/class/common';
 import { FormCheckboxListComponent } from '../../../shared/components/forms/form-checkbox-list/form-checkbox-list.component';
+import { FormCounterInputComponent } from '../../../shared/components/forms/form-counter-input/form-counter-input.component';
 
 @Component({
   selector: 'app-demo-forms',
   standalone: true,
   templateUrl: './demo-forms.component.html',
   styleUrl: './demo-forms.component.scss',
-  imports: [FormInputTextComponent, ButtonComponent, FormInputPasswordComponent, FormButtonListComponent, FormCheckboxListComponent],
+  imports: [FormInputTextComponent, ButtonComponent, FormInputPasswordComponent, FormButtonListComponent, FormCheckboxListComponent, FormCounterInputComponent],
 })
 export class DemoFormsComponent {
   /** FormGroup */
@@ -39,6 +40,7 @@ export class DemoFormsComponent {
       inputPassword: [''],
       buttonList: [['1']],
       checkboxList: [['2']],
+      plus_minus: ['0'],
     });
   }
 
