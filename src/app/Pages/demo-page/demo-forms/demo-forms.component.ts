@@ -4,16 +4,17 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormInputPasswordComponent } from '../../../shared/components/forms/form-input-password/form-input-password.component';
 import { FormButtonListComponent } from '../../../shared/components/forms/form-button-list/form-button-list.component';
-import { BaseCommonObj } from '../../../shared/class/common';
+import { BaseCommonObj, BasicSelect } from '../../../shared/class/common';
 import { FormCheckboxListComponent } from '../../../shared/components/forms/form-checkbox-list/form-checkbox-list.component';
 import { FormCounterInputComponent } from '../../../shared/components/forms/form-counter-input/form-counter-input.component';
+import { FormSingleSelectComponent } from '../../../shared/components/forms/form-single-select/form-single-select.component';
 
 @Component({
   selector: 'app-demo-forms',
   standalone: true,
   templateUrl: './demo-forms.component.html',
   styleUrl: './demo-forms.component.scss',
-  imports: [FormInputTextComponent, ButtonComponent, FormInputPasswordComponent, FormButtonListComponent, FormCheckboxListComponent, FormCounterInputComponent],
+  imports: [FormInputTextComponent, ButtonComponent, FormInputPasswordComponent, FormButtonListComponent, FormCheckboxListComponent, FormCounterInputComponent, FormSingleSelectComponent],
 })
 export class DemoFormsComponent {
   /** FormGroup */
@@ -29,6 +30,13 @@ export class DemoFormsComponent {
     { id: '2', name: 'item 2' },
   ];
 
+  singleSelectOptions: BasicSelect[] = [
+    { id: '1', name: '選項 1', state: false },
+    { id: '2', name: '選項 2', state: false },
+    { id: '3', name: '選項 3', state: true },
+    { id: '4', name: '選項 4', state: false },
+  ];
+
   constructor(
     private fb: FormBuilder,
   ) {
@@ -41,6 +49,7 @@ export class DemoFormsComponent {
       buttonList: [['1']],
       checkboxList: [['2']],
       plus_minus: ['0'],
+      singleSelect: [''],
     });
   }
 

@@ -6,3 +6,13 @@ export class BaseCommonObj {
     Object.assign(this, data);
   }
 }
+
+export class BasicSelect {
+  id = '';
+  name = '';
+  state = false;
+
+  constructor(data: Partial<BasicSelect>) {
+    Object.assign(this, data);
+  }
+}
