@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BaseCommonObj } from '../../../class/common';
 
@@ -10,7 +10,7 @@ import { BaseCommonObj } from '../../../class/common';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
 })
-export class FormButtonListComponent {
+export class FormButtonListComponent implements OnInit {
   /** FormGroup */
   @Input() form!: FormGroup;
   /** input title */

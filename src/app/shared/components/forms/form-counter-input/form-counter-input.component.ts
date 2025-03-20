@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IconComponent } from '../../icon/icon.component';
 
@@ -10,7 +10,7 @@ import { IconComponent } from '../../icon/icon.component';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, IconComponent],
 })
-export class FormCounterInputComponent {
+export class FormCounterInputComponent implements OnInit {
   /** FormGroup */
   @Input() form!: FormGroup;
   /** input title */
