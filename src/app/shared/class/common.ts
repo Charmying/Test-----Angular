@@ -16,3 +16,9 @@ export class BasicSelect {
     Object.assign(this, data);
   }
 }
+
+export interface OptionItem {
+  id: string;
+  name: string;
+  isSelectAll?: boolean;
+}

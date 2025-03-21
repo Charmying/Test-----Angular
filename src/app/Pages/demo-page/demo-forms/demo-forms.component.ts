@@ -8,13 +8,14 @@ import { BaseCommonObj, BasicSelect } from '../../../shared/class/common';
 import { FormCheckboxListComponent } from '../../../shared/components/forms/form-checkbox-list/form-checkbox-list.component';
 import { FormCounterInputComponent } from '../../../shared/components/forms/form-counter-input/form-counter-input.component';
 import { FormSingleSelectComponent } from '../../../shared/components/forms/form-single-select/form-single-select.component';
+import { FormMultipleSelectComponent } from '../../../shared/components/forms/form-multiple-select/form-multiple-select.component';
 
 @Component({
   selector: 'app-demo-forms',
   standalone: true,
   templateUrl: './demo-forms.component.html',
   styleUrl: './demo-forms.component.scss',
-  imports: [FormInputTextComponent, ButtonComponent, FormInputPasswordComponent, FormButtonListComponent, FormCheckboxListComponent, FormCounterInputComponent, FormSingleSelectComponent],
+  imports: [FormInputTextComponent, ButtonComponent, FormInputPasswordComponent, FormButtonListComponent, FormCheckboxListComponent, FormCounterInputComponent, FormSingleSelectComponent, FormMultipleSelectComponent],
 })
 export class DemoFormsComponent {
   /** FormGroup */
@@ -37,6 +38,14 @@ export class DemoFormsComponent {
     { id: '4', name: '選項 4', state: false },
   ];
 
+  multipleSelectOptions: any[] = [
+    { id: 'all', name: '全部選項', isSelectAll: true },
+    { id: '1', name: '選項 1' },
+    { id: '2', name: '選項 2' },
+    { id: '3', name: '選項 3' },
+    { id: '4', name: '選項 4' },
+  ];
+
   constructor(
     private fb: FormBuilder,
   ) {
@@ -50,6 +59,7 @@ export class DemoFormsComponent {
       checkboxList: [['2']],
       plus_minus: ['0'],
       singleSelect: [''],
+      multipleSelect: [['2', '4']],
     });
   }
 
