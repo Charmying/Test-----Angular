@@ -20,6 +20,8 @@ export class DemoFormsValidatorsComponent {
     this.form = this.fb.group({
       required1: ['', Validators.required()],
       required2: ['', Validators.required('自訂的錯誤訊息')],
+      minLength1: ['', Validators.minLength(5)],
+      minLength2: ['', Validators.minLength(5, '自訂的錯誤訊息')],
     });
   }
 }

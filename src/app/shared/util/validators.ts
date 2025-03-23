@@ -14,6 +14,22 @@ export const Validators = {
       return null;
     };
   },
+  
+  /**
+   * 檢核字串長度是否小於最小長度
+   * @param min number: 設定最小長度
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  minLength(min: number, errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && typeof value === 'string' && value.length < min) {
+        const error = errorText || `長度不能小於 ${min} 個字元`;
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

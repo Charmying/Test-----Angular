@@ -39,5 +39,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.minLength()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入最小長度 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入最小長度'" [type]="'text'" [formControlName]="'minLength1'" [placeHolder]="'檢核輸入最小長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.minLength('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入最小長度 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入最小長度'" [type]="'text'" [formControlName]="'minLength2'" [placeHolder]="'檢核輸入最小長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
