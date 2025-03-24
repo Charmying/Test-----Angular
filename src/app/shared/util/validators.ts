@@ -30,6 +30,22 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串長度是否大於最大長度
+   * @param max number: 設定最大長度
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  maxLength(max: number, errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && typeof value === 'string' && value.length > max) {
+        const error = errorText || `長度不能大於 ${max} 個字元`;
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

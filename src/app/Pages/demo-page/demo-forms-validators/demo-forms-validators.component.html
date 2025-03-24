@@ -65,5 +65,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.maxLength()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入最大長度 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入最大長度'" [type]="'text'" [formControlName]="'maxLength1'" [placeHolder]="'檢核輸入最大長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.maxLength('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入最大長度 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入最大長度'" [type]="'text'" [formControlName]="'maxLength2'" [placeHolder]="'檢核輸入最大長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
