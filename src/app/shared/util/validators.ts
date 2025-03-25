@@ -46,6 +46,39 @@ export const Validators = {
       return null;
     };
   },
+
+    /**
+   * 檢核電子郵件 Email 格式
+   * 必須包含「@」符號，分隔 使用者名稱 (user name) 和 網域名稱 (domain name)
+   * 使用者名稱 (user name) 最多 64 字元，不能連續使用「.」，且不能出現在開頭或結尾
+   * 網域名稱 (domain name) 最多 255 字元，至少包含一個「.」，減號不能出現在開頭或結尾
+   * Email 總長度不可超過 320 字元，且不可有空白字元
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  emailFormat(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const email = control.value?.trim();
+      if (!email) return null;
+
+      const error = errorText || 'Email 格式錯誤';
+      if (/\s/.test(email) || email.length > 320) return new ErrorObj(error);
+
+      const [userName, domain] = email.split('@');
+      if (!userName || !domain) return new ErrorObj(error);
+
+      const userNameRegex = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*$/;
+      if (userName.length > 64 || !userNameRegex.test(userName) || /^\./.test(userName) || /\.$/.test(userName) || /\.{2,}/.test(userName)) {
+        return new ErrorObj(error);
+      }
+
+      const domainRegex = /^[a-zA-Z0-9.-]+$/;
+      if (domain.length > 255 || !domainRegex.test(domain) || !/\./.test(domain) || /^-/.test(domain) || /-$/.test(domain) || !/\.[a-zA-Z]{2,}$/.test(domain)) {
+        return new ErrorObj(error);
+      }
+
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

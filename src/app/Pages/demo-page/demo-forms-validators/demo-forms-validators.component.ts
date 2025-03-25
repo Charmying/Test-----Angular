@@ -24,6 +24,8 @@ export class DemoFormsValidatorsComponent {
       minLength2: ['', Validators.minLength(5, '自訂的錯誤訊息')],
       maxLength1: ['', Validators.maxLength(5)],
       maxLength2: ['', Validators.maxLength(5, '自訂的錯誤訊息')],
+      emailFormat1: ['', Validators.emailFormat()],
+      emailFormat2: ['', Validators.emailFormat('自訂的錯誤訊息')],
     });
   }
 }

@@ -91,5 +91,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.emailFormat()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核 Email 格式 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核 Email 格式'" [type]="'text'" [formControlName]="'emailFormat1'" [placeHolder]="'檢核 Email 格式'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.emailFormat('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核 Email 格式 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核 Email 格式'" [type]="'text'" [formControlName]="'emailFormat2'" [placeHolder]="'檢核 Email 格式'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
