@@ -79,6 +79,21 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串是否含有大寫英文
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  hasUpperCase(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && !/[A-Z]/.test(value)) {
+        const error = errorText || '必須包含至少一個大寫字母';
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

@@ -26,6 +26,8 @@ export class DemoFormsValidatorsComponent {
       maxLength2: ['', Validators.maxLength(5, '自訂的錯誤訊息')],
       emailFormat1: ['', Validators.emailFormat()],
       emailFormat2: ['', Validators.emailFormat('自訂的錯誤訊息')],
+      hasUpperCase1: ['', Validators.hasUpperCase()],
+      hasUpperCase2: ['', Validators.hasUpperCase('自訂的錯誤訊息')],
     });
   }
 }

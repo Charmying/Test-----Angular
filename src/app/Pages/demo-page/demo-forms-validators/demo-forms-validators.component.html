@@ -117,5 +117,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasUpperCase()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有大寫英文 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有大寫英文'" [type]="'text'" [formControlName]="'hasUpperCase1'" [placeHolder]="'檢核字串是否含有大寫英文'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasUpperCase('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有大寫英文 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有大寫英文'" [type]="'text'" [formControlName]="'hasUpperCase2'" [placeHolder]="'檢核字串是否含有大寫英文'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
