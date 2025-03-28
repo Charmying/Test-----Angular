@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { OriginComponent } from './pages/origin/origin.component';
+import { TestApiPageComponent } from './pages/test-api/test-api-page/test-api-page.component';
+import { Test1AndTest2ApiPageComponent } from './pages/test-api/test1-and-test2-api-page/test1-and-test2-api-page.component';
 import { TestPageComponent } from './pages/test/test-page/test-page.component';
 import { TestForLoopComponent } from './pages/test/test-for-loop/test-for-loop.component';
 import { TestIfConditionComponent } from './pages/test/test-if-condition/test-if-condition.component';
@@ -15,6 +17,9 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   /** 原 app.component */
   { path: 'origin', component: OriginComponent },
+  /** test-api */
+  { path: 'test-api-page', component: TestApiPageComponent },
+  { path: 'test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
   /** test */ 
   { path: 'test-page', component: TestPageComponent }, // 建立新頁面
   { path: 'for-loop', component: TestForLoopComponent }, // For 迴圈練習
