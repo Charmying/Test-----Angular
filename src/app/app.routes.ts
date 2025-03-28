@@ -16,7 +16,7 @@ export const routes: Routes = [
   /** 原 app.component */
   { path: 'origin', component: OriginComponent },
   /** test */ 
-  { path: 'page', component: TestPageComponent }, // 建立新頁面
+  { path: 'test-page', component: TestPageComponent }, // 建立新頁面
   { path: 'for-loop', component: TestForLoopComponent }, // For 迴圈練習
   { path: 'if-condition', component: TestIfConditionComponent }, // if 判別式練習
   { path: 'FormGroup', component: TestFormGroupComponent }, // FormGroup 練習
