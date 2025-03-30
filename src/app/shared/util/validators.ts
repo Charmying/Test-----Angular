@@ -94,6 +94,21 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串是否含有小寫英文
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  hasLowerCase(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && !/[a-z]/.test(value)) {
+        const error = errorText || '必須包含至少一個小寫字母';
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

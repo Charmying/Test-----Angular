@@ -28,6 +28,8 @@ export class DemoFormsValidatorsComponent {
       emailFormat2: ['', Validators.emailFormat('自訂的錯誤訊息')],
       hasUpperCase1: ['', Validators.hasUpperCase()],
       hasUpperCase2: ['', Validators.hasUpperCase('自訂的錯誤訊息')],
+      hasLowerCase1: ['', Validators.hasLowerCase()],
+      hasLowerCase2: ['', Validators.hasLowerCase('自訂的錯誤訊息')],
     });
   }
 }
