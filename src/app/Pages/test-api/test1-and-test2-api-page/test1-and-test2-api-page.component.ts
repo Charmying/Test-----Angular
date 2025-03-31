@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { TestApiHeaderComponent } from '../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
@@ -9,11 +10,13 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   templateUrl: './test1-and-test2-api-page.component.html',
   styleUrl: './test1-and-test2-api-page.component.scss',
-  imports: [HeaderComponent, TestApiHeaderComponent, SectionComponent]
+  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent]
 })
 export class Test1AndTest2ApiPageComponent implements OnInit {
   data1: any;
   data2: any;
+  allData: any;
+  isLoading = true;
 
   constructor(private http: HttpClient) {}
 
@@ -41,5 +44,8 @@ export class Test1AndTest2ApiPageComponent implements OnInit {
         console.error('獲取資料時發生錯誤:', err);
       }
     });
+
+    this.allData = [...this.data1, ...this.data2];
+    this.isLoading = false;
   }
 }

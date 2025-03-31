@@ -3,5 +3,28 @@
 <app-test-api-header></app-test-api-header>
 
 <app-section>
-  <p>測試 test1 和 test2 API</p>
+  <div class="container mx-auto px-4 py-6">
+    <div class="text-h1 mb-8">User Data</div>
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="text-body1 text-center text-gray-500">Loading...</div>
+    <!-- Table -->
+    <table *ngIf="!isLoading" class="min-w-full">
+      <thead class="text-body3 text-left text-gray-500 bg-gray-100">
+        <tr>
+          <th class="p-4">ID</th>
+          <th class="p-4">User Name</th>
+          <th class="p-4">Email</th>
+          <th class="p-4">Password</th>
+        </tr>
+      </thead>
+      <tbody class="text-body3">
+        <tr *ngFor="let item of allData">
+          <td class="p-4">{{ item.id }}</td>
+          <td class="p-4">{{ item.userName }}</td>
+          <td class="p-4">{{ item.email }}</td>
+          <td class="p-4">{{ item.password }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </app-section>
