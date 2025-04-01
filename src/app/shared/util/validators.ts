@@ -109,6 +109,21 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串是否含有數字
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  hasNumber(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && !/\d/.test(value)) {
+        const error = errorText || '必須包含至少一個數字';
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {
