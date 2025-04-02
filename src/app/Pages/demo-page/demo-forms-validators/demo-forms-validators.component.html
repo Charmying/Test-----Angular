@@ -195,5 +195,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasForbiddenSymbols()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有禁止符號 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有禁止符號'" [type]="'text'" [formControlName]="'hasForbiddenSymbols1'" [placeHolder]="'檢核字串是否含有禁止符號'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasForbiddenSymbols('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有禁止符號 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有禁止符號'" [type]="'text'" [formControlName]="'hasForbiddenSymbols2'" [placeHolder]="'檢核字串是否含有禁止符號'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>

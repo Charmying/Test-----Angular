@@ -124,6 +124,21 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串是否含有禁止符號
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  hasForbiddenSymbols(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && /[#\$%\^*'"]/.test(value)) {
+        const error = errorText || '不能包含以下符號：#、$、%、^、*、\'、"';
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

@@ -32,6 +32,8 @@ export class DemoFormsValidatorsComponent {
       hasLowerCase2: ['', Validators.hasLowerCase('自訂的錯誤訊息')],
       hasNumber1: ['', Validators.hasNumber()],
       hasNumber2: ['', Validators.hasNumber('自訂的錯誤訊息')],
+      hasForbiddenSymbols1: ['', Validators.hasForbiddenSymbols()],
+      hasForbiddenSymbols2: ['', Validators.hasForbiddenSymbols('自訂的錯誤訊息')],
     });
   }
 }
