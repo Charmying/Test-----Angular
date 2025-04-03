@@ -139,6 +139,21 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串中的英文是否有連續相同的字母
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  hasConsecutiveSameLetters(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && /([a-zA-Z])\1/.test(value)) {
+        const error = errorText || '不能有連續相同的字母';
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {
