@@ -154,6 +154,21 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串中的數字是否有連續相同的數字
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  hasConsecutiveSameNumber(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && /(\d)\1/.test(value)) {
+        const error = errorText || '不能有連續相同的數字';
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

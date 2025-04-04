@@ -36,6 +36,8 @@ export class DemoFormsValidatorsComponent {
       hasForbiddenSymbols2: ['', Validators.hasForbiddenSymbols('自訂的錯誤訊息')],
       hasConsecutiveSameLetters1: ['', Validators.hasConsecutiveSameLetters()],
       hasConsecutiveSameLetters2: ['', Validators.hasConsecutiveSameLetters('自訂的錯誤訊息')],
+      hasConsecutiveSameNumber1: ['', Validators.hasConsecutiveSameNumber()],
+      hasConsecutiveSameNumber2: ['', Validators.hasConsecutiveSameNumber('自訂的錯誤訊息')],
     });
   }
 }
