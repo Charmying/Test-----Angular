@@ -4,8 +4,8 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
 import { TestApiHeaderComponent } from '../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
 import { ApiService } from '../../../shared/service/api/api.service';
-import { finalize, tap } from 'rxjs'; // 使用 RxJS 的 tap 和 finalize 方法時會需要
-// import { forkJoin } from 'rxjs'; // 使用 forkJoin 方法 方法時會需要
+import { finalize, tap } from 'rxjs'; // 使用 RxJS 的 tap 和 finalize 方法時需要
+import { forkJoin } from 'rxjs'; // 使用 forkJoin 方法時需要
 
 @Component({
   selector: 'app-test1-and-test2-api-page',

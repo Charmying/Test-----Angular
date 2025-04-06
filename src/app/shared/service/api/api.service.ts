@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs'; // return 的是 Promise<any> 時需要
+import { Observable } from 'rxjs'; // return 的是 Observable<any> 時需要
 
 @Injectable({
   providedIn: 'root'
