@@ -38,6 +38,8 @@ export class DemoFormsValidatorsComponent {
       hasConsecutiveSameLetters2: ['', Validators.hasConsecutiveSameLetters('自訂的錯誤訊息')],
       hasConsecutiveSameNumber1: ['', Validators.hasConsecutiveSameNumber()],
       hasConsecutiveSameNumber2: ['', Validators.hasConsecutiveSameNumber('自訂的錯誤訊息')],
+      hasConsecutiveLetters1: ['', Validators.hasConsecutiveLetters()],
+      hasConsecutiveLetters2: ['', Validators.hasConsecutiveLetters('自訂的錯誤訊息')],
     });
   }
 }
