@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { TestApiHeaderComponent } from '../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../shared/components/test/section/section.component';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../../shared/service/api/api.service';
+import { finalize, tap } from 'rxjs'; // 使用 RxJS 的 tap 和 finalize 方法時會需要
+// import { forkJoin } from 'rxjs'; // 使用 forkJoin 方法 方法時會需要
 
 @Component({
   selector: 'app-test1-and-test2-api-page',
@@ -13,39 +15,138 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent]
 })
 export class Test1AndTest2ApiPageComponent implements OnInit {
+  apiUrl1: string = 'https://test-express-api-x0j9.onrender.com/test1';
+  apiUrl2: string = 'https://test-express-api-x0j9.onrender.com/test2';
   data1: any;
   data2: any;
   allData: any;
   isLoading = true;
 
-  constructor(private http: HttpClient) {}
+  constructor(private apiService: ApiService) {}
 
-  ngOnInit() {
-    this.fetchData();
+  /**
+   * 使用 async await 方法
+   * 使用 getData
+   * 需要 return Promise<any>
+   */
+  async ngOnInit() {
+    try {
+      this.data1 = await this.apiService.getData(this.apiUrl1);
+      this.data2 = await this.apiService.getData(this.apiUrl2);
+
+      this.allData = [...this.data1, ...this.data2];
+    } catch (err) {
+      console.error('獲取資料時發生錯誤:', err);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
-  fetchData() {
-    this.http.get('https://test-express-api-x0j9.onrender.com/test1').subscribe({
-      next: (response) => {
-        this.data1 = response;
-        console.log('API 資料:', this.data1);
-      },
-      error: (err) => {
-        console.error('獲取資料時發生錯誤:', err);
-      }
-    });
+  /** ==================================================================================================== */
 
-    this.http.get('https://test-express-api-x0j9.onrender.com/test2').subscribe({
-      next: (response) => {
-        this.data2 = response;
-        console.log('API 資料:', this.data2);
-      },
-      error: (err) => {
-        console.error('獲取資料時發生錯誤:', err);
-      }
-    });
+  /**
+   * 使用 async await 方法
+   * 使用 getTest1Data getTest2Data
+   * 需要 return Promise<any>
+   */
+  // async ngOnInit() {
+  //   try {
+  //     this.data1 = await this.apiService.getTest1Data();
+  //     this.data2 = await this.apiService.getTest2Data();
 
-    this.allData = [...this.data1, ...this.data2];
-    this.isLoading = false;
-  }
+  //     this.allData = [...this.data1, ...this.data2];
+  //   } catch (err) {
+  //     console.error('獲取資料時發生錯誤:', err);
+  //   } finally {
+  //     this.isLoading = false;
+  //   }
+  // }
+
+  /** ==================================================================================================== */
+
+  /**
+   * 使用 subscribe 的 next 方法
+   * 使用 getData
+   * 需要 return Observable<any>
+   */
+  // ngOnInit() {
+  //   this.apiService.getTest1Data().subscribe({
+  //     next: (response) => {
+  //       this.data1 = response;
+  //       this.checkDataComplete();
+  //     },
+  //     error: (err) => console.error('獲取 test1 資料時發生錯誤:', err)
+  //   });
+
+  //   this.apiService.getTest2Data().subscribe({
+  //     next: (response) => {
+  //       this.data2 = response;
+  //       this.checkDataComplete();
+  //     },
+  //     error: (err) => console.error('獲取 test2 資料時發生錯誤:', err)
+  //   });
+  // }
+
+  // checkDataComplete() {
+  //   if (this.data1 && this.data2) {
+  //     this.allData = [...this.data1, ...this.data2];
+  //     this.isLoading = false;
+  //   }
+  // }
+
+  /** ==================================================================================================== */
+
+  /**
+   * 使用 RxJS 的 tap 和 finalize 方法
+   * 使用 getData
+   * 需要 return Observable<any>
+   */
+  // ngOnInit() {
+  //   this.apiService.getTest1Data()
+  //     .pipe(
+  //       tap((response) => this.data1 = response),
+  //       finalize(() => this.checkDataComplete())
+  //     )
+  //     .subscribe({
+  //       error: (err) => console.error('獲取 test1 資料時發生錯誤:', err)
+  //     });
+
+  //   this.apiService.getTest2Data()
+  //     .pipe(
+  //       tap((response) => this.data2 = response),
+  //       finalize(() => this.checkDataComplete())
+  //     )
+  //     .subscribe({
+  //       error: (err) => console.error('獲取 test2 資料時發生錯誤:', err)
+  //     });
+  // }
+
+  // checkDataComplete() {
+  //   if (this.data1 && this.data2) {
+  //     this.allData = [...this.data1, ...this.data2];
+  //     this.isLoading = false;
+  //   }
+  // }
+
+  /** ==================================================================================================== */
+
+  /**
+   * 使用 forkJoin 方法
+   * 使用 getData
+   * 可以 return Promise<any> 或 return Observable<any>
+   */
+  // ngOnInit() {
+  //   forkJoin({
+  //     data1: this.apiService.getTest1Data(),
+  //     data2: this.apiService.getTest2Data()
+  //   }).subscribe({
+  //     next: (response) => {
+  //       this.data1 = response.data1;
+  //       this.data2 = response.data2;
+  //       this.allData = [...this.data1, ...this.data2];
+  //     },
+  //     error: (err) => console.error('獲取資料時發生錯誤:', err),
+  //     complete: () => this.isLoading = false
+  //   });
+  // }
 }
