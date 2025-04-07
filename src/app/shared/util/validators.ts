@@ -191,6 +191,28 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串中的數字是否有遞增或遞減的數字
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  hasConsecutiveDigits(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value) {
+        for (let i = 0; i < value.length - 1; i++) {
+          const first = parseInt(value[i]);
+          const second = parseInt(value[i + 1]);
+          if (isNaN(first) || isNaN(second)) continue;
+          if (second === first + 1 || second === first - 1) {
+            const error = errorText || '不能有連續遞增或遞減的數字';
+            return new ErrorObj(error);
+          }
+        }
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {
