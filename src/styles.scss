@@ -53,3 +53,13 @@ table {
 // @tailwind base;
 // @tailwind components;
 // @tailwind utilities;
+
+app-form-input-text {
+  width: 100%;
+  max-width: 300px;
+}
+
+app-form-input-password {
+  width: 100%;
+  max-width: 300px;
+}
