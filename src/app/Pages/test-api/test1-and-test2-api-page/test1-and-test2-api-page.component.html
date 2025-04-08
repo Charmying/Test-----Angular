@@ -4,7 +4,12 @@
 
 <app-section>
   <div class="container mx-auto px-4 py-6">
-    <div class="text-h1 mb-8">User Data</div>
+    <!-- Button -->
+    <div class="flex justify-center gap-8">
+      <app-button [text]="'切換到 test1'" (buttonClick)="switchDatabase('test1')"></app-button>
+      <app-button [text]="'切換到 test2'" (buttonClick)="switchDatabase('test2')"></app-button>
+    </div>
+    <div class="text-h1 my-8 mb-4">User Data</div>
     <!-- Loading -->
     <div *ngIf="isLoading" class="text-body1 text-center text-gray-500">Loading...</div>
     <!-- Table -->
@@ -18,7 +23,7 @@
         </tr>
       </thead>
       <tbody class="text-body3">
-        <tr *ngFor="let item of allData">
+        <tr *ngFor="let item of data">
           <td class="p-4">{{ item.id }}</td>
           <td class="p-4">{{ item.userName }}</td>
           <td class="p-4">{{ item.email }}</td>
