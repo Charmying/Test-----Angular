@@ -59,18 +59,22 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
   
+  /** 發送 GET 請求，返回 Promise */
   async get<T>(url: string): Promise<T> {
     return firstValueFrom(this.http.get<T>(url));
   }
 
+  /** 發送 POST 請求，返回 Promise */
   async post<T>(url: string, body: any): Promise<T> {
     return firstValueFrom(this.http.post<T>(url, body));
   }
 
+  /** 發送 PUT 請求，返回 Promise */
   async put<T>(url: string, body: any): Promise<T> {
     return firstValueFrom(this.http.put<T>(url, body));
   }
 
+  /** 發送 DELETE 請求，返回 Promise */
   async delete<T>(url: string): Promise<T> {
     return firstValueFrom(this.http.delete<T>(url));
   }

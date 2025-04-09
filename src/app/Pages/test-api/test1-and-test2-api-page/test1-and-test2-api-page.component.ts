@@ -7,13 +7,16 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { ApiService } from '../../../shared/service/api/api.service';
 import { finalize, tap } from 'rxjs'; // 使用 RxJS 的 tap 和 finalize 方法時需要
 import { forkJoin } from 'rxjs'; // 使用 forkJoin 方法時需要
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormInputTextComponent } from '../../../shared/components/forms/form-input-text/form-input-text.component';
+import { FormInputPasswordComponent } from '../../../shared/components/forms/form-input-password/form-input-password.component';
 
 @Component({
   selector: 'app-test1-and-test2-api-page',
   standalone: true,
   templateUrl: './test1-and-test2-api-page.component.html',
   styleUrl: './test1-and-test2-api-page.component.scss',
-  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, ButtonComponent]
+  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, ButtonComponent, FormInputTextComponent, FormInputPasswordComponent]
 })
 export class Test1AndTest2ApiPageComponent implements OnInit {
   // apiUrl1: string = 'https://test-express-api-x0j9.onrender.com/test1';
@@ -153,34 +156,127 @@ export class Test1AndTest2ApiPageComponent implements OnInit {
 
   /** ==================================================================================================== */
 
-  /** API 網址 */
-  apiUrl: string = 'https://test-express-api-x0j9.onrender.com';
-  /** 預設顯示 test1 */
+  /** FormGroup */
+  form: FormGroup;
+  /** 控制表單是否顯示 */
+  isShowForm = false;
+  /** API URL */
+  apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  /** 當前資料庫 */
   currentDatabase = 'test1';
   /** 表格資料 */
-  data: any[] = [];
-  /** 判斷是否載入完成 */
+  data: Record[] = [];
+  /** 載入狀態 */
   isLoading = true;
+  /** 當前編輯的記錄 ID */
+  recordId = '';
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      id: [''],
+      userName: [''],
+      email: [''],
+      password: [''],
+    });
+  }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.fetchData();
   }
 
-  /** 取得 API 資料 */
+  /** 獲取資料庫資料 */
   async fetchData() {
     this.isLoading = true;
     try {
-      this.data = await this.apiService.get(`${this.apiUrl}/${this.currentDatabase}`);
+      this.data = await this.apiService.get<Record[]>(`${this.apiUrl}/${this.currentDatabase}`);
+    } catch (error) {
+      console.error('資料載入失敗:', error);
     } finally {
       this.isLoading = false;
     }
   }
 
-  /** 按鈕 click 事件切換 test1 & test2 */
+  /** 切換資料庫並重新載入資料 */
   switchDatabase(database: string) {
     this.currentDatabase = database;
     this.fetchData();
+    this.clearForm();
   }
+
+  /** 顯示表單 */
+  showForm() {
+    this.isShowForm = true;
+  }
+
+  /** 處理表單提交 (新增 & 刪除) */
+  async handleSubmit() {
+    const url = this.recordId ? `${this.apiUrl}/${this.currentDatabase}/${this.recordId}` : `${this.apiUrl}/${this.currentDatabase}`;
+    try {
+      const result = await (this.recordId ? this.apiService.put<ApiResponse>(url, this.form.value) : this.apiService.post<ApiResponse>(url, this.form.value));
+      if (this.recordId) {
+        const updatedRecord = (result as ApiResponse).data;
+        const index = this.data.findIndex(item => item._id === this.recordId);
+        if (index !== -1) this.data[index] = updatedRecord;
+      } else {
+        const newRecord = (result as ApiResponse).data;
+        this.data.push(newRecord);
+        console.log(this.data);
+      }
+      this.clearForm();
+    } catch (error) {
+      console.error('提交失敗:', error);
+    }
+  }
+  
+
+  /** 編輯指定資料 */
+  async editData(id: string) {
+    try {
+      const data = await this.apiService.get<Record>(`${this.apiUrl}/${this.currentDatabase}/${id}`);
+      this.recordId = data._id!;
+      this.form.patchValue(data);
+      this.isShowForm = true;
+    } catch (error) {
+      console.error('載入編輯資料失敗:', error);
+    }
+  }
+
+  /** 刪除指定資料 */
+  async deleteData(id: string) {
+    if (confirm('確定要刪除嗎？')) {
+      try {
+        await this.apiService.delete(`${this.apiUrl}/${this.currentDatabase}/${id}`);
+        this.data = this.data.filter(item => item._id !== id);
+      } catch (error) {
+        console.error('刪除失敗:', error);
+      }
+    }
+  }
+
+/** 清空表單 */
+  clearForm() {
+    this.form.reset();
+    this.recordId = '';
+  }
+
+  /** 清空表單並隱藏 */
+  goBack() {
+    this.form.reset();
+    this.recordId = '';
+    this.isShowForm = false;
+  }
+}
+
+interface Record {
+  id: string;
+  userName: string;
+  email: string;
+  password: string;
+  _id: string;
+  __v?: number;
+}
+
+interface ApiResponse {
+  message: string;
+  data: Record;
 }
