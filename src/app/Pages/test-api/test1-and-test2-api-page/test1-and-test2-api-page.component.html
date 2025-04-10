@@ -41,23 +41,23 @@
     <table *ngIf="!isLoading" class="min-w-full">
       <thead class="text-body3 text-left text-gray-500 bg-gray-100">
         <tr>
-          <th class="p-4">操作</th>
-          <th class="p-4">ID</th>
-          <th class="p-4">User Name</th>
-          <th class="p-4">Email</th>
-          <th class="p-4">Password</th>
+          <th class="p-4 text-center">操作</th>
+          <th class="p-4 text-center">ID</th>
+          <th class="p-4 text-center">User Name</th>
+          <th class="p-4 text-center">Email</th>
+          <th class="p-4 text-center">Password</th>
         </tr>
       </thead>
       <tbody class="text-body3">
         <tr *ngFor="let item of data">
-          <td class="p-4">
+          <td class="p-4 flex gap-4">
             <app-button [text]="'編輯'" (buttonClick)="editData(item._id!)"></app-button>
             <app-button [text]="'刪除'" (buttonClick)="deleteData(item._id!)"></app-button>
           </td>
-          <td class="p-4">{{ item.id }}</td>
-          <td class="p-4">{{ item.userName }}</td>
-          <td class="p-4">{{ item.email }}</td>
-          <td class="p-4">{{ item.password }}</td>
+          <td class="p-4 text-center">{{ item.id }}</td>
+          <td class="p-4 text-center">{{ item.userName }}</td>
+          <td class="p-4 text-center">{{ item.email }}</td>
+          <td class="p-4 text-center">{{ item.password }}</td>
         </tr>
       </tbody>
     </table>

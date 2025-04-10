@@ -220,9 +220,9 @@ export class Test1AndTest2ApiPageComponent implements OnInit {
       } else {
         const newRecord = (result as ApiResponse).data;
         this.data.push(newRecord);
-        console.log(this.data);
       }
       this.clearForm();
+      this.isShowForm = false;
     } catch (error) {
       console.error('提交失敗:', error);
     }
@@ -256,7 +256,6 @@ export class Test1AndTest2ApiPageComponent implements OnInit {
 /** 清空表單 */
   clearForm() {
     this.form.reset();
-    this.recordId = '';
   }
 
   /** 清空表單並隱藏 */
