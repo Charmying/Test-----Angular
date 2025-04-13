@@ -8,6 +8,4 @@ import { HeaderComponent } from '../../shared/components/header/header.component
   styleUrl: './home.component.scss',
   imports: [HeaderComponent]
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}
