@@ -213,6 +213,21 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核字串中僅含英數字
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  isAlphaNumeric(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value && !/^[a-zA-Z0-9]+$/.test(value)) {
+        const error = errorText || '只能包含英文字母和數字';
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

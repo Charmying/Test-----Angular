@@ -325,5 +325,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isAlphaNumeric()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中僅含英數字 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中僅含英數字'" [type]="'text'" [formControlName]="'isAlphaNumeric1'" [placeHolder]="'檢核字串中僅含英數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isAlphaNumeric('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中僅含英數字 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中僅含英數字'" [type]="'text'" [formControlName]="'isAlphaNumeric2'" [placeHolder]="'檢核字串中僅含英數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
