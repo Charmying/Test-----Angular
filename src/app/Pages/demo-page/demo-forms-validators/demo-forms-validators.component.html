@@ -351,5 +351,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isNumber()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為數值 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為數值'" [type]="'text'" [formControlName]="'isNumber1'" [placeHolder]="'檢核是否為數值'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isNumber('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為數值 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為數值'" [type]="'text'" [formControlName]="'isNumber2'" [placeHolder]="'檢核是否為數值'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>

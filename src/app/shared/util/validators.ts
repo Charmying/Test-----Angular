@@ -228,6 +228,38 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核是否為數值
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  isNumber(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value == null) return null;
+  
+      let oneDecimal = false;
+      const str = value.toString();
+  
+      for (let i = 0; i < str.length; i++) {
+        const ch = str.charAt(i);
+  
+        if (i === 0 && ch === '-') continue;
+  
+        if (ch === '.' && !oneDecimal) {
+          oneDecimal = true;
+          continue;
+        }
+  
+        if (ch < '0' || ch > '9') {
+          const error = errorText || '必須為有效的數值';
+          return new ErrorObj(error);
+        }
+      }
+  
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

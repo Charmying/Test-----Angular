@@ -44,6 +44,8 @@ export class DemoFormsValidatorsComponent {
       hasConsecutiveDigits2: ['', Validators.hasConsecutiveDigits('自訂的錯誤訊息')],
       isAlphaNumeric1: ['', Validators.isAlphaNumeric()],
       isAlphaNumeric2: ['', Validators.isAlphaNumeric('自訂的錯誤訊息')],
+      isNumber1: ['', Validators.isNumber()],
+      isNumber2: ['', Validators.isNumber('自訂的錯誤訊息')],
     });
   }
 }
