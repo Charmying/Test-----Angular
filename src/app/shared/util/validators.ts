@@ -259,6 +259,26 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核是否為英文字母
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  isAlpha(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value) {
+        for (let i = 0; i < value.length; i++) {
+          const ch = value.charAt(i);
+          if ((ch < '0' || ch > '9') && (ch < 'A' || ch > 'Z') && (ch < 'a' || ch > 'z')) {
+            const error = errorText || '只能包含英文字母';
+            return new ErrorObj(error);
+          }
+        }
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

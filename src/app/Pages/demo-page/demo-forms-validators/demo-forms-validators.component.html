@@ -377,5 +377,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isAlpha()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為英文字母 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為英文字母'" [type]="'text'" [formControlName]="'isAlpha1'" [placeHolder]="'檢核是否為英文字母'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isAlpha('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為英文字母 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為英文字母'" [type]="'text'" [formControlName]="'isAlpha2'" [placeHolder]="'檢核是否為英文字母'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
