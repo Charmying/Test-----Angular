@@ -279,6 +279,26 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核是否為全型中英文數字
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  isDoubleByte(errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value) {
+        for (let i = 0; i < value.length; i++) {
+          const charCode = value.charCodeAt(i);
+          if (charCode <= 0x00ff) {
+            const error = errorText || '必須為全型字元';
+            return new ErrorObj(error);
+          }
+        }
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

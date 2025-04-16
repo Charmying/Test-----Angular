@@ -403,5 +403,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isDoubleByte()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為全型中英文數字 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為全型中英文數字'" [type]="'text'" [formControlName]="'isDoubleByte1'" [placeHolder]="'檢核是否為全型中英文數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isDoubleByte('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為全型中英文數字 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為全型中英文數字'" [type]="'text'" [formControlName]="'isDoubleByte2'" [placeHolder]="'檢核是否為全型中英文數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>

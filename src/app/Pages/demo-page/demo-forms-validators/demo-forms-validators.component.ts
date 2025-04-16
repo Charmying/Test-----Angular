@@ -48,6 +48,8 @@ export class DemoFormsValidatorsComponent {
       isNumber2: ['', Validators.isNumber('自訂的錯誤訊息')],
       isAlpha1: ['', Validators.isAlpha()],
       isAlpha2: ['', Validators.isAlpha('自訂的錯誤訊息')],
+      isDoubleByte1: ['', Validators.isDoubleByte()],
+      isDoubleByte2: ['', Validators.isDoubleByte('自訂的錯誤訊息')],
     });
   }
 }
