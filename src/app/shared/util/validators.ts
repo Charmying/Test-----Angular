@@ -299,6 +299,34 @@ export const Validators = {
       return null;
     };
   },
+
+  /**
+   * 檢核輸入文字中英文長度
+   * 英文符號數字都被視為半形，中文視為全形
+   * 前面參數是半形最大長度，後面參數是全形最大長度
+   * 如果中英混合 (有半形有全形) 的情況，會抓最兩個參數其中的較小值
+   * @param maxEnglish 最大英文長度 (半形)
+   * @param maxChinese 最大中文長度 (全形)
+   * @param errorText string?: 自訂錯誤訊息
+   */
+  chineseAndEnglishLength(maxEnglish: number, maxChinese: number, errorText?: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value?.trim();
+      if (!value) return null;
+  
+      const halfWidthCount = (value.match(/[\x00-\xFF]/g) || []).length;
+      const fullWidthCount = (value.match(/[^\x00-\xFF]/g) || []).length;
+      const isMixed = halfWidthCount > 0 && fullWidthCount > 0;
+      const lengthLimit = isMixed ? Math.min(maxEnglish, maxChinese) : halfWidthCount > 0 ? maxEnglish : maxChinese;
+      const totalLength = halfWidthCount + fullWidthCount;
+  
+      if (totalLength > lengthLimit) {
+        const error = errorText || '輸入長度超過限制';
+        return new ErrorObj(error);
+      }
+      return null;
+    };
+  },
 };
 
 export class ErrorObj {

@@ -429,5 +429,31 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.chineseAndEnglishLength()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入文字中英文長度 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入文字中英文長度'" [type]="'text'" [formControlName]="'chineseAndEnglishLength1'" [placeHolder]="'檢核輸入文字中英文長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.chineseAndEnglishLength('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入文字中英文長度 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入文字中英文長度'" [type]="'text'" [formControlName]="'chineseAndEnglishLength2'" [placeHolder]="'檢核輸入文字中英文長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>

@@ -50,6 +50,8 @@ export class DemoFormsValidatorsComponent {
       isAlpha2: ['', Validators.isAlpha('自訂的錯誤訊息')],
       isDoubleByte1: ['', Validators.isDoubleByte()],
       isDoubleByte2: ['', Validators.isDoubleByte('自訂的錯誤訊息')],
+      chineseAndEnglishLength1: ['', Validators.chineseAndEnglishLength(3, 5)],
+      chineseAndEnglishLength2: ['', Validators.chineseAndEnglishLength(3, 5, '自訂的錯誤訊息')],
     });
   }
 }
