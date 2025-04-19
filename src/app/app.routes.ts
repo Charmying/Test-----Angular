@@ -38,37 +38,39 @@ import { DemoTextComponent } from './pages/demo-page/demo-text/demo-text.compone
 // ];
 
 export const routes: Routes = [
+  // 頁首導向 /pages/home
+  { path: '', redirectTo: 'pages/home', pathMatch: 'full' },
+
   {
-    path: 'demo-page',
+    path: 'pages',
     children: [
-      { path: 'demo-button', component: DemoButtonComponent },
-      { path: 'demo-forms', component: DemoFormsComponent },
-      { path: 'demo-forms-validators', component: DemoFormsValidatorsComponent },
-      { path: 'demo-icon', component: DemoIconComponent },
-      { path: 'demo-index', component: DemoIndexComponent },
-      { path: 'demo-text', component: DemoTextComponent },
+      /** 首頁 */
+      { path: 'home', component: HomeComponent },
+
+      /** 原 app.component */
+      { path: 'origin', component: OriginComponent },
+
+      /** test-api */
+      { path: 'test-api/test-api-page', component: TestApiPageComponent },
+      { path: 'test-api/test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
+
+      /** test */
+      { path: 'test/test-page', component: TestPageComponent },
+      { path: 'test/test-for-loop', component: TestForLoopComponent },
+      { path: 'test/test-if-condition', component: TestIfConditionComponent },
+      { path: 'test/test-form-group', component: TestFormGroupComponent },
+      { path: 'test/test-input-output-parent', component: TestInputOutputParentComponent },
+      { path: 'test/test-pipe', component: TestPipeComponent },
+      { path: 'test/test-dependency-injection', component: TestDependencyInjectionComponent },
+
+      /** demo */
+      { path: 'demo-page/demo-index', component: DemoIndexComponent },
+      { path: 'demo-page/demo-button', component: DemoButtonComponent },
+      { path: 'demo-page/demo-forms', component: DemoFormsComponent },
+      { path: 'demo-page/demo-forms-validators', component: DemoFormsValidatorsComponent },
+      { path: 'demo-page/demo-icon', component: DemoIconComponent },
+      { path: 'demo-page/demo-text', component: DemoTextComponent },
     ]
-  },
-  {
-    path: 'test',
-    children: [
-      { path: 'test-dependency-injection', component: TestDependencyInjectionComponent },
-      { path: 'test-for-loop', component: TestForLoopComponent },
-      { path: 'test-form-group', component: TestFormGroupComponent },
-      { path: 'test-if-condition', component: TestIfConditionComponent },
-      { path: 'test-input-output-parent', component: TestInputOutputParentComponent },
-      { path: 'test-page', component: TestPageComponent },
-      { path: 'test-pipe', component: TestPipeComponent },
-    ]
-  },
-  {
-    path: 'test-api',
-    children: [
-      { path: 'test-api-page', component: TestApiPageComponent },
-      { path: 'test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
-    ]
-  },
-  { path: 'origin', component: OriginComponent },
-  { path: '', component: HomeComponent },
+  }
 ];
 
