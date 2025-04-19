@@ -11,23 +11,64 @@ import { TestInputOutputParentComponent } from './pages/test/test-input-output-p
 import { TestPipeComponent } from './pages/test/test-pipe/test-pipe.component';
 import { TestDependencyInjectionComponent } from './pages/test/test-dependency-injection/test-dependency-injection.component';
 import { DemoIndexComponent } from './pages/demo-page/demo-index/demo-index.component';
+import { DemoButtonComponent } from './pages/demo-page/demo-button/demo-button.component';
+import { DemoFormsComponent } from './pages/demo-page/demo-forms/demo-forms.component';
+import { DemoFormsValidatorsComponent } from './pages/demo-page/demo-forms-validators/demo-forms-validators.component';
+import { DemoIconComponent } from './pages/demo-page/demo-icon/demo-icon.component';
+import { DemoTextComponent } from './pages/demo-page/demo-text/demo-text.component';
+
+// export const routes: Routes = [
+//   /** 首頁 */
+//   { path: '', component: HomeComponent },
+//   /** 原 app.component */
+//   { path: 'origin', component: OriginComponent },
+//   /** test-api */
+//   { path: 'test-api-page', component: TestApiPageComponent },
+//   { path: 'test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
+//   /** test */ 
+//   { path: 'test-page', component: TestPageComponent }, // 建立新頁面
+//   { path: 'for-loop', component: TestForLoopComponent }, // For 迴圈練習
+//   { path: 'if-condition', component: TestIfConditionComponent }, // if 判別式練習
+//   { path: 'form-group', component: TestFormGroupComponent }, // FormGroup 練習
+//   { path: 'input-output-parent', component: TestInputOutputParentComponent }, // @Input() @Output() 練習
+//   { path: 'pipe', component: TestPipeComponent }, // Pipe 練習
+//   { path: 'dependency-injection', component: TestDependencyInjectionComponent }, // Dependency Injection 練習
+//   /** demo */
+//   { path: 'demo', component: DemoIndexComponent },
+// ];
 
 export const routes: Routes = [
-  /** 首頁 */
-  { path: '', component: HomeComponent },
-  /** 原 app.component */
+  {
+    path: 'demo-page',
+    children: [
+      { path: 'demo-button', component: DemoButtonComponent },
+      { path: 'demo-forms', component: DemoFormsComponent },
+      { path: 'demo-forms-validators', component: DemoFormsValidatorsComponent },
+      { path: 'demo-icon', component: DemoIconComponent },
+      { path: 'demo-index', component: DemoIndexComponent },
+      { path: 'demo-text', component: DemoTextComponent },
+    ]
+  },
+  {
+    path: 'test',
+    children: [
+      { path: 'test-dependency-injection', component: TestDependencyInjectionComponent },
+      { path: 'test-for-loop', component: TestForLoopComponent },
+      { path: 'test-form-group', component: TestFormGroupComponent },
+      { path: 'test-if-condition', component: TestIfConditionComponent },
+      { path: 'test-input-output-parent', component: TestInputOutputParentComponent },
+      { path: 'test-page', component: TestPageComponent },
+      { path: 'test-pipe', component: TestPipeComponent },
+    ]
+  },
+  {
+    path: 'test-api',
+    children: [
+      { path: 'test-api-page', component: TestApiPageComponent },
+      { path: 'test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
+    ]
+  },
   { path: 'origin', component: OriginComponent },
-  /** test-api */
-  { path: 'test-api-page', component: TestApiPageComponent },
-  { path: 'test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
-  /** test */ 
-  { path: 'test-page', component: TestPageComponent }, // 建立新頁面
-  { path: 'for-loop', component: TestForLoopComponent }, // For 迴圈練習
-  { path: 'if-condition', component: TestIfConditionComponent }, // if 判別式練習
-  { path: 'form-group', component: TestFormGroupComponent }, // FormGroup 練習
-  { path: 'input-output-parent', component: TestInputOutputParentComponent }, // @Input() @Output() 練習
-  { path: 'pipe', component: TestPipeComponent }, // Pipe 練習
-  { path: 'dependency-injection', component: TestDependencyInjectionComponent }, // Dependency Injection 練習
-  /** demo */
-  { path: 'demo', component: DemoIndexComponent },
+  { path: '', component: HomeComponent },
 ];
+
