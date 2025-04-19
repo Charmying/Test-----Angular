@@ -13,5 +13,5 @@
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ],
-  "buildCommand": "npm run build -- --configuration=development"
+  "buildCommand": "npm run build -- --configuration=production"
 }
