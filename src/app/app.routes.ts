@@ -24,9 +24,9 @@ export const routes: Routes = [
   { path: 'test-page', component: TestPageComponent }, // 建立新頁面
   { path: 'for-loop', component: TestForLoopComponent }, // For 迴圈練習
   { path: 'if-condition', component: TestIfConditionComponent }, // if 判別式練習
-  { path: 'FormGroup', component: TestFormGroupComponent }, // FormGroup 練習
-  { path: 'InputOutputParent', component: TestInputOutputParentComponent }, // @Input() @Output() 練習
-  { path: 'Pipe', component: TestPipeComponent }, // Pipe 練習
+  { path: 'form-group', component: TestFormGroupComponent }, // FormGroup 練習
+  { path: 'input-output-parent', component: TestInputOutputParentComponent }, // @Input() @Output() 練習
+  { path: 'pipe', component: TestPipeComponent }, // Pipe 練習
   { path: 'dependency-injection', component: TestDependencyInjectionComponent }, // Dependency Injection 練習
   /** demo */
   { path: 'demo', component: DemoIndexComponent },
