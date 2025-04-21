@@ -10,24 +10,40 @@ import { TestFormGroupComponent } from './pages/test/test-form-group/test-form-g
 import { TestInputOutputParentComponent } from './pages/test/test-input-output-parent/test-input-output-parent.component';
 import { TestPipeComponent } from './pages/test/test-pipe/test-pipe.component';
 import { TestDependencyInjectionComponent } from './pages/test/test-dependency-injection/test-dependency-injection.component';
-import { DemoIndexComponent } from './pages/demo-page/demo-index/demo-index.component';
+import { DemoIndexComponent } from './pages/demo/demo-index/demo-index.component';
+import { DemoButtonComponent } from './pages/demo/demo-button/demo-button.component';
+import { DemoFormsComponent } from './pages/demo/demo-forms/demo-forms.component';
+import { DemoFormsValidatorsComponent } from './pages/demo/demo-forms-validators/demo-forms-validators.component';
+import { DemoIconComponent } from './pages/demo/demo-icon/demo-icon.component';
+import { DemoTextComponent } from './pages/demo/demo-text/demo-text.component';
 
 export const routes: Routes = [
-  /** 首頁 */
-  { path: '', component: HomeComponent },
-  /** 原 app.component */
-  { path: 'origin', component: OriginComponent },
-  /** test-api */
-  { path: 'test-api-page', component: TestApiPageComponent },
-  { path: 'test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
-  /** test */ 
-  { path: 'test-page', component: TestPageComponent }, // 建立新頁面
-  { path: 'for-loop', component: TestForLoopComponent }, // For 迴圈練習
-  { path: 'if-condition', component: TestIfConditionComponent }, // if 判別式練習
-  { path: 'FormGroup', component: TestFormGroupComponent }, // FormGroup 練習
-  { path: 'InputOutputParent', component: TestInputOutputParentComponent }, // @Input() @Output() 練習
-  { path: 'Pipe', component: TestPipeComponent }, // Pipe 練習
-  { path: 'dependency-injection', component: TestDependencyInjectionComponent }, // Dependency Injection 練習
-  /** demo */
-  { path: 'demo', component: DemoIndexComponent },
+  { path: '', redirectTo: 'pages/home', pathMatch: 'full' },
+  {
+    path: 'pages',
+    children: [
+      /** 首頁 */
+      { path: 'home', component: HomeComponent },
+      /** 原 app.component */
+      { path: 'origin', component: OriginComponent },
+      /** test-api */
+      { path: 'test-api/test-api-page', component: TestApiPageComponent },
+      { path: 'test-api/test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
+      /** test */
+      { path: 'test/test-page', component: TestPageComponent },
+      { path: 'test/test-for-loop', component: TestForLoopComponent },
+      { path: 'test/test-if-condition', component: TestIfConditionComponent },
+      { path: 'test/test-form-group', component: TestFormGroupComponent },
+      { path: 'test/test-input-output-parent', component: TestInputOutputParentComponent },
+      { path: 'test/test-pipe', component: TestPipeComponent },
+      { path: 'test/test-dependency-injection', component: TestDependencyInjectionComponent },
+      /** demo */
+      { path: 'demo/demo-index', component: DemoIndexComponent },
+      { path: 'demo/demo-button', component: DemoButtonComponent },
+      { path: 'demo/demo-forms', component: DemoFormsComponent },
+      { path: 'demo/demo-forms-validators', component: DemoFormsValidatorsComponent },
+      { path: 'demo/demo-icon', component: DemoIconComponent },
+      { path: 'demo/demo-text', component: DemoTextComponent },
+    ]
+  }
 ];
