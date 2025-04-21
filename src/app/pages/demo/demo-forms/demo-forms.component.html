@@ -1,0 +1,151 @@
+<table class="w-full mb-8">
+  <thead>
+    <tr class="bg-gray-300">
+      <th class="border p-4">
+        <div class="text-h1">tag name</div>
+      </th>
+      <th class="border p-4">
+        <div class="text-h1">function</div>
+      </th>
+      <th class="border p-4 text-left">
+        <div class="text-h1">demo</div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-text</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">文字輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'input 標題'" [type]="'text'" [formControlName]="'inputText_text'" [placeHolder]="'type => text'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-text</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">數字輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'input 標題'" [type]="'number'" [formControlName]="'inputText_number'" [placeHolder]="'type => number'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-text</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">Email 輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'input 標題'" [type]="'email'" [formControlName]="'inputText_email'" [placeHolder]="'type => email'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-text</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">電話輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'input 標題'" [type]="'tel'" [formControlName]="'inputText_tel'" [placeHolder]="'type => tel'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-input-password</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">密碼輸入框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-password [form]="form" [title]="'input 標題'" [formControlName]="'inputPassword'" [placeHolder]="'input password'"></app-form-input-password>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-button-list</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">按鈕列表</div>
+      </td>
+      <td>
+        <div>
+          <app-form-button-list [form]="form" [title]="'Button List 標題'" [data]="buttonListData" [formControlName]="'buttonList'"></app-form-button-list>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-checkbox-list</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">Checkbox 列表</div>
+      </td>
+      <td>
+        <div>
+          <app-form-checkbox-list [form]="form" [title]="'Checkbox List 標題'" [data]="checkboxListData" [formControlName]="'checkboxList'"></app-form-checkbox-list>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-counter-input</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">數字加減框</div>
+      </td>
+      <td>
+        <div>
+          <app-form-counter-input [form]="form" [title]="'數字加減框 標題'" [formControlName]="'plus_minus'"></app-form-counter-input>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-single-select</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">單選下拉選單</div>
+      </td>
+      <td>
+        <div>
+          <app-form-single-select [form]="form" [title]="'單選下拉選單 標題'" [formControlName]="'singleSelect'" [options]="singleSelectOptions"></app-form-single-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">app-form-multiple-select</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">多選下拉選單</div>
+      </td>
+      <td>
+        <div>
+          <app-form-multiple-select [form]="form" [title]="'多選下拉選單 標題'" [formControlName]="'multipleSelect'" [placeholder]="'請選擇選項'" [options]="multipleSelectOptions"></app-form-multiple-select>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="flex justify-center">
+  <app-button [text]="'檢查 FormGroup'" (buttonClick)="click()"></app-button>
+</div>

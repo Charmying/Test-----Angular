@@ -1,0 +1,70 @@
+<app-header></app-header>
+
+<app-test-header [headerTitle]="headerTitle"></app-test-header>
+
+<main class="leading-normal">
+  <app-section [sectionTitle]="section1Title">
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content1Title }}</h3>
+      <p>{{ today | date }}</p>
+      <p>{{ today | date:'short' }}</p>
+      <p>{{ today | date:'medium' }}</p>
+      <p>{{ today | date:'long' }}</p>
+      <p>{{ today | date:'full' }}</p>
+      <p>{{ today | date:'shortDate' }}</p>
+      <p>{{ today | date:'mediumDate' }}</p>
+      <p>{{ today | date:'longDate' }}</p>
+      <p>{{ today | date:'fullDate' }}</p>
+      <p>{{ today | date:'shortTime' }}</p>
+      <p>{{ today | date:'mediumTime' }}</p>
+      <p>{{ today | date:'longTime' }}</p>
+      <p>{{ today | date:'fullTime' }}</p>
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content2Title }}</h3>
+      <p>{{ string | uppercase }}</p> 
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content3Title }}</h3>
+      <p>{{ string | lowercase }}</p> <!-- 結果: "hello world" -->
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content4Title }}</h3>
+      <p>{{ number | currency }}</p> <!-- 默認貨幣格式 -->
+      <p>{{ number | currency:'EUR' }}</p> <!-- 使用歐元格式 -->
+      <p>{{ number | currency:'JPY':'symbol':'4.2-2' }}</p> <!-- 使用日元，顯示小數點後2位 -->
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content5Title }}</h3>
+      <p>{{ number | number }}</p> <!-- 默認格式 -->
+      <p>{{ number | number:'1.0-2' }}</p> <!-- 小數點後最多 2 位 -->
+      <p>{{ number | number:'3.1-5' }}</p> <!-- 數字最少顯示 3 位，小數點後最多 5 位 -->
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content6Title }}</h3>
+      <p>{{ number | percent }}</p> <!-- 默認百分比格式，結果: "314%" -->
+      <p>{{ number | percent:'2.0-2' }}</p> <!-- 自定義百分比格式，結果: "314.16%" -->
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content7Title }}</h3>
+      <pre class="bg-gray-100 p-2 rounded">{{ jsonData | json }}</pre> <!-- 結果: 格式化後的 JSON 字符串 -->
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content8Title }}</h3>
+      <p>{{ observableData | async }}</p> <!-- 當 observable 發出數據後，自動顯示結果 -->
+    </div>
+  </app-section>
+
+  <app-section [sectionTitle]="section2Title">
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content9Title }}</h3>
+      <ul>
+        <li *ngFor="let product of products">{{ product.name }}: {{ product.price | discount: 20 }}</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mt-4 mb-2">{{ content10Title }}</h3>
+      <p>{{ tryComplexCalculationArray | complexCalculation }}</p>
+    </div>
+  </app-section>
+</main>

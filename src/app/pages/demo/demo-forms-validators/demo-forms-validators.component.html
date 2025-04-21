@@ -1,0 +1,459 @@
+<table class="w-full mb-8">
+  <thead>
+    <tr class="bg-gray-300">
+      <th class="border p-4">
+        <div class="text-h1">validator name</div>
+      </th>
+      <th class="border p-4">
+        <div class="text-h1">description</div>
+      </th>
+      <th class="border p-4 text-left">
+        <div class="text-h1">demo</div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.required()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核必填欄位 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核必填欄位'" [type]="'text'" [formControlName]="'required1'" [placeHolder]="'檢核必填欄位'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.required('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核必填欄位 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核必填欄位'" [type]="'text'" [formControlName]="'required2'" [placeHolder]="'檢核必填欄位'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.minLength()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入最小長度 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入最小長度'" [type]="'text'" [formControlName]="'minLength1'" [placeHolder]="'檢核輸入最小長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.minLength('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入最小長度 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入最小長度'" [type]="'text'" [formControlName]="'minLength2'" [placeHolder]="'檢核輸入最小長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.maxLength()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入最大長度 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入最大長度'" [type]="'text'" [formControlName]="'maxLength1'" [placeHolder]="'檢核輸入最大長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.maxLength('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入最大長度 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入最大長度'" [type]="'text'" [formControlName]="'maxLength2'" [placeHolder]="'檢核輸入最大長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.emailFormat()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核 Email 格式 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核 Email 格式'" [type]="'text'" [formControlName]="'emailFormat1'" [placeHolder]="'檢核 Email 格式'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.emailFormat('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核 Email 格式 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核 Email 格式'" [type]="'text'" [formControlName]="'emailFormat2'" [placeHolder]="'檢核 Email 格式'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasUpperCase()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有大寫英文 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有大寫英文'" [type]="'text'" [formControlName]="'hasUpperCase1'" [placeHolder]="'檢核字串是否含有大寫英文'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasUpperCase('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有大寫英文 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有大寫英文'" [type]="'text'" [formControlName]="'hasUpperCase2'" [placeHolder]="'檢核字串是否含有大寫英文'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasLowerCase()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有小寫英文 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有小寫英文'" [type]="'text'" [formControlName]="'hasLowerCase1'" [placeHolder]="'檢核字串是否含有小寫英文'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasLowerCase('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有小寫英文 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有小寫英文'" [type]="'text'" [formControlName]="'hasLowerCase2'" [placeHolder]="'檢核字串是否含有小寫英文'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasNumber()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有數字 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有數字'" [type]="'text'" [formControlName]="'hasNumber1'" [placeHolder]="'檢核字串是否含有數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasNumber('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有數字 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有數字'" [type]="'text'" [formControlName]="'hasNumber2'" [placeHolder]="'檢核字串是否含有數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasForbiddenSymbols()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有禁止符號 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有禁止符號'" [type]="'text'" [formControlName]="'hasForbiddenSymbols1'" [placeHolder]="'檢核字串是否含有禁止符號'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasForbiddenSymbols('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串是否含有禁止符號 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串是否含有禁止符號'" [type]="'text'" [formControlName]="'hasForbiddenSymbols2'" [placeHolder]="'檢核字串是否含有禁止符號'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasConsecutiveSameLetters()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中的英文是否有連續相同的字母 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中的英文是否有連續相同的字母'" [type]="'text'" [formControlName]="'hasConsecutiveSameLetters1'" [placeHolder]="'檢核字串中的英文是否有連續相同的字母'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasConsecutiveSameLetters('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中的英文是否有連續相同的字母 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中的英文是否有連續相同的字母'" [type]="'text'" [formControlName]="'hasConsecutiveSameLetters2'" [placeHolder]="'檢核字串中的英文是否有連續相同的字母'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasConsecutiveSameNumber()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中的數字是否有連續相同的數字 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中的數字是否有連續相同的數字'" [type]="'text'" [formControlName]="'hasConsecutiveSameNumber1'" [placeHolder]="'檢核字串中的數字是否有連續相同的數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasConsecutiveSameNumber('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中的數字是否有連續相同的數字 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中的數字是否有連續相同的數字'" [type]="'text'" [formControlName]="'hasConsecutiveSameNumber2'" [placeHolder]="'檢核字串中的數字是否有連續相同的數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasConsecutiveLetters()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中的英文是否有連續的遞增或遞減字母 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中的英文是否有連續的遞增或遞減字母'" [type]="'text'" [formControlName]="'hasConsecutiveLetters1'" [placeHolder]="'檢核字串中的英文是否有連續的遞增或遞減字母'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasConsecutiveLetters('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中的英文是否有連續的遞增或遞減字母 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中的英文是否有連續的遞增或遞減字母'" [type]="'text'" [formControlName]="'hasConsecutiveLetters2'" [placeHolder]="'檢核字串中的英文是否有連續的遞增或遞減字母'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasConsecutiveDigits()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中的數字是否有遞增或遞減的數字 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中的數字是否有遞增或遞減的數字'" [type]="'text'" [formControlName]="'hasConsecutiveDigits1'" [placeHolder]="'檢核字串中的數字是否有遞增或遞減的數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.hasConsecutiveDigits('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中的數字是否有遞增或遞減的數字 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中的數字是否有遞增或遞減的數字'" [type]="'text'" [formControlName]="'hasConsecutiveDigits2'" [placeHolder]="'檢核字串中的數字是否有遞增或遞減的數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isAlphaNumeric()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中僅含英數字 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中僅含英數字'" [type]="'text'" [formControlName]="'isAlphaNumeric1'" [placeHolder]="'檢核字串中僅含英數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isAlphaNumeric('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核字串中僅含英數字 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核字串中僅含英數字'" [type]="'text'" [formControlName]="'isAlphaNumeric2'" [placeHolder]="'檢核字串中僅含英數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isNumber()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為數值 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為數值'" [type]="'text'" [formControlName]="'isNumber1'" [placeHolder]="'檢核是否為數值'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isNumber('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為數值 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為數值'" [type]="'text'" [formControlName]="'isNumber2'" [placeHolder]="'檢核是否為數值'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isAlpha()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為英文字母 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為英文字母'" [type]="'text'" [formControlName]="'isAlpha1'" [placeHolder]="'檢核是否為英文字母'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isAlpha('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為英文字母 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為英文字母'" [type]="'text'" [formControlName]="'isAlpha2'" [placeHolder]="'檢核是否為英文字母'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isDoubleByte()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為全型中英文數字 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為全型中英文數字'" [type]="'text'" [formControlName]="'isDoubleByte1'" [placeHolder]="'檢核是否為全型中英文數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.isDoubleByte('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核是否為全型中英文數字 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核是否為全型中英文數字'" [type]="'text'" [formControlName]="'isDoubleByte2'" [placeHolder]="'檢核是否為全型中英文數字'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.chineseAndEnglishLength()</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入文字中英文長度 (預設錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入文字中英文長度'" [type]="'text'" [formControlName]="'chineseAndEnglishLength1'" [placeHolder]="'檢核輸入文字中英文長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div class="text-h2">Validators.chineseAndEnglishLength('自訂的錯誤訊息')</div>
+      </td>
+      <td class="text-center align-middle">
+        <div class="text-h2">檢核輸入文字中英文長度 (自訂錯誤訊息)</div>
+      </td>
+      <td>
+        <div>
+          <app-form-input-text [form]="form" [title]="'檢核輸入文字中英文長度'" [type]="'text'" [formControlName]="'chineseAndEnglishLength2'" [placeHolder]="'檢核輸入文字中英文長度'"></app-form-input-text>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

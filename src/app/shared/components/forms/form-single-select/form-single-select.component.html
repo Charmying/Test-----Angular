@@ -1,0 +1,11 @@
+<div [formGroup]="form">
+  <div *ngIf="title" class="text-h3 mb-2">{{ title }}</div>
+  <div class="relative">
+    <select class="appearance-none w-full h-full px-2 py-1 border border-solid border-black rounded" [formControlName]="formControlName" >
+      <option *ngFor="let option of options" [value]="option.id">{{ option.name }}</option>
+    </select>
+    <div class="absolute top-2 right-2 pointer-events-none">
+      <app-icon name="cheveron-down"></app-icon>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div [formGroup]="form">
+  <div *ngIf="title" class="text-h3 mb-2">{{ title }}</div>
+  <div class="relative border-2 border-solid border-black">
+    <button class="absolute top-[0.3rem] left-2" (click)="decrease()">
+      <app-icon [name]="'minus'"></app-icon>
+    </button>
+    <input
+      class="w-full h-full px-10 py-1 text-center"
+      type="text"
+      [formControlName]="formControlName"
+      (input)="onInput($event)"
+    />
+    <button class="absolute top-[0.3rem] right-2" (click)="increase()">
+      <app-icon [name]="'plus'"></app-icon>
+    </button>
+  </div>
+</div>
