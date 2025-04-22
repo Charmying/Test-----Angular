@@ -16,6 +16,8 @@ import { DemoIconComponent } from './pages/demo/demo-icon/demo-icon.component';
 import { DemoTextComponent } from './pages/demo/demo-text/demo-text.component';
 import { TestApiPageComponent } from './pages/test-api/test-api-page/test-api-page.component';
 import { Test1AndTest2ApiPageComponent } from './pages/test-api/test1-and-test2-api-page/test1-and-test2-api-page.component';
+import { QRCodeOrderComponent } from './pages/qrcode-order/qrcode-order.component';
+import { PosQRCodeOrderComponent } from './pages/pos-qrcode-order/pos-qrcode-order.component';
 
 export const routes: Routes = [
   /** 預設路徑 */
@@ -45,6 +47,9 @@ export const routes: Routes = [
       /** test-api */
       { path: 'test-api/test-api-page', component: TestApiPageComponent },
       { path: 'test-api/test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
+        /** QR Code 點餐系統 */
+        { path: 'test-api/qrcode-order', component: QRCodeOrderComponent }, // QR Code 點餐系統前台
+        { path: 'test-api/pos-qrcode-order', component: PosQRCodeOrderComponent }, // QR Code 點餐系統後台
     ]
   }
 ];
