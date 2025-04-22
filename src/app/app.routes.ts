@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { OriginComponent } from './pages/origin/origin.component';
-import { TestApiPageComponent } from './pages/test-api/test-api-page/test-api-page.component';
-import { Test1AndTest2ApiPageComponent } from './pages/test-api/test1-and-test2-api-page/test1-and-test2-api-page.component';
 import { TestPageComponent } from './pages/test/test-page/test-page.component';
 import { TestForLoopComponent } from './pages/test/test-for-loop/test-for-loop.component';
 import { TestIfConditionComponent } from './pages/test/test-if-condition/test-if-condition.component';
@@ -16,8 +14,11 @@ import { DemoFormsComponent } from './pages/demo/demo-forms/demo-forms.component
 import { DemoFormsValidatorsComponent } from './pages/demo/demo-forms-validators/demo-forms-validators.component';
 import { DemoIconComponent } from './pages/demo/demo-icon/demo-icon.component';
 import { DemoTextComponent } from './pages/demo/demo-text/demo-text.component';
+import { TestApiPageComponent } from './pages/test-api/test-api-page/test-api-page.component';
+import { Test1AndTest2ApiPageComponent } from './pages/test-api/test1-and-test2-api-page/test1-and-test2-api-page.component';
 
 export const routes: Routes = [
+  /** 預設路徑 */
   { path: '', redirectTo: 'pages/home', pathMatch: 'full' },
   {
     path: 'pages',
@@ -26,9 +27,6 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       /** 原 app.component */
       { path: 'origin', component: OriginComponent },
-      /** test-api */
-      { path: 'test-api/test-api-page', component: TestApiPageComponent },
-      { path: 'test-api/test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
       /** test */
       { path: 'test/test-page', component: TestPageComponent },
       { path: 'test/test-for-loop', component: TestForLoopComponent },
@@ -44,6 +42,9 @@ export const routes: Routes = [
       { path: 'demo/demo-forms-validators', component: DemoFormsValidatorsComponent },
       { path: 'demo/demo-icon', component: DemoIconComponent },
       { path: 'demo/demo-text', component: DemoTextComponent },
+      /** test-api */
+      { path: 'test-api/test-api-page', component: TestApiPageComponent },
+      { path: 'test-api/test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
     ]
   }
 ];
