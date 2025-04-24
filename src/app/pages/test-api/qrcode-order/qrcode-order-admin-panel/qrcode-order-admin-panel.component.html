@@ -4,4 +4,32 @@
 
 <app-section>
   <div class="text-h1">QR Code 點餐系統後台</div>
+  <!-- 待處理訂單 -->
+  <div class="my-16">
+    <div class="text-h2 mb-4">待處理訂單</div>
+    <div>
+      <ul *ngFor="let order of orders" class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose">
+        <li>桌號：{{ order.tableNumber }}</li>
+        <li *ngFor="let item of order.items">{{ item.name }} - {{ item.price }} 元</li>
+        <app-button class="block mt-8 text-end" [text]="'出餐完成'" (buttonClick)="completeOrder(order._id)"></app-button>
+      </ul>
+    </div>
+  </div>
+  <!-- 營業報表 -->
+  <div>
+    <app-button class="block my-4" [text]="'生成報表'" (buttonClick)="generateReport()"></app-button>
+    <div *ngIf="report">
+      <div>
+        <ul *ngFor="let order of report.completedOrders" class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose">
+          <li>桌號：{{ order.tableNumber }}</li>
+          <li *ngFor="let item of order.items">{{ item.name }} - {{ item.price }} 元</li>
+        </ul>
+      </div>
+      <div class="text-body1 my-2 p-2">總收入：{{ report.totalRevenue }} 元</div>
+    </div>
+  </div>
+  <!-- 清空報表 -->
+  <div *ngIf="report" class="my-16 text-center">
+    <app-button class="block my-4" [text]="'清空報表'" (buttonClick)="clearDatabase()"></app-button>
+  </div>
 </app-section>

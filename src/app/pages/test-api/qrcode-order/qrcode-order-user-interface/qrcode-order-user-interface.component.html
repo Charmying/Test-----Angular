@@ -4,4 +4,33 @@
 
 <app-section>
   <div class="text-h1">QR Code 點餐系統前台</div>
+  
+  <!-- 桌號輸入 -->
+  <div class="my-16">
+    <app-form-input-text [form]="form" [title]="'桌號：'" [type]="'text'" [formControlName]="'tableNumber'" [placeHolder]="'請輸入桌號'"></app-form-input-text>
+  </div>
+
+  <!-- 菜單列表 -->
+  <div class="my-16">
+    <div class="text-h2 my-4">菜單：</div>
+    <div class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose" *ngFor="let item of menuItems">
+      <div class="flex justify-between">
+        <div class="text-body1">{{ item.name }}</div>
+        <div class="text-body1">＄{{ item.price }}</div>
+      </div>
+      <app-button class="block mt-8 text-end" [text]="'加入訂單'" (buttonClick)="addToOrder(item)"></app-button>
+    </div>
+  </div>
+
+  <!-- 當前訂單 -->
+  <div class="my-16">
+    <div class="text-h2 my-4">已點餐點：</div>
+    <div class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose" *ngFor="let item of currentOrder">
+      <div class="flex justify-between">
+        <div class="text-body1">{{ item.name }}</div>
+        <div class="text-body1">＄{{ item.price }}</div>
+      </div>
+    </div>
+    <app-button *ngIf="currentOrder.length" class="block mt-8 text-end" [text]="'點餐'" (buttonClick)="submitOrder()"></app-button>
+  </div>
 </app-section>
