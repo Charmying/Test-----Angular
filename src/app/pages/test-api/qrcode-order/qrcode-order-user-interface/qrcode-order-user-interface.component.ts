@@ -9,6 +9,7 @@ import { SectionComponent } from '../../../../shared/components/test/section/sec
 import { FormInputTextComponent } from '../../../../shared/components/forms/form-input-text/form-input-text.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { ApiService } from '../../../../shared/service/api/api.service';
+import { Menu } from '../shared/menu-obj';
 
 @Component({
   selector: 'app-qrcode-order-user-interface',
@@ -21,17 +22,10 @@ export class QRCodeOrderUserInterfaceComponent {
   /** FormGroup */
   form: FormGroup;
   /** API URL */
-  apiUrl = 'http://localhost:4000';
+  // apiUrl = 'http://localhost:4000';
+  apiUrl = 'https://test-express-api-x0j9.onrender.com';
   /** 菜單項目 */
-  menuItems = [
-    { name: '瑪格麗特 (五辛奶素)', price: 240 },
-    { name: '拿坡里臘腸', price: 320 },
-    { name: '芝麻葉生火腿', price: 350 },
-    { name: '松露野菇 (奶素)', price: 320 },
-    { name: '櫛瓜鮮蝦', price: 320 },
-    { name: '青醬舒肥雞', price: 320 },
-    { name: '起司四重奏', price: 300 }
-  ];
+  menuItems = Menu
   /** 當前訂單 */
   currentOrder: any[] = [];
 

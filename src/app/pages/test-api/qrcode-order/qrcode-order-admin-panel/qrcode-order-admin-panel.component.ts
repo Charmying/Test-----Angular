@@ -20,7 +20,8 @@ export class QRCodeOrderAdminPanelComponent implements OnInit {
   /** FormGroup */
   form: FormGroup;
   /** API URL */
-  apiUrl = 'http://localhost:4000';
+  // apiUrl = 'http://localhost:4000';
+  apiUrl = 'https://test-express-api-x0j9.onrender.com';
   /** 表格資料 */
   orders: any[] = [];
   /** 載入狀態 */
