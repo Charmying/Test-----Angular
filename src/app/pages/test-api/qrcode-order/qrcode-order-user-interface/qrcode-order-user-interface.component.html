@@ -15,10 +15,15 @@
     <div class="text-h2 my-4">菜單：</div>
     <div class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose" *ngFor="let item of menuItems">
       <div class="flex justify-between">
-        <div class="text-body1">{{ item.name }}</div>
-        <div class="text-body1">＄{{ item.price }}</div>
+        <div class="self-center">
+          <img [src]="item.photo" alt="menu photo" class="w-28 h-28 object-cover rounded-md" />
+        </div>
+        <div class="relative">
+          <div class="text-body1 text-end">{{ item.name }}</div>
+          <div class="text-body1 text-end">＄{{ item.price }}</div>
+          <app-button class="block text-end absolute bottom-0 right-0" [text]="'加入訂單'" (buttonClick)="addToOrder(item)"></app-button>
+        </div>
       </div>
-      <app-button class="block mt-8 text-end" [text]="'加入訂單'" (buttonClick)="addToOrder(item)"></app-button>
     </div>
   </div>
 
