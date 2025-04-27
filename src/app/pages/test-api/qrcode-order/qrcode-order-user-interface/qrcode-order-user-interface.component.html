@@ -2,12 +2,20 @@
 
 <app-test-api-header></app-test-api-header>
 
-<app-section>
+<app-section class="relative">
   <div class="text-h1">QR Code 點餐系統前台</div>
   
-  <!-- 桌號輸入 -->
-  <div class="my-16">
-    <app-form-input-text [form]="form" [title]="'桌號：'" [type]="'text'" [formControlName]="'tableNumber'" [placeHolder]="'請輸入桌號'"></app-form-input-text>
+  <!-- 桌號輸入底部彈窗 -->
+  <div *ngIf="tableNumberVisible" class="fixed inset-0 z-10">
+    <!-- 遮罩 -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <!-- 底部彈窗 -->
+    <div class="absolute inset-x-0 bottom-0 transform transition-transform duration-300 translate-y-0">
+      <div class="bg-white p-8">
+        <app-form-input-text [form]="form" [title]="'請先輸入桌號：'" [type]="'text'" [formControlName]="'tableNumber'" [placeHolder]="'請輸入桌號'"></app-form-input-text>
+        <app-button class="block mt-4 text-right" [text]="'確認桌號'" (buttonClick)="confirmTableNumber()"></app-button>
+      </div>
+    </div>
   </div>
 
   <!-- 菜單列表 -->
