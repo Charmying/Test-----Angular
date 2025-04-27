@@ -28,12 +28,24 @@ export class QRCodeOrderUserInterfaceComponent {
   menuItems = Menu
   /** 當前訂單 */
   currentOrder: any[] = [];
+  /** 桌號輸入底部彈窗顯示 */
+  tableNumberVisible: boolean = true;
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {
     this.form = this.fb.group({
       tableNumber: [''],
       // items: this.fb.array([])
     });
+  }
+
+  /** 確認桌號 */
+  confirmTableNumber(): void {
+    const table = this.form.value.tableNumber;
+    if (!table || !table.trim()) {
+      alert('請先輸入桌號！');
+      return;
+    }
+    this.tableNumberVisible = false;
   }
 
   /** 加入訂單 */
