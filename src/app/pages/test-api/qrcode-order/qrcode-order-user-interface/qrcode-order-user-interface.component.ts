@@ -30,6 +30,8 @@ export class QRCodeOrderUserInterfaceComponent {
   currentOrder: any[] = [];
   /** 桌號輸入底部彈窗顯示 */
   tableNumberVisible: boolean = true;
+  /** 確認餐點彈窗顯示 */
+  confirmOrderVisible: boolean = false;
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -50,6 +52,20 @@ export class QRCodeOrderUserInterfaceComponent {
   /** 加入訂單 */
   addToOrder(item: any) {
     this.currentOrder.push(item);
+  }
+
+  /** 開啟確認餐點彈窗 */
+  openConfirmModal(): void {
+    if (!this.currentOrder.length) {
+      alert('請先加入餐點！');
+      return;
+    }
+    this.confirmOrderVisible = true;
+  }
+
+  /** 關閉確認餐點彈窗 */
+  closeConfirmModal(): void {
+    this.confirmOrderVisible = false;
   }
 
   /** 提交訂單 */

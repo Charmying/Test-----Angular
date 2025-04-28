@@ -35,15 +35,23 @@
     </div>
   </div>
 
-  <!-- 當前訂單 -->
-  <div class="my-16">
-    <div class="text-h2 my-4">已點餐點：</div>
-    <div class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose" *ngFor="let item of currentOrder">
-      <div class="flex justify-between">
-        <div class="text-body1">{{ item.name }}</div>
-        <div class="text-body1">＄{{ item.price }}</div>
+  <!-- 確認當前訂單按鈕 -->
+  <div *ngIf="currentOrder.length">
+    <div class="text-body1 bg-yellow-400 text-center py-2 fixed inset-x-0 bottom-0 transform transition-transform duration-300 translate-y-0 cursor-pointer" (click)="openConfirmModal()">確認餐點</div>
+  </div>
+
+  <!-- 確認餐點彈窗 -->
+  <div *ngIf="confirmOrderVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 w-11/12 max-w-md">
+      <div class="text-h2 mb-4">當前訂單確認</div>
+      <div *ngFor="let item of currentOrder" class="flex justify-between py-2 border-b border-gray-200">
+        <span class="text-body1">{{ item.name }}</span>
+        <span class="text-body1">＄{{ item.price }}</span>
+      </div>
+      <div class="flex justify-end mt-6 space-x-4">
+        <app-button [text]="'繼續點餐'" (buttonClick)="closeConfirmModal()"></app-button>
+        <app-button [text]="'確定送出'" (buttonClick)="submitOrder()"></app-button>
       </div>
     </div>
-    <app-button *ngIf="currentOrder.length" class="block mt-8 text-end" [text]="'點餐'" (buttonClick)="submitOrder()"></app-button>
   </div>
 </app-section>
