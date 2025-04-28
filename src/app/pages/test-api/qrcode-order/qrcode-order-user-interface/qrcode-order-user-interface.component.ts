@@ -34,7 +34,6 @@ export class QRCodeOrderUserInterfaceComponent {
   constructor(private apiService: ApiService, private fb: FormBuilder) {
     this.form = this.fb.group({
       tableNumber: [''],
-      // items: this.fb.array([])
     });
   }
 
@@ -68,8 +67,8 @@ export class QRCodeOrderUserInterfaceComponent {
     try {
       await this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/orders`, orderData);
       alert('訂單已提交！');
-      this.currentOrder = []; // 清空當前訂單
-      this.form.reset(); // 重置表單
+      this.currentOrder = [];
+      this.form.reset();
     } catch (error) {
       console.error('提交訂單失敗:', error);
       alert('提交訂單失敗，請稍後再試！');
