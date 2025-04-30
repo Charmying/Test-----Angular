@@ -26,12 +26,18 @@ export class QRCodeOrderUserInterfaceComponent {
   apiUrl = 'https://test-express-api-x0j9.onrender.com';
   /** 菜單項目 */
   menuItems = Menu
-  /** 當前訂單 */
+  /** 當前餐點訂單 */
   currentOrder: any[] = [];
   /** 桌號輸入底部彈窗顯示 */
-  tableNumberVisible: boolean = true;
-  /** 確認餐點彈窗顯示 */
-  confirmOrderVisible: boolean = false;
+  showTableNumber: boolean = true;
+  /** 餐點成功加入訂單訊息 */
+  successMessage: string = '';
+  /** 顯示餐點成功加入訂單 */
+  showSuccessToast: boolean = false;
+  /** 餐點成功加入訂單控制動畫 */
+  toastVisible: boolean = false;
+  /** 確認餐點訂單彈窗顯示 */
+  showConfirmOrder: boolean = false;
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -46,29 +52,62 @@ export class QRCodeOrderUserInterfaceComponent {
       alert('請先輸入桌號！');
       return;
     }
-    this.tableNumberVisible = false;
+    this.showTableNumber = false;
   }
 
-  /** 加入訂單 */
+  /** 餐點加入訂單 */
   addToOrder(item: any) {
-    this.currentOrder.push(item);
+    const existingItem = this.currentOrder.find(orderItem => orderItem.name === item.name);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      this.currentOrder.push({ ...item, quantity: 1 });
+    }
+    this.showToast(`成功加入 ${item.name}！`);
   }
 
-  /** 開啟確認餐點彈窗 */
+  /** 顯示餐點加入訂單 Toast */
+  showToast(message: string) {
+    this.successMessage = message;
+    this.showSuccessToast = true;
+    setTimeout(() => {
+      this.toastVisible = true;
+    }, 10); // 延遲 0.01 秒，讓動畫觸發
+
+    setTimeout(() => {
+      this.toastVisible = false;
+    }, 1900); // 顯示 1.9 秒後觸發收回動畫
+
+    setTimeout(() => {
+      this.showSuccessToast = false;
+    }, 2200); // 2.2 秒後關掉整個 Toast
+  }
+
+  /** 開啟餐點訂單彈窗 */
   openConfirmModal(): void {
     if (!this.currentOrder.length) {
       alert('請先加入餐點！');
       return;
     }
-    this.confirmOrderVisible = true;
+    this.showConfirmOrder = true;
   }
 
-  /** 關閉確認餐點彈窗 */
+  /** 關閉餐點訂單彈窗 */
   closeConfirmModal(): void {
-    this.confirmOrderVisible = false;
+    this.showConfirmOrder = false;
   }
 
-  /** 提交訂單 */
+  /** 取得全部餐點訂單數量 */
+  get totalQuantity(): number {
+    return this.currentOrder.reduce((sum, item) => sum + item.quantity, 0);
+  }
+
+  /** 取得確認餐點總金額 */
+  get totalAmount(): number {
+    return this.currentOrder.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  }
+
+  /** 提交餐點訂單 */
   async submitOrder() {
     if (!this.currentOrder.length) {
       alert('請先加入餐點！');
