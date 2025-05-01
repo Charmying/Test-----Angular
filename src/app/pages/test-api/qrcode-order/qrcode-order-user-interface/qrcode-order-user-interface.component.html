@@ -4,14 +4,14 @@
 
 <app-section class="relative">
   <div class="text-h1">QR Code 點餐系統前台</div>
-  
+
   <!-- 桌號輸入底部彈窗 -->
   <div *ngIf="showTableNumber" class="fixed inset-0 z-10">
     <!-- 遮罩 -->
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <!-- 底部輸入桌號彈窗 -->
-    <div class="absolute inset-x-0 bottom-0 transform transition-transform duration-300 translate-y-0">
-      <div class="bg-white p-8">
+    <div class="absolute inset-0 bg-black transition-all duration-300 ease-in-out" [ngClass]="{'bg-opacity-50': tableNumberAnimation, 'bg-opacity-0': !tableNumberAnimation}"></div>
+    <!-- 彈窗內容 -->
+    <div class="absolute inset-x-0 bottom-0 transition-all duration-300 ease-in-out transform" [ngClass]="{'translate-y-0': tableNumberAnimation, 'translate-y-full': !tableNumberAnimation}">
+      <div class="bg-white p-8 rounded-t-xl shadow-lg">
         <app-form-input-text [form]="form" [title]="'請先輸入桌號：'" [type]="'text'" [formControlName]="'tableNumber'" [placeHolder]="'請輸入桌號'"></app-form-input-text>
         <app-button class="block mt-4 text-right" [text]="'確認桌號'" (buttonClick)="confirmTableNumber()"></app-button>
       </div>
@@ -21,7 +21,7 @@
   <!-- 菜單列表 -->
   <div class="my-16">
     <div class="text-h2 my-4">菜單：</div>
-    <div class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose" *ngFor="let item of menuItems">
+    <div *ngFor="let item of menuItems" class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose">
       <div class="flex justify-between">
         <div class="self-center">
           <img [src]="item.photo" alt="menu photo" class="w-28 h-28 object-cover rounded-md" />
@@ -35,25 +35,27 @@
     </div>
   </div>
 
-  <!-- 餐點加入訂單成功的彈出提示 -->
-  <div *ngIf="showSuccessToast" [class]="'fixed top-0 left-0 w-full bg-yellow-400 text-center px-4 py-3 shadow-md z-10 transition-all duration-500 ease-in-out ' + (toastVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0')">{{ successMessage }}</div>
+  <!-- 成功加入訂單 Toast -->
+  <div *ngIf="showSuccessAddToOrder" class="fixed top-0 left-0 w-full z-20 transition-all duration-500 ease-in-out" [ngClass]="successAddToOrderAnimation ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'">
+    <div class="bg-yellow-400 text-center px-4 py-3 shadow-md">{{ successMessage }}</div>
+  </div>
 
   <!-- 確認當前餐點訂單按鈕 -->
   <div *ngIf="currentOrder.length">
-    <div class="text-body1 bg-yellow-400 text-center px-6 py-2 fixed inset-x-0 bottom-0 transform transition-transform duration-300 translate-y-0 cursor-pointer" (click)="openConfirmModal()">
+    <div class="text-body1 bg-yellow-400 text-center px-6 py-2 fixed inset-x-0 bottom-0 cursor-pointer transition-all duration-500 ease-out transform" [ngClass]="confirmButtonAnimation ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-full scale-110 opacity-0'" (click)="openConfirmModal()">
       <div class="flex justify-between">
-        <div class="text-body1 self-center">確認餐點</div>
-        <div class="text-body1 border border-solid border-black p-1">{{ totalQuantity }}</div>
+        <div class="self-center">確認餐點</div>
+        <div class="border border-black p-1">{{ totalQuantity }}</div>
       </div>
     </div>
   </div>
 
-  <!-- 餐點訂單彈窗 -->
-  <div *ngIf="showConfirmOrder" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-    <div class="bg-white rounded-xl p-6 w-11/12">
+  <!-- 確認餐點訂單彈窗 -->
+  <div *ngIf="showConfirmOrder" class="fixed inset-0 flex items-center justify-center z-20 transition-all duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+    <div class="bg-white rounded-xl p-6 w-11/12 transition-all transform duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
       <div class="text-h2 mb-4">當前餐點確認</div>
       <div *ngFor="let item of currentOrder" class="flex justify-between py-2 border-b border-gray-200">
-        <span class="text-body1">{{ item.name }} x{{ item.quantity }}</span>
+        <span class="text-body1">{{ item.name }} x {{ item.quantity }}</span>
         <span class="text-body1">＄{{ item.price * item.quantity }}</span>
       </div>
       <div class="flex justify-between py-4 border-t border-gray-400 font-bold text-body1 mt-4">

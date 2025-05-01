@@ -1,6 +1,6 @@
 /** QR Code 點餐系統前台 */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
@@ -18,7 +18,7 @@ import { Menu } from '../shared/menu-obj';
   styleUrl: './qrcode-order-user-interface.component.scss',
   imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, FormInputTextComponent, ButtonComponent]
 })
-export class QRCodeOrderUserInterfaceComponent {
+export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** FormGroup */
   form: FormGroup;
   /** API URL */
@@ -30,19 +30,35 @@ export class QRCodeOrderUserInterfaceComponent {
   currentOrder: any[] = [];
   /** 桌號輸入底部彈窗顯示 */
   showTableNumber: boolean = true;
+  /** 桌號輸入底部彈窗顯示動畫 */
+  tableNumberAnimation: boolean = false;
   /** 餐點成功加入訂單訊息 */
   successMessage: string = '';
   /** 顯示餐點成功加入訂單 */
-  showSuccessToast: boolean = false;
-  /** 餐點成功加入訂單控制動畫 */
-  toastVisible: boolean = false;
+  showSuccessAddToOrder: boolean = false;
+  /** 餐點成功加入訂單彈窗顯示動畫 */
+  successAddToOrderAnimation: boolean = false;
+  /** 餐點成功加入訂單彈窗 timeout 控制 */
+  successAddToOrderAnimationTimeout1: any;
+  successAddToOrderAnimationTimeout2: any;
+  successAddToOrderAnimationTimeout3: any;
+  /** 確認當前餐點按鈕顯示動畫 */
+  confirmButtonAnimation: boolean = false;
   /** 確認餐點訂單彈窗顯示 */
   showConfirmOrder: boolean = false;
+  /** 確認餐點訂單彈窗顯示動畫 */
+  confirmOrderAnimation: boolean = false;
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {
     this.form = this.fb.group({
       tableNumber: [''],
     });
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.tableNumberAnimation = true;
+    }, 10);
   }
 
   /** 確認桌號 */
@@ -52,7 +68,10 @@ export class QRCodeOrderUserInterfaceComponent {
       alert('請先輸入桌號！');
       return;
     }
-    this.showTableNumber = false;
+    this.tableNumberAnimation = false;
+    setTimeout(() => {
+      this.showTableNumber = false;
+    }, 300);
   }
 
   /** 餐點加入訂單 */
@@ -64,23 +83,36 @@ export class QRCodeOrderUserInterfaceComponent {
       this.currentOrder.push({ ...item, quantity: 1 });
     }
     this.showToast(`成功加入 ${item.name}！`);
+
+    if (!this.confirmButtonAnimation) {
+      setTimeout(() => {
+        this.confirmButtonAnimation = true;
+      }, 10);
+    }
   }
 
   /** 顯示餐點加入訂單 Toast */
   showToast(message: string) {
     this.successMessage = message;
-    this.showSuccessToast = true;
-    setTimeout(() => {
-      this.toastVisible = true;
-    }, 10); // 延遲 0.01 秒，讓動畫觸發
 
-    setTimeout(() => {
-      this.toastVisible = false;
-    }, 1900); // 顯示 1.9 秒後觸發收回動畫
+    clearTimeout(this.successAddToOrderAnimationTimeout1);
+    clearTimeout(this.successAddToOrderAnimationTimeout2);
+    clearTimeout(this.successAddToOrderAnimationTimeout3);
 
-    setTimeout(() => {
-      this.showSuccessToast = false;
-    }, 2200); // 2.2 秒後關掉整個 Toast
+    this.showSuccessAddToOrder = true;
+    this.successAddToOrderAnimation = false;
+
+    this.successAddToOrderAnimationTimeout1 = setTimeout(() => {
+      this.successAddToOrderAnimation = true;
+    }, 10);
+
+    this.successAddToOrderAnimationTimeout2 = setTimeout(() => {
+      this.successAddToOrderAnimation = false;
+    }, 1700);
+
+    this.successAddToOrderAnimationTimeout3 = setTimeout(() => {
+      this.showSuccessAddToOrder = false;
+    }, 2000);
   }
 
   /** 開啟餐點訂單彈窗 */
@@ -90,11 +122,17 @@ export class QRCodeOrderUserInterfaceComponent {
       return;
     }
     this.showConfirmOrder = true;
+    setTimeout(() => {
+      this.confirmOrderAnimation = true;
+    }, 10);
   }
 
   /** 關閉餐點訂單彈窗 */
   closeConfirmModal(): void {
-    this.showConfirmOrder = false;
+    this.confirmOrderAnimation = false;
+    setTimeout(() => {
+      this.showConfirmOrder = false;
+    }, 300);
   }
 
   /** 取得全部餐點訂單數量 */
@@ -124,6 +162,8 @@ export class QRCodeOrderUserInterfaceComponent {
       alert('訂單已提交！');
       this.currentOrder = [];
       this.form.reset();
+      this.closeConfirmModal();
+      this.confirmButtonAnimation = false;
     } catch (error) {
       console.error('提交訂單失敗:', error);
       alert('提交訂單失敗，請稍後再試！');
