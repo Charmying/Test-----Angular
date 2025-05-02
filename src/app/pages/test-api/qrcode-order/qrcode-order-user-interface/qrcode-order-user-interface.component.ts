@@ -10,13 +10,14 @@ import { FormInputTextComponent } from '../../../../shared/components/forms/form
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { ApiService } from '../../../../shared/service/api/api.service';
 import { Menu } from '../shared/menu-obj';
+import { IconComponent } from '../../../../shared/components/icon/icon.component';
 
 @Component({
   selector: 'app-qrcode-order-user-interface',
   standalone: true,
   templateUrl: './qrcode-order-user-interface.component.html',
   styleUrl: './qrcode-order-user-interface.component.scss',
-  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, FormInputTextComponent, ButtonComponent]
+  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, FormInputTextComponent, ButtonComponent, IconComponent]
 })
 export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** FormGroup */
@@ -143,6 +144,33 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** 取得確認餐點總金額 */
   get totalAmount(): number {
     return this.currentOrder.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  }
+
+  /** 確認餐點訂單中增加餐點份量功能 */
+  increaseItemQuantity(item: any) {
+    item.quantity += 1;
+  }
+
+  /** 確認餐點訂單中減少餐點份量功能 */
+  decreaseItemQuantity(item: any) {
+    if (item.quantity > 1) {
+      item.quantity -= 1;
+    } else {
+      this.removeItem(item);
+    }
+  }
+
+  /** 確認餐點訂單中移除餐點功能 */
+  removeItem(item: any) {
+    const index = this.currentOrder.indexOf(item);
+    if (index > -1) {
+      this.currentOrder.splice(index, 1);
+    }
+
+    if (this.currentOrder.length === 0) {
+      this.confirmButtonAnimation = false;
+      this.closeConfirmModal();
+    }
   }
 
   /** 提交餐點訂單 */
