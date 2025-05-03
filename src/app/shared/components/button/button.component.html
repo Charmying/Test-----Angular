@@ -1,17 +1,15 @@
-<div>
-  <button class="w-max rounded-lg px-3 py-1" [ngClass]="{'border-2 border-solid border-black': border}" (click)="click()">
-    <div class="flex">
-      @if (leftIcon) {
-        <div class="mr-1 self-center">
-          <app-icon name="{{ leftIcon }}"></app-icon>
-        </div>
-      }
-      <div class="text-body1">{{ text }}</div>
-      @if (rightIcon) {
-        <div class="ml-1 self-center">
-          <app-icon name="{{ rightIcon }}"></app-icon>
-        </div>
-      }
-    </div>
-  </button>
-</div>
+<button class="w-max h-10 px-4 py-1 rounded-lg transition-colors duration-200" [ngClass]="[buttonClass, border ? 'border-2 border-solid border-black' : 'border-0']" (click)="click()">
+  <div class="flex items-center">
+    <ng-container *ngIf="leftIcon">
+      <div class="mr-1">
+        <app-icon [name]="leftIcon"></app-icon>
+      </div>
+    </ng-container>
+    <div class="text-sm font-medium">{{ text }}</div>
+    <ng-container *ngIf="rightIcon">
+      <div class="ml-1">
+        <app-icon [name]="rightIcon"></app-icon>
+      </div>
+    </ng-container>
+  </div>
+</button>

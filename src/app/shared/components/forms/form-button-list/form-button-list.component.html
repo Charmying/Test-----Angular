@@ -1,8 +1,8 @@
 <div [formGroup]="form">
-  <div *ngIf="title" class="text-h3 mb-2">{{ title }}</div>
-  <div class="flex gap-4">
-    <div *ngFor="let item of data; let i = index">
-      <button class="border-2 border-solid border-black rounded-lg px-3 py-1" [class]="isChecked(item) ? 'bg-black text-white' : 'bg-white text-black'" (click)="selectButton(item)">{{ item.name }}</button>
+  <div *ngIf="title" class="text-lg font-semibold mb-2">{{ title }}</div>
+  <div class="flex gap-4 flex-wrap">
+    <div *ngFor="let item of data">
+      <app-button [text]="item.name" [buttonClass]="isChecked(item) ? 'bg-black text-white border-black' : 'bg-white text-black border-black'" (buttonClick)="selectButton(item)"></app-button>
     </div>
   </div>
 </div>

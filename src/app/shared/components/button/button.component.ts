@@ -10,10 +10,11 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, IconComponent],
 })
 export class ButtonComponent {
-  @Input() leftIcon!: string;
-  @Input() text: string = '';
-  @Input() rightIcon!: string;
-  @Input() border: boolean = true;
+  @Input() leftIcon?: string;
+  @Input() rightIcon?: string;
+  @Input() text = '';
+  @Input() buttonClass = '';
+  @Input() border = true;
   @Output() buttonClick = new EventEmitter<void>();
 
   click(): void {
