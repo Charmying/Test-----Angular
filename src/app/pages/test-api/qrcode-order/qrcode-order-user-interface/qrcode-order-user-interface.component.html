@@ -18,18 +18,25 @@
     </div>
   </div>
 
+  <!-- 分類導航列 -->
+  <div class="flex gap-4 my-4 p-4 overflow-x-auto">
+    <div *ngFor="let category of menuCategories" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300" (click)="scrollToCategory(category)">{{ category }}</div>
+  </div>
+  
   <!-- 菜單列表 -->
-  <div class="my-16">
-    <div class="text-h2 my-4">菜單：</div>
-    <div *ngFor="let item of menuItems" class="border-2 border-solid border-black rounded-lg p-4 mb-4 leading-loose">
-      <div class="flex justify-between">
-        <div class="self-center">
+  <div class="my-4">
+    <!-- <div class="text-h2 my-4">菜單：</div> -->
+    <div *ngFor="let category of menuCategories" [attr.id]="category" class="mb-8">
+      <div class="text-h2 my-4 p-4">{{ category }}</div>
+      <!-- 商品卡片 -->
+      <div *ngFor="let item of groupedMenuItems[category]" class="border-2 border-black rounded-lg p-4 mb-4">
+        <div class="flex justify-between">
           <img [src]="item.photo" alt="menu photo" class="w-28 h-28 object-cover rounded-md" />
-        </div>
-        <div class="relative">
-          <div class="text-body1 text-end">{{ item.name }}</div>
-          <div class="text-body1 text-end">＄{{ item.price }}</div>
-          <app-button class="block text-end absolute bottom-0 right-0" [text]="'加入訂單'" (buttonClick)="addToOrder(item)"></app-button>
+          <div class="relative">
+            <div class="text-body1 text-end">{{ item.name }}</div>
+            <div class="text-body1 text-end">＄{{ item.price }}</div>
+            <app-button class="block text-end absolute bottom-0 right-0" [text]="'加入訂單'" (buttonClick)="addToOrder(item)"></app-button>
+          </div>
         </div>
       </div>
     </div>

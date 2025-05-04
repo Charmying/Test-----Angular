@@ -63,3 +63,8 @@ app-form-input-password {
   width: 100%;
   max-width: 300px;
 }
+
+/* 點擊錨點移動絲滑 */
+html {
+  scroll-behavior: smooth;
+}

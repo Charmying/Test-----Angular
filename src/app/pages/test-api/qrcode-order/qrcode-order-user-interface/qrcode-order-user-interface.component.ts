@@ -1,7 +1,7 @@
 /** QR Code 點餐系統前台 */
 
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { TestApiHeaderComponent } from '../../shared/test-api-header/test-api-header.component';
@@ -25,6 +25,10 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** API URL */
   // apiUrl = 'http://localhost:4000';
   apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  /** 分類清單 */
+  menuCategories: string[] = [];
+  /** 根據分類顯示 Menu Items */
+  groupedMenuItems: { [category: string]: typeof Menu } = {};
   /** 菜單項目 */
   menuItems = Menu
   /** 當前餐點訂單 */
@@ -50,7 +54,7 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** 確認餐點訂單彈窗顯示動畫 */
   confirmOrderAnimation: boolean = false;
 
-  constructor(private apiService: ApiService, private fb: FormBuilder) {
+  constructor(private apiService: ApiService, private fb: FormBuilder, private viewportScroller: ViewportScroller) {
     this.form = this.fb.group({
       tableNumber: [''],
     });
@@ -60,6 +64,22 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     setTimeout(() => {
       this.tableNumberAnimation = true;
     }, 10);
+
+    this.groupedMenuItems = this.menuItems.reduce((acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push(item);
+      return acc;
+    }, {} as { [category: string]: typeof Menu });
+  
+   /** 分類清單 */
+    this.menuCategories = Object.keys(this.groupedMenuItems);
+  }
+
+  /** 捲動到分類錨點 */
+  scrollToCategory(category: string) {
+    this.viewportScroller.scrollToAnchor(category);
   }
 
   /** 確認桌號 */
