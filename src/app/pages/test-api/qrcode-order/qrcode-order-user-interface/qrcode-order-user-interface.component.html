@@ -25,7 +25,6 @@
   
   <!-- 菜單列表 -->
   <div class="my-4">
-    <!-- <div class="text-h2 my-4">菜單：</div> -->
     <div *ngFor="let category of menuCategories" [attr.id]="category" class="mb-8">
       <div class="text-h2 my-4 p-4">{{ category }}</div>
       <!-- 商品卡片 -->
@@ -35,8 +34,38 @@
           <div class="relative">
             <div class="text-body1 text-end">{{ item.name }}</div>
             <div class="text-body1 text-end">＄{{ item.price }}</div>
-            <app-button class="block text-end absolute bottom-0 right-0" [text]="'加入訂單'" (buttonClick)="addToOrder(item)"></app-button>
+            <app-button class="block text-end absolute bottom-0 right-0" [text]="'加入訂單'" (buttonClick)="openCustomizedModal(item)"></app-button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 客製化選項彈窗 -->
+  <div *ngIf="showCustomized" class="fixed inset-0 z-30 transition-all duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+    <div class="flex justify-center items-center h-full">
+      <div class="bg-white rounded-xl p-6 w-11/12 max-w-md transition-all transform duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+        <div class="text-h2 mb-4">{{ selectedItem?.name }}</div>
+        <!-- 辣度選項 -->
+        <div *ngIf="selectedItem?.spiceOptions">
+          <app-form-button-list [form]="customizedForm" [title]="'請選擇辣度：'" [data]="spiceOptions" [formControlName]="'spice'" [multiple]="false"></app-form-button-list>
+        </div>
+        <!-- 加料選項 -->
+        <div *ngIf="selectedItem?.addonOptions" class="mt-4">
+          <app-form-button-list [form]="customizedForm" [title]="'請選擇加料：'" [data]="addonOptions" [formControlName]="'addons'" [multiple]="true"></app-form-button-list>
+        </div>
+        <!-- 數量選擇 -->
+        <div class="mt-4">
+          <div class="text-h3 mb-2">數量：</div>
+          <div class="flex items-center gap-2">
+            <div class="border border-black p-1 cursor-pointer" (click)="decreaseQuantity()"><app-icon name="minus"></app-icon></div>
+            <div class="text-h3">{{ customizedForm.get('quantity')?.value }}</div>
+            <div class="border border-black p-1 cursor-pointer" (click)="increaseQuantity()"><app-icon name="plus"></app-icon></div>
+          </div>
+        </div>
+        <div class="flex justify-end mt-6 gap-4">
+          <app-button [text]="'取消'" (buttonClick)="closeCustomizedModal()"></app-button>
+          <app-button [text]="'加入訂單'" (buttonClick)="addToOrder()"></app-button>
         </div>
       </div>
     </div>
@@ -65,6 +94,8 @@
         <div class="flex justify-between">
           <div>
             <div class="text-h3 self-center">{{ item.name }}</div>
+            <div *ngIf="item.spice" class="text-body1">辣度：{{ item.spice }}</div>
+            <div *ngIf="item.addons.length" class="text-body1">加料：{{ item.addons.join(', ') }}</div>
           </div>
           <div class="flex gap-2">
             <div class="border border-black p-1 self-center cursor-pointer" (click)="decreaseItemQuantity(item)"><app-icon name="minus"></app-icon></div>

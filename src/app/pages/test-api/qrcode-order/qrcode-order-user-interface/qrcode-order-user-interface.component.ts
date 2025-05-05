@@ -11,17 +11,21 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 import { ApiService } from '../../../../shared/service/api/api.service';
 import { Menu } from '../shared/menu-obj';
 import { IconComponent } from '../../../../shared/components/icon/icon.component';
+import { FormButtonListComponent } from '../../../../shared/components/forms/form-button-list/form-button-list.component';
+import { BaseCommonObj } from '../../../../shared/class/common';
 
 @Component({
   selector: 'app-qrcode-order-user-interface',
   standalone: true,
   templateUrl: './qrcode-order-user-interface.component.html',
   styleUrl: './qrcode-order-user-interface.component.scss',
-  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, FormInputTextComponent, ButtonComponent, IconComponent]
+  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, FormInputTextComponent, ButtonComponent, IconComponent, FormButtonListComponent]
 })
 export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** FormGroup */
   form: FormGroup;
+  /** FormGroup for customization */
+  customizedForm!: FormGroup;
   /** API URL */
   // apiUrl = 'http://localhost:4000';
   apiUrl = 'https://test-express-api-x0j9.onrender.com';
@@ -31,6 +35,14 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   groupedMenuItems: { [category: string]: typeof Menu } = {};
   /** 菜單項目 */
   menuItems = Menu
+  /** 客製化彈窗顯示 */
+  showCustomized: boolean = false;
+  /** 客製化彈窗顯示動畫 */
+  customizedAnimation: boolean = false;
+  /** 選擇的品項 */
+  selectedItem: any = null;
+  /** 選擇的可製化 */
+  selecteCustomized: any = {};
   /** 當前餐點訂單 */
   currentOrder: any[] = [];
   /** 桌號輸入底部彈窗顯示 */
@@ -73,7 +85,7 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
       return acc;
     }, {} as { [category: string]: typeof Menu });
   
-   /** 分類清單 */
+    /** 分類清單 */
     this.menuCategories = Object.keys(this.groupedMenuItems);
   }
 
@@ -95,15 +107,85 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     }, 300);
   }
 
-  /** 餐點加入訂單 */
-  addToOrder(item: any) {
-    const existingItem = this.currentOrder.find(orderItem => orderItem.name === item.name);
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      this.currentOrder.push({ ...item, quantity: 1 });
+  /** 開啟餐點客製化彈窗 */
+  openCustomizedModal(item: any) {
+    this.selectedItem = { ...item };
+    this.customizedForm = this.fb.group({
+      spice: [null],
+      addons: [[]],
+      quantity: [1]
+    });
+    this.showCustomized = true;
+    setTimeout(() => {
+      this.customizedAnimation = true;
+    }, 10);
+  }
+
+  /** 關閉餐點客製化彈窗 */
+  closeCustomizedModal() {
+    this.customizedAnimation = false;
+    setTimeout(() => {
+      this.showCustomized = false;
+      this.selectedItem = null;
+      this.customizedForm = null!;
+    }, 300);
+  }
+
+  /** 獲取辣度選項 */
+  get spiceOptions(): BaseCommonObj[] {
+    return this.selectedItem?.spiceOptions?.map((option: string) => ({ id: option, name: option })) || [];
+  }
+
+  /** 獲取加料選項 */
+  get addonOptions(): BaseCommonObj[] {
+    return this.selectedItem?.addonOptions?.map((option: string) => ({ id: option, name: option })) || [];
+  }
+
+  /** 減少數量 */
+  decreaseQuantity() {
+    const quantityControl = this.customizedForm.get('quantity');
+    if (quantityControl && quantityControl.value > 1) {
+      quantityControl.setValue(quantityControl.value - 1);
     }
-    this.showToast(`成功加入 ${item.name}！`);
+  }
+  
+  /** 增加數量 */
+  increaseQuantity() {
+    const quantityControl = this.customizedForm.get('quantity');
+    if (quantityControl) {
+      quantityControl.setValue(quantityControl.value + 1);
+    }
+  }
+
+  /** 餐點加入訂單 */
+  addToOrder() {
+    if (!this.selectedItem) return;
+
+    const spice = this.customizedForm.get('spice')?.value;
+    const addons = this.customizedForm.get('addons')?.value || [];
+    const quantity = this.customizedForm.get('quantity')?.value || 1;
+
+    const customizedItem = {
+      name: this.selectedItem.name,
+      price: this.selectedItem.price,
+      quantity: quantity,
+      spice: spice,
+      addons: addons
+    };
+
+    const existingItem = this.currentOrder.find(orderItem =>
+      orderItem.spice === customizedItem.spice && JSON.stringify(orderItem.addons.sort()) === JSON.stringify(customizedItem.addons.sort())
+    );
+
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      this.currentOrder.push(customizedItem);
+    }
+
+    this.showToast(`成功加入 ${customizedItem.name} x ${quantity}！`);
+    console.log('this.currentOrder:', this.currentOrder)
+    this.closeCustomizedModal();
 
     if (!this.confirmButtonAnimation) {
       setTimeout(() => {
@@ -202,8 +284,16 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
 
     const orderData = {
       tableNumber: this.form.value.tableNumber,
-      items: this.currentOrder
+      items: this.currentOrder.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        spice: item.spice,
+        addons: item.addons
+      }))
     };
+
+    console.log('orderData', orderData)
 
     try {
       await this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/orders`, orderData);
