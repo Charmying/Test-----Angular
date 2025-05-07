@@ -17,24 +17,17 @@ import { ApiService } from '../../../../shared/service/api/api.service';
   imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, ButtonComponent]
 })
 export class QRCodeOrderAdminPanelComponent implements OnInit {
-  /** FormGroup */
-  form: FormGroup;
   /** API URL */
-  // apiUrl = 'http://localhost:4000';
-  apiUrl = 'https://test-express-api-x0j9.onrender.com';
-  /** 表格資料 */
+  apiUrl = 'http://localhost:4000';
+  // apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  /** 待處理訂單 */
   orders: any[] = [];
   /** 載入狀態 */
   isLoading = true;
   /** 營業報表 */
   report: any = null;
 
-  constructor(private apiService: ApiService, private fb: FormBuilder) {
-    this.form = this.fb.group({
-      tableNumber: [''],
-      items: this.fb.array([])
-    });
-  }
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
     this.fetchOrders();
@@ -76,12 +69,17 @@ export class QRCodeOrderAdminPanelComponent implements OnInit {
     if (confirm('確定要清空資料庫嗎？此操作無法復原！')) {
       try {
         await this.apiService.delete(`${this.apiUrl}/qrcodeOrder/clear`);
-        this.orders = []; // 清空前端訂單列表
-        this.report = null; // 清空報表
+        this.orders = [];
+        this.report = null;
         alert('資料庫已清空');
       } catch (error) {
         console.error('清空資料庫失敗:', error);
       }
     }
+  }
+
+  /** 計算訂單總額 */
+  getOrderTotal(order: any): number {
+    return order.items.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0);
   }
 }

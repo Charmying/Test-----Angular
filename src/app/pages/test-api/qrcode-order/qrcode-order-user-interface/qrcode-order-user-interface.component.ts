@@ -27,8 +27,8 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** FormGroup for customization */
   customizedForm!: FormGroup;
   /** API URL */
-  // apiUrl = 'http://localhost:4000';
-  apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  apiUrl = 'http://localhost:4000';
+  // apiUrl = 'https://test-express-api-x0j9.onrender.com';
   /** 分類清單 */
   menuCategories: string[] = [];
   /** 根據分類顯示 Menu Items */
