@@ -18,8 +18,8 @@ import { ApiService } from '../../../../shared/service/api/api.service';
 })
 export class QRCodeOrderAdminPanelComponent implements OnInit {
   /** API URL */
-  apiUrl = 'http://localhost:4000';
-  // apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  // apiUrl = 'http://localhost:4000';
+  apiUrl = 'https://test-express-api-x0j9.onrender.com';
   /** 待處理訂單 */
   orders: any[] = [];
   /** 載入狀態 */

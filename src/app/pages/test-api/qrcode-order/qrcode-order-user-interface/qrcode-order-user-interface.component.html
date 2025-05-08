@@ -92,21 +92,21 @@
       <div class="text-h2 mb-8 pb-4 border-b border-solid border-gray-400">當前餐點確認</div>
       <div *ngFor="let item of currentOrder">
         <div class="flex justify-between">
-          <div>
-            <div class="text-h3 self-center">{{ item.name }}</div>
-            <div *ngIf="item.spice" class="text-body1">辣度：{{ item.spice }}</div>
-            <div *ngIf="item.addons.length" class="text-body1">加料：{{ item.addons.join(', ') }}</div>
+          <div class="mb-8">
+            <div class="text-h3 self-center mb-2">{{ item.name }}</div>
+            <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
+            <div *ngIf="item.addons.length" class="text-body1 mb-2">加料：{{ item.addons.join(', ') }}</div>
           </div>
           <div class="flex gap-2">
-            <div class="border border-black p-1 self-center cursor-pointer" (click)="decreaseItemQuantity(item)"><app-icon name="minus"></app-icon></div>
-            <div class="text-h3 self-center">{{ item.quantity }}</div>
-            <div class="border border-black p-1 self-center cursor-pointer" (click)="increaseItemQuantity(item)"><app-icon name="plus"></app-icon></div>
-            <div class="text-h3 self-center">＄{{ item.price * item.quantity }}</div>
-            <div class="border border-black p-1 self-center cursor-pointer" (click)="removeItem(item)"><app-icon name="cancel"></app-icon></div>
+            <div class="border border-black p-1 cursor-pointer" (click)="decreaseItemQuantity(item)"><app-icon name="minus"></app-icon></div>
+            <div class="text-h3 mt-1">{{ item.quantity }}</div>
+            <div class="border border-black p-1 cursor-pointer" (click)="increaseItemQuantity(item)"><app-icon name="plus"></app-icon></div>
+            <div class="text-h3 mt-1">＄{{ item.price * item.quantity }}</div>
+            <div class="border border-black p-1 cursor-pointer" (click)="removeItem(item)"><app-icon name="cancel"></app-icon></div>
           </div>
         </div>
       </div>
-      <div class="flex justify-between py-4 border-t border-solid border-gray-400 font-bold mt-8">
+      <div class="flex justify-between py-4 border-t border-solid border-gray-400 font-bold">
         <div class="text-h3">總金額</div>
         <div class="text-h3">＄{{ totalAmount }}</div>
       </div>
