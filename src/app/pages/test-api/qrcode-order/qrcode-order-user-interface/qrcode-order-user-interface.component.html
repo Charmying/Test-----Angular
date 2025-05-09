@@ -45,7 +45,7 @@
   <div *ngIf="showCustomized" class="fixed inset-0 z-30 transition-all duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
     <div class="flex justify-center items-center h-full">
       <div class="bg-white rounded-xl p-6 w-11/12 max-w-md transition-all transform duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
-        <div class="text-h2 mb-4">{{ selectedItem?.name }}</div>
+        <div class="text-h2 border-b border-solid border-gray-400 mb-4 pb-4">{{ selectedItem?.name }}</div>
         <!-- 辣度選項 -->
         <div *ngIf="selectedItem?.spiceOptions">
           <app-form-button-list [form]="customizedForm" [title]="'請選擇辣度：'" [data]="spiceOptions" [formControlName]="'spice'" [multiple]="false"></app-form-button-list>
@@ -91,8 +91,8 @@
     <div class="bg-white rounded-xl p-6 w-11/12 transition-all transform duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
       <div class="text-h2 mb-8 pb-4 border-b border-solid border-gray-400">當前餐點確認</div>
       <div *ngFor="let item of currentOrder">
-        <div class="flex justify-between">
-          <div class="mb-8">
+        <div class="block mb-8 sm:mb-0 sm:flex sm:justify-between">
+          <div class="mb-2 sm:mb-8">
             <div class="text-h3 self-center mb-2">{{ item.name }}</div>
             <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
             <div *ngIf="item.addons.length" class="text-body1 mb-2">加料：{{ item.addons.join(', ') }}</div>
