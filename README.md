@@ -30,12 +30,14 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 [Install Tailwind CSS with Angular](https://tailwindcss.com/docs/guides/angular)
+
 ## Code scaffolding
 
 安裝 Tailwind CSS `npm install -D tailwindcss postcss autoprefixer`
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 初始化 Tailwind CSS `npx tailwindcss init`
+
 ## Build
 
 安裝 & 初始化完要重新啟動 `ng serve`
