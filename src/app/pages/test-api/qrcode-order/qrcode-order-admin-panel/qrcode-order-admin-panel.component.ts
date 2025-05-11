@@ -1,13 +1,14 @@
 /** QR Code 點餐系統後台 */
 
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { TestApiHeaderComponent } from '../../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../../shared/components/test/section/section.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { ApiService } from '../../../../shared/service/api/api.service';
+import { io } from 'socket.io-client';
 
 @Component({
   selector: 'app-qrcode-order-admin-panel',
@@ -26,11 +27,24 @@ export class QRCodeOrderAdminPanelComponent implements OnInit {
   isLoading = true;
   /** 營業報表 */
   report: any = null;
+  /** socket */
+  private socket: any;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
     this.fetchOrders();
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupSocketListeners();
+    }
+  }
+
+  /** Socket 監聽 */
+  setupSocketListeners() {
+    this.socket = io(this.apiUrl);
+    this.socket.on('newOrder', (order: any) => {
+      this.orders.push(order);
+    });
   }
 
   /** 獲取訂單資料 */

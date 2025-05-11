@@ -42,3 +42,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 安裝 & 初始化完要重新啟動 `ng serve`
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Angular 整合 Socket.io 客戶端
+
+`npm install socket.io-client`
