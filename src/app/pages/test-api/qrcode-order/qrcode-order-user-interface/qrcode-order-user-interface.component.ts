@@ -6,20 +6,20 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { TestApiHeaderComponent } from '../../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../../shared/components/test/section/section.component';
-import { FormInputTextComponent } from '../../../../shared/components/forms/form-input-text/form-input-text.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { ApiService } from '../../../../shared/service/api/api.service';
 import { Menu } from '../shared/menu-obj';
 import { IconComponent } from '../../../../shared/components/icon/icon.component';
 import { FormButtonListComponent } from '../../../../shared/components/forms/form-button-list/form-button-list.component';
 import { BaseCommonObj } from '../../../../shared/class/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-qrcode-order-user-interface',
   standalone: true,
   templateUrl: './qrcode-order-user-interface.component.html',
   styleUrl: './qrcode-order-user-interface.component.scss',
-  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, FormInputTextComponent, ButtonComponent, IconComponent, FormButtonListComponent]
+  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, ButtonComponent, IconComponent, FormButtonListComponent]
 })
 export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** FormGroup */
@@ -27,8 +27,10 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** FormGroup for customization */
   customizedForm!: FormGroup;
   /** API URL */
-  // apiUrl = 'http://localhost:4000';
-  apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  apiUrl = 'http://localhost:4000';
+  // apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  /** 桌號 */
+  tableNumber: any;
   /** 分類清單 */
   menuCategories: string[] = [];
   /** 根據分類顯示 Menu Items */
@@ -45,10 +47,6 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   selecteCustomized: any = {};
   /** 當前餐點訂單 */
   currentOrder: any[] = [];
-  /** 桌號輸入底部彈窗顯示 */
-  showTableNumber: boolean = true;
-  /** 桌號輸入底部彈窗顯示動畫 */
-  tableNumberAnimation: boolean = false;
   /** 餐點成功加入訂單訊息 */
   successMessage: string = '';
   /** 顯示餐點成功加入訂單 */
@@ -66,17 +64,11 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** 確認餐點訂單彈窗顯示動畫 */
   confirmOrderAnimation: boolean = false;
 
-  constructor(private apiService: ApiService, private fb: FormBuilder, private viewportScroller: ViewportScroller) {
-    this.form = this.fb.group({
-      tableNumber: [''],
-    });
+  constructor(private apiService: ApiService, private fb: FormBuilder, private viewportScroller: ViewportScroller, private route: ActivatedRoute) {
+    this.form = this.fb.group({});
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.tableNumberAnimation = true;
-    }, 10);
-
     this.groupedMenuItems = this.menuItems.reduce((acc, item) => {
       if (!acc[item.category]) {
         acc[item.category] = [];
@@ -87,24 +79,19 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   
     /** 分類清單 */
     this.menuCategories = Object.keys(this.groupedMenuItems);
+
+    /** 根據路由取得桌號 */
+    this.route.queryParams.subscribe(params => {
+      const tableNumber = params['table'];
+      if (tableNumber) {
+        this.tableNumber = tableNumber
+      }
+    });
   }
 
   /** 捲動到分類錨點 */
   scrollToCategory(category: string) {
     this.viewportScroller.scrollToAnchor(category);
-  }
-
-  /** 確認桌號 */
-  confirmTableNumber(): void {
-    const table = this.form.value.tableNumber;
-    if (!table || !table.trim()) {
-      alert('請先輸入桌號！');
-      return;
-    }
-    this.tableNumberAnimation = false;
-    setTimeout(() => {
-      this.showTableNumber = false;
-    }, 300);
   }
 
   /** 開啟餐點客製化彈窗 */
@@ -282,8 +269,13 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
       return;
     }
 
+    if (!this.tableNumber) {
+      alert('桌號未設置！');
+      return;
+    }
+
     const orderData = {
-      tableNumber: this.form.value.tableNumber,
+      tableNumber: this.tableNumber,
       items: this.currentOrder.map(item => ({
         name: item.name,
         price: item.price,

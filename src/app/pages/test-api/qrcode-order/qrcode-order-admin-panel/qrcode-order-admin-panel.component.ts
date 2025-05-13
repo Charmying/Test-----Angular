@@ -19,10 +19,12 @@ import { io } from 'socket.io-client';
 })
 export class QRCodeOrderAdminPanelComponent implements OnInit {
   /** API URL */
-  // apiUrl = 'http://localhost:4000';
-  apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  apiUrl = 'http://localhost:4000';
+  // apiUrl = 'https://test-express-api-x0j9.onrender.com';
   /** 待處理訂單 */
   orders: any[] = [];
+  /** 桌號資訊 */
+  tables: any[] = [];
   /** 載入狀態 */
   isLoading = true;
   /** 營業報表 */
@@ -34,6 +36,7 @@ export class QRCodeOrderAdminPanelComponent implements OnInit {
 
   ngOnInit() {
     this.fetchOrders();
+    this.fetchTables();
     if (isPlatformBrowser(this.platformId)) {
       this.setupSocketListeners();
     }
@@ -45,6 +48,49 @@ export class QRCodeOrderAdminPanelComponent implements OnInit {
     this.socket.on('newOrder', (order: any) => {
       this.orders.push(order);
     });
+  }
+
+  /** 獲取桌號資料 */
+  async fetchTables() {
+    try {
+      this.tables = await this.apiService.get<any[]>(`${this.apiUrl}/qrcodeOrder/tables`);
+      /** 確定 10 桌 */
+      if (this.tables.length < 10) {
+        for (let i = 1; i <= 10; i++) {
+          if (!this.tables.find(table => table.tableNumber === i.toString())) {
+            this.tables.push({ tableNumber: i.toString(), status: 'available', qrCodeUrl: null });
+          }
+        }
+      }
+    } catch (error) {
+      console.error('桌號載入失敗:', error);
+    }
+  }
+
+  /** 標示桌號有人 */
+  async occupyTable(tableNumber: string) {
+    try {
+      const response = await this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/tables/${tableNumber}/occupy`, {});
+      this.tables = this.tables.map(table => 
+        table.tableNumber === tableNumber ? { ...table, status: 'occupied', qrCodeUrl: response.qrCodeUrl } : table
+      );
+    } catch (error) {
+      console.error('標示桌號有人失敗:', error);
+      alert('標示桌號有人失敗，請稍後再試');
+    }
+  }
+
+  /** 結帳並使 QR Code 失效 */
+  async checkoutTable(tableNumber: string) {
+    try {
+      await this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/tables/${tableNumber}/checkout`, {});
+      this.tables = this.tables.map(table => 
+        table.tableNumber === tableNumber ? { ...table, status: 'available', qrCodeUrl: null } : table
+      );
+    } catch (error) {
+      console.error('結帳失敗:', error);
+      alert('結帳失敗，請稍後再試');
+    }
   }
 
   /** 獲取訂單資料 */

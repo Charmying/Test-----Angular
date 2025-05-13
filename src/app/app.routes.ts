@@ -22,6 +22,10 @@ import { QRCodeOrderAdminPanelComponent } from './pages/test-api/qrcode-order/qr
 export const routes: Routes = [
   /** 預設路徑 */
   { path: '', redirectTo: 'pages/home', pathMatch: 'full' },
+
+  /** 配合後端產生的 QR Code 網址 */
+  { path: 'qrcode-order-user-interface', component: QRCodeOrderUserInterfaceComponent },
+  
   {
     path: 'pages',
     children: [

@@ -5,19 +5,6 @@
 <app-section class="relative">
   <div class="text-h1">QR Code 點餐系統前台</div>
 
-  <!-- 桌號輸入底部彈窗 -->
-  <div *ngIf="showTableNumber" class="fixed inset-0 z-10">
-    <!-- 遮罩 -->
-    <div class="absolute inset-0 bg-black transition-all duration-300 ease-in-out" [ngClass]="{'bg-opacity-50': tableNumberAnimation, 'bg-opacity-0': !tableNumberAnimation}"></div>
-    <!-- 彈窗內容 -->
-    <div class="absolute inset-x-0 bottom-0 transition-all duration-300 ease-in-out transform" [ngClass]="{'translate-y-0': tableNumberAnimation, 'translate-y-full': !tableNumberAnimation}">
-      <div class="bg-white p-8 rounded-t-xl shadow-lg">
-        <app-form-input-text [form]="form" [title]="'請先輸入桌號：'" [type]="'text'" [formControlName]="'tableNumber'" [placeHolder]="'請輸入桌號'"></app-form-input-text>
-        <app-button class="block mt-4 text-right" [text]="'確認桌號'" (buttonClick)="confirmTableNumber()"></app-button>
-      </div>
-    </div>
-  </div>
-
   <!-- 分類導航列 -->
   <div class="flex gap-4 my-4 p-4 overflow-x-auto">
     <div *ngFor="let category of menuCategories" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300" (click)="scrollToCategory(category)">{{ category }}</div>
