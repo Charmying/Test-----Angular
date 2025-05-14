@@ -19,8 +19,8 @@ import { io } from 'socket.io-client';
 })
 export class QRCodeOrderAdminPanelComponent implements OnInit {
   /** API URL */
-  apiUrl = 'http://localhost:4000';
-  // apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  // apiUrl = 'http://localhost:4000';
+  apiUrl = 'https://test-express-api-x0j9.onrender.com';
   /** 待處理訂單 */
   orders: any[] = [];
   /** 桌號資訊 */
