@@ -29,6 +29,8 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** API URL */
   // apiUrl = 'http://localhost:4000';
   apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  /** token */
+  qrCodeToken!: string;
   /** 桌號 */
   tableNumber: any;
   /** 分類清單 */
@@ -83,6 +85,7 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     /** 根據路由取得桌號 */
     this.route.queryParams.subscribe(params => {
       const tableNumber = params['table'];
+      this.qrCodeToken = params['token'];
       if (tableNumber) {
         this.tableNumber = tableNumber
       }
@@ -269,13 +272,14 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
       return;
     }
 
-    if (!this.tableNumber) {
-      alert('桌號未設置！');
+    if (!this.tableNumber || !this.qrCodeToken) {
+      alert('桌號或連結錯誤，請重新掃碼！');
       return;
     }
 
     const orderData = {
       tableNumber: this.tableNumber,
+      token: this.qrCodeToken,
       items: this.currentOrder.map(item => ({
         name: item.name,
         price: item.price,

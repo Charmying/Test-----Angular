@@ -71,8 +71,8 @@ export class QRCodeOrderAdminPanelComponent implements OnInit {
   async occupyTable(tableNumber: string) {
     try {
       const response = await this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/tables/${tableNumber}/occupy`, {});
-      this.tables = this.tables.map(table => 
-        table.tableNumber === tableNumber ? { ...table, status: 'occupied', qrCodeUrl: response.qrCodeUrl } : table
+      this.tables = this.tables.map(table =>
+        table.tableNumber === tableNumber? { ...table, status: 'occupied', qrCodeUrl: response.qrCodeUrl, qrCodeToken: response.token } : table
       );
     } catch (error) {
       console.error('標示桌號有人失敗:', error);
@@ -83,9 +83,9 @@ export class QRCodeOrderAdminPanelComponent implements OnInit {
   /** 結帳並使 QR Code 失效 */
   async checkoutTable(tableNumber: string) {
     try {
-      await this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/tables/${tableNumber}/checkout`, {});
+      const response = await this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/tables/${tableNumber}/checkout`, {});
       this.tables = this.tables.map(table => 
-        table.tableNumber === tableNumber ? { ...table, status: 'available', qrCodeUrl: null } : table
+        table.tableNumber === tableNumber ? { ...table, status: 'available', qrCodeUrl: null, qrCodeToken: null } : table
       );
     } catch (error) {
       console.error('結帳失敗:', error);
