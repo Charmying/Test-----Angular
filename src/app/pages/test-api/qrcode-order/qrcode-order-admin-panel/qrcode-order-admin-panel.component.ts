@@ -2,7 +2,6 @@
 
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { TestApiHeaderComponent } from '../../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../../shared/components/test/section/section.component';
@@ -19,8 +18,8 @@ import { io } from 'socket.io-client';
 })
 export class QRCodeOrderAdminPanelComponent implements OnInit {
   /** API URL */
-  // apiUrl = 'http://localhost:4000';
-  apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  apiUrl = 'http://localhost:4000';
+  // apiUrl = 'https://test-express-api-x0j9.onrender.com';
   /** 待處理訂單 */
   orders: any[] = [];
   /** 桌號資訊 */
@@ -54,12 +53,10 @@ export class QRCodeOrderAdminPanelComponent implements OnInit {
   async fetchTables() {
     try {
       this.tables = await this.apiService.get<any[]>(`${this.apiUrl}/qrcodeOrder/tables`);
-      /** 確定 10 桌 */
-      if (this.tables.length < 10) {
-        for (let i = 1; i <= 10; i++) {
-          if (!this.tables.find(table => table.tableNumber === i.toString())) {
-            this.tables.push({ tableNumber: i.toString(), status: 'available', qrCodeUrl: null });
-          }
+      // 共 10 桌
+      for (let i = 1; i <= 10; i++) {
+        if (!this.tables.find(table => table.tableNumber === i.toString())) {
+          this.tables.push({ tableNumber: i.toString(), status: 'available', qrCodeUrl: null });
         }
       }
     } catch (error) {

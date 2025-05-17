@@ -14,7 +14,6 @@
   <div class="my-4">
     <div *ngFor="let category of menuCategories" [attr.id]="category" class="mb-8">
       <div class="text-h2 my-4 p-4">{{ category }}</div>
-      <!-- 商品卡片 -->
       <div *ngFor="let item of groupedMenuItems[category]" class="border-2 border-black rounded-lg p-4 mb-4">
         <div class="flex justify-between">
           <img [src]="item.photo" alt="menu photo" class="w-28 h-28 object-cover rounded-md" />
@@ -35,18 +34,18 @@
         <div class="text-h2 border-b border-solid border-gray-400 mb-4 pb-4">{{ selectedItem?.name }}</div>
         <!-- 辣度選項 -->
         <div *ngIf="selectedItem?.spiceOptions">
-          <app-form-button-list [form]="customizedForm" [title]="'請選擇辣度：'" [data]="spiceOptions" [formControlName]="'spice'" [multiple]="false"></app-form-button-list>
+          <app-form-button-list [form]="form" [title]="'請選擇辣度：'" [data]="spiceOptions" [formControlName]="'spice'" [multiple]="false"></app-form-button-list>
         </div>
         <!-- 加料選項 -->
         <div *ngIf="selectedItem?.addonOptions" class="mt-4">
-          <app-form-button-list [form]="customizedForm" [title]="'請選擇加料：'" [data]="addonOptions" [formControlName]="'addons'" [multiple]="true"></app-form-button-list>
+          <app-form-button-list [form]="form" [title]="'請選擇加料：'" [data]="addonOptions" [formControlName]="'addons'" [multiple]="true"></app-form-button-list>
         </div>
         <!-- 數量選擇 -->
         <div class="mt-4">
           <div class="text-h3 mb-2">數量：</div>
           <div class="flex items-center gap-2">
             <div class="border border-black p-1 cursor-pointer" (click)="decreaseQuantity()"><app-icon name="minus"></app-icon></div>
-            <div class="text-h3">{{ customizedForm.get('quantity')?.value }}</div>
+            <div class="text-h3">{{ form.get('quantity')?.value }}</div>
             <div class="border border-black p-1 cursor-pointer" (click)="increaseQuantity()"><app-icon name="plus"></app-icon></div>
           </div>
         </div>
