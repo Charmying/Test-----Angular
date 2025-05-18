@@ -1,0 +1,19 @@
+<!-- 桌號資訊 -->
+<div class="my-16">
+  <div class="text-h2 mb-4">桌號資訊</div>
+  <div *ngFor="let table of tables" class="border-2 border-solid border-black rounded-lg p-4 mb-4">
+    <div class="flex justify-between items-center">
+      <div>桌號：{{ table.tableNumber }}</div>
+      <div>狀態：{{ table.status === 'available' ? '空桌' : '有人' }}</div>
+      <div *ngIf="table.status === 'available'">
+        <app-button [text]="'標示有人'" (buttonClick)="occupyTable(table.tableNumber)"></app-button>
+      </div>
+      <div *ngIf="table.status === 'occupied'">
+        <app-button [text]="'結帳'" (buttonClick)="checkoutTable(table.tableNumber)"></app-button>
+      </div>
+    </div>
+    <div *ngIf="table.qrCodeUrl">
+      <div>QR Code 網址：{{ table.qrCodeUrl }}</div>
+    </div>
+  </div>
+</div>

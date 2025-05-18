@@ -57,6 +57,14 @@ export class ApiService {
 
   /** ==================================================================================================== */
 
+  // private apiUrl = 'http://localhost:4000';
+  private apiUrl = 'https://test-express-api-x0j9.onrender.com';
+
+  /** 取得 API 網址 */
+  getApiUrl(): string {
+    return this.apiUrl;
+  }
+
   constructor(private http: HttpClient) {}
   
   /** 發送 GET 請求，返回 Promise */

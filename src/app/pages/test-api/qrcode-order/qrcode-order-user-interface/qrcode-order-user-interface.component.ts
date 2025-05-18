@@ -25,8 +25,7 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** FormGroup */
   form!: FormGroup;
   /** API URL */
-  apiUrl = 'http://localhost:4000';
-  // apiUrl = 'https://test-express-api-x0j9.onrender.com';
+  apiUrl!: string;
   /** token */
   qrCodeToken!: string;
   /** 桌號 */
@@ -67,6 +66,8 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   constructor(private apiService: ApiService, private fb: FormBuilder, private viewportScroller: ViewportScroller, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.apiUrl = this.apiService.getApiUrl();
+
     this.groupedMenuItems = this.menuItems.reduce((acc, item) => {
       if (!acc[item.category]) {
         acc[item.category] = [];

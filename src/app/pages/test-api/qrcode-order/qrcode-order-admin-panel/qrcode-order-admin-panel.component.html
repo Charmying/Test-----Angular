@@ -1,87 +1,21 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 
-<app-test-api-header></app-test-api-header>
+<app-test-api-header></app-test-api-header> -->
 
 <app-section>
-  <div class="text-h1">QR Code 點餐系統後台</div>
-  
-  <!-- 桌號管理 -->
-  <div class="my-16">
-    <div class="text-h2 mb-4">桌號管理</div>
-    <div *ngFor="let table of tables" class="border-2 border-solid border-black rounded-lg p-4 mb-4">
-      <div class="flex justify-between items-center">
-        <div>桌號：{{ table.tableNumber }}</div>
-        <div>狀態：{{ table.status === 'available' ? '空桌' : '有人' }}</div>
-        <div *ngIf="table.status === 'available'">
-          <app-button [text]="'標示有人'" (buttonClick)="occupyTable(table.tableNumber)"></app-button>
-        </div>
-        <div *ngIf="table.status === 'occupied'">
-          <app-button [text]="'結帳'" (buttonClick)="checkoutTable(table.tableNumber)"></app-button>
-        </div>
-      </div>
-      <div *ngIf="table.qrCodeUrl">
-        <div>QR Code 網址：{{ table.qrCodeUrl }}</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 待處理訂單 -->
-  <div class="my-16">
-    <div class="text-h2 mb-4">待處理訂單</div>
-    <div *ngIf="!isLoading && orders.length; else noOrders">
-      <div *ngFor="let order of orders" class="border-2 border-solid border-black rounded-lg p-4 mb-4">
-        <div class="text-h2 flex justify-between items-center mb-8">
-          <div>桌號：{{ order.tableNumber }}</div>
-          <div>訂單總額：＄{{ getOrderTotal(order) }}</div>
-        </div>
-        <ul class="mb-8">
-          <li *ngFor="let item of order.items" class="mb-4">
-            <div class="flex justify-between">
-              <div>
-                <div class="text-h3 mb-2">{{ item.name }} × {{ item.quantity }}</div>
-                <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
-                <div *ngIf="item.addons?.length" class="text-body1 mb-2">加料：{{ item.addons.join(', ') }}</div>
-              </div>
-              <div class="text-h3 mb-2">＄{{ item.price * item.quantity }}</div>
-            </div>
-          </li>
-        </ul>
-        <app-button class="block text-end" [text]="'出餐完成'" (buttonClick)="completeOrder(order._id)"></app-button>
-      </div>
-    </div>
-    <ng-template #noOrders>
-      <div class="text-center text-body1">目前沒有待處理訂單</div>
-    </ng-template>
-  </div>
-
-  <!-- 營業報表 -->
-  <div>
-    <app-button class="block my-4" [text]="'生成報表'" (buttonClick)="generateReport()"></app-button>
-    <div *ngIf="report">
-      <div class="text-h2 mb-4">已完成訂單報表</div>
-      <div *ngFor="let order of report.completedOrders" class="border-2 border-solid border-black rounded-lg p-4 mb-4">
-        <div class="text-h2 flex justify-between items-center mb-8">
-          <div>桌號：{{ order.tableNumber }}</div>
-          <div>訂單總額：＄{{ getOrderTotal(order) }}</div>
-        </div>
-        <ul class="mb-8">
-          <li *ngFor="let item of order.items" class="mb-4">
-            <div class="flex justify-between">
-              <div>
-                <div class="text-h3 mb-2">{{ item.name }} × {{ item.quantity }}</div>
-                <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
-                <div *ngIf="item.addons?.length" class="text-body1 mb-2">加料：{{ item.addons.join(', ') }}</div>
-              </div>
-              <div class="text-h3 mb-2">＄{{ item.price * item.quantity }}</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="text-h1 my-2 p-2 text-end">總收入：{{ report.totalRevenue }} 元</div>
-    </div>
-  </div>
-  <!-- 清空報表 -->
-  <div *ngIf="report" class="my-16 text-center">
-    <app-button class="block my-4" [text]="'清空報表'" (buttonClick)="clearDatabase()"></app-button>
+  <!-- <div class="text-h1">QR Code 點餐系統後台</div> -->
+<div class="fixed top-0 left-0 w-full z-20 place-items-center text-center">
+  <nav class="w-full">
+    <ul class="flex text-h2">
+      <li class="flex-1 border border-solid border-black px-8 py-2 cursor-pointer text-center bg-yellow-400" *ngFor="let link of links" (click)="changeOptions(link.title)">
+        <div>{{ link.title }}</div>
+      </li>
+    </ul>
+  </nav>
+</div>
+  <div class="mt-4" [ngSwitch]="options">
+    <app-qrcode-order-admin-table *ngSwitchCase="'桌號資訊'" [tables]="tables"></app-qrcode-order-admin-table>
+    <app-qrcode-order-admin-order *ngSwitchCase="'點餐狀況'" [orders]="orders"></app-qrcode-order-admin-order>
+    <app-qrcode-order-admin-report *ngSwitchCase="'營業報表'" [report]="report"></app-qrcode-order-admin-report>
   </div>
 </app-section>

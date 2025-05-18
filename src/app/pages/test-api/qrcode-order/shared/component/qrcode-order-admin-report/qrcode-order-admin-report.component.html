@@ -1,0 +1,27 @@
+  <!-- 營業報表 -->
+  <div class="my-16">
+    <div class="text-h2 mb-4">已完成訂單報表</div>
+    <div *ngFor="let order of report.completedOrders" class="border-2 border-solid border-black rounded-lg p-4 mb-4">
+      <div class="text-h2 flex justify-between items-center mb-8">
+        <div>桌號：{{ order.tableNumber }}</div>
+        <div>訂單總額：＄{{ getOrderTotal(order) }}</div>
+      </div>
+      <ul class="mb-8">
+        <li *ngFor="let item of order.items" class="mb-4">
+          <div class="flex justify-between">
+            <div>
+              <div class="text-h3 mb-2">{{ item.name }} × {{ item.quantity }}</div>
+              <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
+              <div *ngIf="item.addons?.length" class="text-body1 mb-2">加料：{{ item.addons.join(', ') }}</div>
+            </div>
+            <div class="text-h3 mb-2">＄{{ item.price * item.quantity }}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="text-h1 my-2 p-2 text-end">總收入：{{ report.totalRevenue }} 元</div>
+  </div>
+  <!-- 清空報表 -->
+  <div class="my-16 text-center">
+    <app-button class="block my-4" [text]="'清空報表'" (buttonClick)="clearDatabase()"></app-button>
+  </div>
