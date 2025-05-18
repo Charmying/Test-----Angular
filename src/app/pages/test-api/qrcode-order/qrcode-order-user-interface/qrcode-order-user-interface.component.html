@@ -2,11 +2,28 @@
 
 <app-test-api-header></app-test-api-header> -->
 
+<!-- Banner -->
+<section class="w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden">
+  <div>
+    <img src="assets/images/shop.jpg" alt="Restaurant Banner" class="w-full h-full object-cover object-center" />
+  </div>
+</section>
+
 <app-section class="relative">
   <!-- <div class="text-h1">QR Code 點餐系統前台</div> -->
 
+  <div class="">
+    <div class="flex justify-between">
+      <div class="text-body1">桌號：{{ tableNumber }}</div>
+      <div>
+        <div class="text-body1 text-end">營業時間：08:00 ~ 20:00</div>
+        <div class="text-body1 text-end">地址：台中市ｘｘ路ｘ段ｘｘｘ號</div>
+      </div>
+    </div>
+  </div>
+
   <!-- 分類導航列 -->
-  <div class="flex gap-4 my-4 p-4 overflow-x-auto">
+  <div class="flex gap-4 mt-8 mb-4 overflow-x-auto">
     <div *ngFor="let category of menuCategories" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300" (click)="scrollToCategory(category)">{{ category }}</div>
   </div>
   

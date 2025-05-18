@@ -14,6 +14,10 @@ export class QRCodeOrderAdminTableComponent {
   /** 桌號資訊 */
   @Input() tables!: any[];
 
+  showPrintModal = false;
+  showAdminModal = false;
+  selectedTable: any = null;
+
   constructor(private apiService: ApiService) {}
 
   /** 標示桌號有人 */
@@ -21,7 +25,7 @@ export class QRCodeOrderAdminTableComponent {
     try {
       const response = await this.apiService.post<any>(`${this.apiService.getApiUrl()}/qrcodeOrder/tables/${tableNumber}/occupy`, {});
       this.tables = this.tables.map(table =>
-        table.tableNumber === tableNumber? { ...table, status: 'occupied', qrCodeUrl: response.qrCodeUrl, qrCodeToken: response.token } : table
+        table.tableNumber === tableNumber? { ...table, status: 'occupied', qrCodeUrl: response.qrCodeUrl, qrCodeToken: response.token, occupyTime: new Date() } : table
       );
     } catch (error) {
       console.error('標示桌號有人失敗:', error);
@@ -41,4 +45,43 @@ export class QRCodeOrderAdminTableComponent {
       alert('結帳失敗，請稍後再試');
     }
   }
+
+
+
+
+  /** 開啟列印給客人彈窗 */
+  openPrintModal(table: any) {
+    this.selectedTable = table;
+    this.showPrintModal = true;
+  }
+
+  /** 關閉列印給客人彈窗 */
+  closePrintModal() {
+    this.showPrintModal = false;
+    this.selectedTable = null;
+  }
+
+  /** 開啟後台備用彈窗 */
+  openAdminModal(table: any) {
+    this.selectedTable = table;
+    this.showAdminModal = true;
+  }
+
+  /** 關閉後台備用彈窗 */
+  closeAdminModal() {
+    this.showAdminModal = false;
+    this.selectedTable = null;
+  }
+
+  /** 取得 QR Code 圖片 URL (使用第三方 API) */
+  getQrImageUrl(url: string | null): string {
+    return url ? `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=200x200` : '';
+  }
+
+  /** 列印票券 */
+  printTicket() {
+    window.print();
+  }
+
+
 }
