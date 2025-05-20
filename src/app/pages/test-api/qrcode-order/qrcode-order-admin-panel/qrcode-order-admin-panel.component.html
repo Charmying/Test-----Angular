@@ -4,15 +4,15 @@
 
 <app-section>
   <!-- <div class="text-h1">QR Code 點餐系統後台</div> -->
-<div class="fixed top-0 left-0 w-full z-20 place-items-center text-center">
-  <nav class="w-full">
-    <ul class="flex text-h2">
-      <li class="flex-1 border border-solid border-black px-8 py-2 cursor-pointer text-center bg-yellow-400" *ngFor="let link of links" (click)="changeOptions(link.title)">
-        <div>{{ link.title }}</div>
-      </li>
-    </ul>
-  </nav>
-</div>
+  <div class="fixed top-0 left-0 w-full z-20 place-items-center text-center">
+    <nav class="w-full">
+      <ul class="flex text-h2">
+        <li class="flex-1 border border-solid border-black px-8 py-2 cursor-pointer text-center bg-yellow-400" *ngFor="let link of links" (click)="changeOptions(link.title)">
+          <div>{{ link.title }}</div>
+        </li>
+      </ul>
+    </nav>
+  </div>
   <div class="mt-4" [ngSwitch]="options">
     <app-qrcode-order-admin-table *ngSwitchCase="'桌號資訊'" [tables]="tables"></app-qrcode-order-admin-table>
     <app-qrcode-order-admin-order *ngSwitchCase="'點餐狀況'" [orders]="orders"></app-qrcode-order-admin-order>
