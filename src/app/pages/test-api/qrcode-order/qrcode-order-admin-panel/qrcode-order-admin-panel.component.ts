@@ -6,6 +6,7 @@ import { ApiService } from '../../../../shared/service/api/api.service';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { TestApiHeaderComponent } from '../../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../../shared/components/test/section/section.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { QRCodeOrderAdminTableComponent } from '../shared/component/qrcode-order-admin-table/qrcode-order-admin-table.component';
 import { QRCodeOrderAdminOrderComponent } from '../shared/component/qrcode-order-admin-order/qrcode-order-admin-order.component';
 import { QRCodeOrderAdminReportComponent } from '../shared/component/qrcode-order-admin-report/qrcode-order-admin-report.component';
@@ -17,7 +18,7 @@ import { io } from 'socket.io-client';
   standalone: true,
   templateUrl: './qrcode-order-admin-panel.component.html',
   styleUrl: './qrcode-order-admin-panel.component.scss',
-  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, QRCodeOrderAdminTableComponent, QRCodeOrderAdminOrderComponent, QRCodeOrderAdminReportComponent]
+  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, QRCodeOrderAdminTableComponent, QRCodeOrderAdminOrderComponent, QRCodeOrderAdminReportComponent, ButtonComponent]
 })
 export class QRCodeOrderAdminPanelComponent {
   /** 選擇顯示子層 component (預設) */
@@ -28,6 +29,10 @@ export class QRCodeOrderAdminPanelComponent {
   private socket: any;
   /** 待處理訂單 */
   orders: any[] = [];
+  /** 新餐點提醒彈窗顯示 */
+  showNewOrderRemindModal = false;
+  /** 新餐點提醒彈窗顯示動畫 */
+  showNewOrderRemindAnimation: boolean = false;
   /** 營業報表 */
   report: any = null;
 
@@ -74,7 +79,24 @@ export class QRCodeOrderAdminPanelComponent {
     this.socket = io(this.apiService.getApiUrl());
     this.socket.on('newOrder', (order: any) => {
       this.orders.push(order);
+      this.openCustomizedModal()
     });
+  }
+
+  /** 開啟 */
+  openCustomizedModal() {
+    this.showNewOrderRemindModal = true;
+    setTimeout(() => {
+      this.showNewOrderRemindAnimation = true;
+    }, 10);
+  }
+
+  /** 關閉 */
+  closeNewOrderRemindModal() {
+    this.showNewOrderRemindAnimation = false;
+    setTimeout(() => {
+      this.showNewOrderRemindModal = false;
+    }, 300);
   }
 
   /** 獲取訂單資料 */
