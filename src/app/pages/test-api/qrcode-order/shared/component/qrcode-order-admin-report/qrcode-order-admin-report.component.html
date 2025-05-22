@@ -2,63 +2,35 @@
 <div class="my-16">
   <div class="text-h2 mb-4">已完成訂單報表</div>
 
-  <div class="my-8 flex space-x-4">
-  <app-button
-    [text]="'每桌報表'"
-    (buttonClick)="setView('table')">
-  </app-button>
-  <app-button
-    [text]="'全部統整'"
-    (buttonClick)="setView('consolidated')">
-  </app-button>
-</div>
+  <!-- 使用共用按鈕列表作為時段篩選 -->
+  <div class="my-8">
+    <app-form-button-list
+      [form]="form"
+      [title]="''"
+      [data]="periodOptions"
+      formControlName="viewMode"
+      [multiple]="false">
+    </app-form-button-list>
+  </div>
 
-  <!-- 每桌點的內容 -->
-  <div *ngIf="viewMode === 'table'">
-    <div class="text-h2 mb-4">每桌訂單統整</div>
-    <div *ngFor="let tableOrder of getTableOrders()" class="border-2 border-solid border-black rounded-lg mb-8 p-4">
-      <div class="text-h2 flex justify-between items-center mb-4">
-        <div>桌號：{{ tableOrder.tableNumber }}</div>
-        <div>訂單總額：＄{{ tableOrder.total }}</div>
+  <!-- 全部訂單統整 -->
+  <div class="text-h2 border-b border-solid border-black pb-2 mb-6">{{ viewLabel }}</div>
+  <ul class="mb-8">
+    <li *ngFor="let item of getConsolidatedItems()" class="mb-4">
+      <div class="flex justify-between">
+        <div>
+          <div class="text-h3 mb-2">{{ item.name }} × {{ item.quantity }}</div>
+          <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
+          <div *ngIf="item.addons?.length" class="text-body1 mb-2">加料：{{ item.addons?.join(', ') }}</div>
+        </div>
+        <div class="text-h3 mb-2">＄{{ item.totalPrice }}</div>
       </div>
-      <ul class="mb-4">
-        <li *ngFor="let item of tableOrder.items" class="mb-2">
-          <div class="flex justify-between">
-            <div>
-              <div class="text-h3 mb-1">{{ item.name }} × {{ item.quantity }}</div>
-              <div *ngIf="item.spice" class="text-body1 mb-1">辣度：{{ item.spice }}</div>
-              <div *ngIf="item.addons?.length" class="text-body1 mb-2">加料：{{ item.addons?.join(', ') }}</div>
-            </div>
-            <div class="text-h3 mb-1">＄{{ item.price * item.quantity }}</div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="text-h1 my-2 p-2 text-end">總收入：{{ report.totalRevenue }} 元</div>
-  </div>
-
-  <!-- 全部點的統整 -->
-  <div *ngIf="viewMode === 'consolidated'">
-    <div class="text-h2 mb-4">全部訂單統整</div>
-    <div>
-      <ul class="mb-8">
-        <li *ngFor="let item of getConsolidatedItems()" class="mb-4">
-          <div class="flex justify-between">
-            <div>
-              <div class="text-h3 mb-2">{{ item.name }} × {{ item.quantity }}</div>
-              <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
-              <div *ngIf="item.addons?.length" class="text-body1 mb-2">加料：{{ item.addons?.join(', ') }}</div>
-            </div>
-            <div class="text-h3 mb-2">＄{{ item.totalPrice }}</div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="text-h1 my-2 p-2 text-end">總收入：{{ report.totalRevenue }} 元</div>
-  </div>
+    </li>
+  </ul>
+  <div class="text-h1 my-2 p-2 text-end">總收入：{{ filteredTotalRevenue }} 元</div>
 </div>
 
 <!-- 清空報表 -->
 <div class="my-16 text-center">
-  <app-button class="block my-4" [text]="'清空報表'" (buttonClick)="clearDatabase()"></app-button>
+  <app-button [text]="'清空報表'" (buttonClick)="clearDatabase()"></app-button>
 </div>
