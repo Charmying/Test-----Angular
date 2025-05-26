@@ -12,7 +12,7 @@ import { ButtonComponent } from '../../button/button.component';
   imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
 })
 export class FormButtonListComponent implements OnInit {
-  /** FormGroup */
+/** FormGroup */
   @Input() form!: FormGroup;
   /** input title */
   @Input() title = '';
@@ -22,6 +22,18 @@ export class FormButtonListComponent implements OnInit {
   @Input() formControlName = '';
   /** 是否為多選模式，預設為 false（單選） */
   @Input() multiple = false;
+  /** 選中狀態的文字顏色 */
+  @Input() checkedTextColor?: string;
+  /** 選中狀態的邊框顏色 */
+  @Input() checkedBorderColor?: string;
+  /** 選中狀態的背景色 */
+  @Input() checkedBackgroundColor?: string;
+   /** 未選中狀態的文字顏色 */
+  @Input() uncheckedTextColor?: string;
+  /** 未選中狀態的邊框顏色 */
+  @Input() uncheckedBorderColor?: string;
+  /** 未選中狀態的背景色 */
+  @Input() uncheckedBackgroundColor?: string;
 
   ngOnInit(): void {
     const control = this.form.get(this.formControlName);
@@ -59,5 +71,24 @@ export class FormButtonListComponent implements OnInit {
 
     const value = control.value;
     return this.multiple ? (value || []).includes(item.id) : value === item.id;
+  }
+
+  getButtonClass(item: BaseCommonObj): string {
+    const isChecked = this.isChecked(item);
+    let bgClass: string;
+    let textClass: string;
+    let borderClass: string;
+
+    if (isChecked) {
+      bgClass = this.checkedBackgroundColor ? this.checkedBackgroundColor : 'bg-black';
+      textClass = this.checkedTextColor ? this.checkedTextColor : 'text-white';
+      borderClass = this.checkedBorderColor ? this.checkedBorderColor : 'border-black';
+    } else {
+      bgClass = this.uncheckedBackgroundColor ? this.uncheckedBackgroundColor : 'bg-white';
+      textClass = this.uncheckedTextColor ? this.uncheckedTextColor : 'text-black';
+      borderClass = this.uncheckedBorderColor ? this.uncheckedBorderColor : 'border-black';
+    }
+
+    return `${bgClass} ${textClass} ${borderClass}`;
   }
 }
