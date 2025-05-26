@@ -13,12 +13,18 @@
       </ul>
     </nav>
   </div>
-  <div class="mt-4" [ngSwitch]="options">
-    <app-qrcode-order-admin-table *ngSwitchCase="'桌號資訊'" [tables]="tables"></app-qrcode-order-admin-table>
-    <app-qrcode-order-admin-order *ngSwitchCase="'點餐狀況'" [orders]="orders"></app-qrcode-order-admin-order>
-    <app-qrcode-order-admin-report *ngSwitchCase="'營業報表'" [report]="report"></app-qrcode-order-admin-report>
+  <!-- 載入中顯示 -->
+  <div *ngIf="isLoading" class="flex justify-center items-center h-screen">
+    <div class="text-h1">載入中...</div>
   </div>
-
+  <!-- 資料載入完成後顯示 -->
+  <div *ngIf="!isLoading">
+    <div class="mt-4" [ngSwitch]="options">
+      <app-qrcode-order-admin-table *ngSwitchCase="'桌號資訊'" [tables]="tables"></app-qrcode-order-admin-table>
+      <app-qrcode-order-admin-order *ngSwitchCase="'點餐狀況'" [orders]="orders"></app-qrcode-order-admin-order>
+      <app-qrcode-order-admin-report *ngSwitchCase="'營業報表'" [report]="report"></app-qrcode-order-admin-report>
+    </div>
+  </div>
   <!-- 新餐點提醒彈窗 -->
   <div *ngIf="showNewOrderRemindModal" class="fixed inset-0 z-30 transition-all duration-300 ease-in-out" [ngClass]="showNewOrderRemindAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
     <div class="flex justify-center items-center h-full">

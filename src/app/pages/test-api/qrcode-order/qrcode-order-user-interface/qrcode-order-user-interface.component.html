@@ -4,21 +4,17 @@
 
 <!-- Banner -->
 <section class="w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden">
-  <div>
-    <img src="assets/images/shop.jpg" alt="Restaurant Banner" class="w-full h-full object-cover object-center" />
-  </div>
+  <img src="assets/images/shop.jpg" alt="Restaurant Banner" class="w-full h-full object-cover object-center" />
 </section>
 
 <app-section class="relative">
   <!-- <div class="text-h1">QR Code 點餐系統前台</div> -->
 
-  <div class="">
-    <div class="flex justify-between">
-      <div class="text-body1">桌號：{{ tableNumber }}</div>
-      <div>
-        <div class="text-body1 text-end">營業時間：08:00 ~ 20:00</div>
-        <div class="text-body1 text-end">地址：台中市ｘｘ路ｘ段ｘｘｘ號</div>
-      </div>
+  <div class="flex justify-between">
+    <div class="text-body1">桌號：{{ tableNumber }}</div>
+    <div>
+      <div class="text-body1 text-end">營業時間：08:00 ~ 20:00</div>
+      <div class="text-body1 text-end">地址：台中市ｘｘ路ｘ段ｘｘｘ號</div>
     </div>
   </div>
 
@@ -74,9 +70,9 @@
     </div>
   </div>
 
-  <!-- 成功加入訂單 Toast -->
-  <div *ngIf="showSuccessAddToOrder" class="fixed top-0 left-0 w-full z-20 transition-all duration-500 ease-in-out" [ngClass]="successAddToOrderAnimation ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'">
-    <div class="bg-yellow-400 text-center px-4 py-3 shadow-md">{{ successMessage }}</div>
+  <!-- 統一的 Toast 提示 -->
+  <div *ngIf="toastState.isVisible" class="fixed top-0 left-0 w-full z-20 transition-all duration-500 ease-in-out" [ngClass]="{ 'translate-y-0 opacity-100': toastState.animation, '-translate-y-full opacity-0': !toastState.animation }">
+    <div class="bg-yellow-400 text-body1 text-center px-4 py-3 shadow-md">{{ toastState.message }}</div>
   </div>
 
   <!-- 確認當前餐點訂單按鈕 -->
@@ -86,6 +82,13 @@
         <div class="self-center">確認餐點</div>
         <div class="border border-black p-1">{{ totalQuantity }}</div>
       </div>
+    </div>
+  </div>
+
+  <!-- 正在運送餐點提示 -->
+  <div *ngIf="showSubmittingOrder" class="fixed inset-0 z-30 flex items-center justify-center transition-all duration-300 ease-in-out" [ngClass]="submittingOrderAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+    <div class="bg-white rounded-xl p-6 w-11/12 max-w-sm text-center transition-all transform duration-300 ease-in-out" [ngClass]="submittingOrderAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+      <div class="text-h2 mb-4">📦 正在運送餐點訂單...</div>
     </div>
   </div>
 

@@ -3,244 +3,289 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../../../shared/service/api/api.service';
+import { Menu } from '../shared/menu/menu-obj';
+import { BaseCommonObj } from '../../../../shared/class/common';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { TestApiHeaderComponent } from '../../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../../shared/components/test/section/section.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { ApiService } from '../../../../shared/service/api/api.service';
-import { Menu } from '../shared/menu/menu-obj';
 import { IconComponent } from '../../../../shared/components/icon/icon.component';
 import { FormButtonListComponent } from '../../../../shared/components/forms/form-button-list/form-button-list.component';
-import { BaseCommonObj } from '../../../../shared/class/common';
-import { ActivatedRoute } from '@angular/router';
+
+/** 菜單項目介面 */
+interface MenuItem {
+  name: string;
+  price: number;
+  category: string;
+  photo: string;
+  spiceOptions?: string[];
+  addonOptions?: string[];
+}
+
+/** 訂單項目介面 */
+interface OrderItem {
+  name: string;
+  price: number;
+  quantity: number;
+  spice?: string;
+  addons: string[];
+}
 
 @Component({
   selector: 'app-qrcode-order-user-interface',
   standalone: true,
   templateUrl: './qrcode-order-user-interface.component.html',
   styleUrl: './qrcode-order-user-interface.component.scss',
-  imports: [CommonModule, HeaderComponent, TestApiHeaderComponent, SectionComponent, ButtonComponent, IconComponent, FormButtonListComponent]
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    TestApiHeaderComponent,
+    SectionComponent,
+    ButtonComponent,
+    IconComponent,
+    FormButtonListComponent,
+  ],
 })
 export class QRCodeOrderUserInterfaceComponent implements OnInit {
-  /** FormGroup */
+  /** 客製化表單 */
   form!: FormGroup;
-  /** API URL */
-  apiUrl!: string;
-  /** token */
-  qrCodeToken!: string;
+  /** API 基礎 URL */
+  apiUrl: string;
+  /** QR Code 認證 token */
+  qrCodeToken: string = '';
   /** 桌號 */
-  tableNumber: any;
-  /** 分類清單 */
+  tableNumber: string = '';
+  /** 菜單分類清單 */
   menuCategories: string[] = [];
-  /** 根據分類顯示 Menu Items */
-  groupedMenuItems: { [category: string]: typeof Menu } = {};
-  /** 菜單項目 */
-  menuItems = Menu
-  /** 客製化彈窗顯示 */
-  showCustomized: boolean = false;
-  /** 客製化彈窗顯示動畫 */
-  customizedAnimation: boolean = false;
-  /** 選擇的品項 */
-  selectedItem: any = null;
-  /** 選擇的可製化 */
-  selecteCustomized: any = {};
-  /** 當前餐點訂單 */
-  currentOrder: any[] = [];
-  /** 餐點成功加入訂單訊息 */
-  successMessage: string = '';
-  /** 顯示餐點成功加入訂單 */
-  showSuccessAddToOrder: boolean = false;
-  /** 餐點成功加入訂單彈窗顯示動畫 */
-  successAddToOrderAnimation: boolean = false;
-  /** 餐點成功加入訂單彈窗 timeout 控制 */
-  successAddToOrderAnimationTimeout1: any;
-  successAddToOrderAnimationTimeout2: any;
-  successAddToOrderAnimationTimeout3: any;
-  /** 確認當前餐點按鈕顯示動畫 */
-  confirmButtonAnimation: boolean = false;
-  /** 確認餐點訂單彈窗顯示 */
-  showConfirmOrder: boolean = false;
-  /** 確認餐點訂單彈窗顯示動畫 */
-  confirmOrderAnimation: boolean = false;
+  /** 按分類分組的菜單項目 */
+  groupedMenuItems: { [category: string]: MenuItem[] } = {};
+  /** 靜態菜單數據 */
+  private menuItems = Menu;
+  /** 客製化彈窗顯示狀態 */
+  showCustomized = false;
+  /** 客製化彈窗動畫狀態 */
+  customizedAnimation = false;
+  /** 當前選擇的菜單項目 */
+  selectedItem?: MenuItem;
+  /** 當前訂單項目 */
+  currentOrder: OrderItem[] = [];
+  /** 確認訂單彈窗顯示狀態 */
+  showConfirmOrder = false;
+  /** 確認訂單彈窗動畫狀態 */
+  confirmOrderAnimation = false;
+  /** 確認按鈕動畫狀態 */
+  confirmButtonAnimation = false;
+  /** 正在提交訂單提示顯示狀態 */
+  showSubmittingOrder = false;
+  /** 正在提交訂單提示動畫狀態 */
+  submittingOrderAnimation = false;
+  /** 提交訂單按鈕禁用狀態 */
+  isSubmitting = false;
 
-  constructor(private apiService: ApiService, private fb: FormBuilder, private viewportScroller: ViewportScroller, private route: ActivatedRoute) {}
+  /** Toast 提示狀態 */
+  toastState = {
+    message: '',
+    isVisible: false,
+    animation: false,
+    timeoutIds: [] as NodeJS.Timeout[],
+  };
 
-  ngOnInit() {
+  /** 動畫時間常數（毫秒） */
+  readonly ANIMATION = {
+    TOAST_FADE_IN: 10,
+    TOAST_DISPLAY: 1700,
+    TOAST_FADE_OUT: 2000,
+    MODAL_TRANSITION: 300,
+    MIN_SUBMIT_DISPLAY: 1000,
+  };
+
+  constructor(private apiService: ApiService, private fb: FormBuilder, private viewportScroller: ViewportScroller, private route: ActivatedRoute) {
     this.apiUrl = this.apiService.getApiUrl();
+  }
 
+  /** 初始化組件，載入菜單和路由參數 */
+  ngOnInit(): void {
+    // 分組菜單項目
     this.groupedMenuItems = this.menuItems.reduce((acc, item) => {
-      if (!acc[item.category]) {
-        acc[item.category] = [];
-      }
+      acc[item.category] = acc[item.category] || [];
       acc[item.category].push(item);
       return acc;
-    }, {} as { [category: string]: typeof Menu });
-  
-    // 分類清單
+    }, {} as { [category: string]: MenuItem[] });
+
+    // 設定菜單分類
     this.menuCategories = Object.keys(this.groupedMenuItems);
 
-    /** 根據路由取得桌號 */
+    // 從路由參數取得桌號和 token
     this.route.queryParams.subscribe(params => {
-      this.tableNumber = params['table'];
-      this.qrCodeToken = params['token'];
+      this.tableNumber = params['table'] || '';
+      this.qrCodeToken = params['token'] || '';
     });
   }
 
-  // 捲動到分類錨點
-  scrollToCategory(category: string) {
+  /** 捲動到指定菜單分類 */
+  scrollToCategory(category: string): void {
     this.viewportScroller.scrollToAnchor(category);
   }
 
-  /** 開啟餐點客製化彈窗 */
-  openCustomizedModal(item: any) {
+  /** 開啟客製化彈窗並初始化表單 */
+  openCustomizedModal(item: MenuItem): void {
     this.selectedItem = { ...item };
-
     this.form = this.fb.group({
       spice: [null],
       addons: [[]],
-      quantity: [1]
+      quantity: [1],
     });
-
     this.showCustomized = true;
-    setTimeout(() => {
-      this.customizedAnimation = true;
-    }, 10);
+    setTimeout(() => (this.customizedAnimation = true), this.ANIMATION.TOAST_FADE_IN);
   }
 
-  /** 關閉餐點客製化彈窗 */
-  closeCustomizedModal() {
+  /** 關閉客製化彈窗並重置狀態 */
+  closeCustomizedModal(): void {
     this.customizedAnimation = false;
     setTimeout(() => {
       this.showCustomized = false;
-      this.selectedItem = null;
-      this.form = null!;
-    }, 300);
+      this.selectedItem = undefined;
+    }, this.ANIMATION.MODAL_TRANSITION);
   }
 
-  /** 獲取辣度選項 */
+  /** 取得辣度選項 */
   get spiceOptions(): BaseCommonObj[] {
-    return this.selectedItem?.spiceOptions?.map((option: string) => ({ id: option, name: option })) || [];
+    return (
+      this.selectedItem?.spiceOptions?.map(option => ({ id: option, name: option })) || []
+    );
   }
 
-  /** 獲取加料選項 */
+  /** 取得加料選項 */
   get addonOptions(): BaseCommonObj[] {
-    return this.selectedItem?.addonOptions?.map((option: string) => ({ id: option, name: option })) || [];
+    return (
+      this.selectedItem?.addonOptions?.map(option => ({ id: option, name: option })) || []
+    );
   }
 
-  /** 減少數量 */
-  decreaseQuantity() {
-    const quantityControl = this.form.get('quantity');
-    if (quantityControl && quantityControl.value > 1) {
-      quantityControl.setValue(quantityControl.value - 1);
-    }
-  }
-  
-  /** 增加數量 */
-  increaseQuantity() {
-    const quantityControl = this.form.get('quantity');
-    if (quantityControl) {
-      quantityControl.setValue(quantityControl.value + 1);
+  /** 減少客製化表單中的數量 */
+  decreaseQuantity(): void {
+    const quantity = this.form?.get('quantity')?.value;
+    if (quantity && quantity > 1) {
+      this.form?.get('quantity')?.setValue(quantity - 1);
     }
   }
 
-  /** 餐點加入訂單 */
-  addToOrder() {
+  /** 增加客製化表單中的數量 */
+  increaseQuantity(): void {
+    const quantity = this.form?.get('quantity')?.value;
+    if (quantity) {
+      this.form?.get('quantity')?.setValue(quantity + 1);
+    }
+  }
+
+  /** 將客製化項目加入訂單 */
+  addToOrder(): void {
     if (!this.selectedItem) return;
 
-    const spice = this.form.get('spice')?.value;
-    const addons = this.form.get('addons')?.value || [];
-    const quantity = this.form.get('quantity')?.value || 1;
-
-    const customizedItem = {
+    const { spice, addons, quantity } = this.form!.value;
+    const newItem: OrderItem = {
       name: this.selectedItem.name,
       price: this.selectedItem.price,
-      quantity: quantity,
-      spice: spice,
-      addons: addons
+      quantity: quantity || 1,
+      spice: spice || undefined,
+      addons: addons || [],
     };
 
-    const existingItem = this.currentOrder.find(orderItem =>
-      orderItem.name === customizedItem.name && orderItem.spice === customizedItem.spice && JSON.stringify(orderItem.addons.sort()) === JSON.stringify(customizedItem.addons.sort())
+    // 檢查是否已有相同項目（名稱、辣度、加料一致）
+    const existingItem = this.currentOrder.find(
+      item =>
+        item.name === newItem.name &&
+        item.spice === newItem.spice &&
+        item.addons.sort().join(',') === newItem.addons.sort().join(',')
     );
 
     if (existingItem) {
-      existingItem.quantity += quantity;
+      existingItem.quantity += newItem.quantity;
     } else {
-      this.currentOrder.push(customizedItem);
+      this.currentOrder.push(newItem);
     }
 
-    this.showToast(`成功加入 ${customizedItem.name} x ${quantity}！`);
-    console.log('this.currentOrder:', this.currentOrder)
+    this.showToast(`成功加入 ${newItem.name} x ${newItem.quantity}！`);
     this.closeCustomizedModal();
 
+    // 顯示確認按鈕動畫
     if (!this.confirmButtonAnimation) {
-      setTimeout(() => {
-        this.confirmButtonAnimation = true;
-      }, 10);
+      setTimeout(
+        () => (this.confirmButtonAnimation = true),
+        this.ANIMATION.TOAST_FADE_IN
+      );
     }
   }
 
-  /** 顯示餐點加入訂單 Toast */
-  showToast(message: string) {
-    this.successMessage = message;
+  /** 顯示 Toast 提示（用於成功或錯誤訊息） */
+  showToast(message: string): void {
+    // 清除現有計時器
+    this.toastState.timeoutIds.forEach(clearTimeout);
+    this.toastState.timeoutIds = [];
 
-    clearTimeout(this.successAddToOrderAnimationTimeout1);
-    clearTimeout(this.successAddToOrderAnimationTimeout2);
-    clearTimeout(this.successAddToOrderAnimationTimeout3);
+    // 更新 Toast 狀態
+    this.toastState.message = message;
+    this.toastState.isVisible = true;
+    this.toastState.animation = false;
 
-    this.showSuccessAddToOrder = true;
-    this.successAddToOrderAnimation = false;
-
-    this.successAddToOrderAnimationTimeout1 = setTimeout(() => {
-      this.successAddToOrderAnimation = true;
-    }, 10);
-
-    this.successAddToOrderAnimationTimeout2 = setTimeout(() => {
-      this.successAddToOrderAnimation = false;
-    }, 1700);
-
-    this.successAddToOrderAnimationTimeout3 = setTimeout(() => {
-      this.showSuccessAddToOrder = false;
-    }, 2000);
+    // 設定動畫計時器
+    this.toastState.timeoutIds.push(
+      setTimeout(
+        () => (this.toastState.animation = true),
+        this.ANIMATION.TOAST_FADE_IN
+      ),
+      setTimeout(
+        () => (this.toastState.animation = false),
+        this.ANIMATION.TOAST_DISPLAY
+      ),
+      setTimeout(
+        () => (this.toastState.isVisible = false),
+        this.ANIMATION.TOAST_FADE_OUT
+      )
+    );
   }
 
-  /** 開啟餐點訂單彈窗 */
+  /** 開啟確認訂單彈窗 */
   openConfirmModal(): void {
     if (!this.currentOrder.length) {
-      alert('請先加入餐點！');
+      this.showToast('請先加入餐點！');
       return;
     }
     this.showConfirmOrder = true;
-    setTimeout(() => {
-      this.confirmOrderAnimation = true;
-    }, 10);
+    setTimeout(
+      () => (this.confirmOrderAnimation = true),
+      this.ANIMATION.TOAST_FADE_IN
+    );
   }
 
-  /** 關閉餐點訂單彈窗 */
+  /** 關閉確認訂單彈窗 */
   closeConfirmModal(): void {
     this.confirmOrderAnimation = false;
-    setTimeout(() => {
-      this.showConfirmOrder = false;
-    }, 300);
+    setTimeout(
+      () => (this.showConfirmOrder = false),
+      this.ANIMATION.MODAL_TRANSITION
+    );
   }
 
-  /** 取得全部餐點訂單數量 */
+  /** 計算訂單總數量 */
   get totalQuantity(): number {
     return this.currentOrder.reduce((sum, item) => sum + item.quantity, 0);
   }
 
-  /** 取得確認餐點總金額 */
+  /** 計算訂單總金額 */
   get totalAmount(): number {
-    return this.currentOrder.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    return this.currentOrder.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
-  /** 確認餐點訂單中增加餐點份量功能 */
-  increaseItemQuantity(item: any) {
+  /** 增加確認訂單中項目的數量 */
+  increaseItemQuantity(item: OrderItem): void {
     item.quantity += 1;
   }
 
-  /** 確認餐點訂單中減少餐點份量功能 */
-  decreaseItemQuantity(item: any) {
+  /** 減少確認訂單中項目的數量 */
+  decreaseItemQuantity(item: OrderItem): void {
     if (item.quantity > 1) {
       item.quantity -= 1;
     } else {
@@ -248,54 +293,88 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     }
   }
 
-  /** 確認餐點訂單中移除餐點功能 */
-  removeItem(item: any) {
+  /** 移除確認訂單中的項目 */
+  removeItem(item: OrderItem): void {
     const index = this.currentOrder.indexOf(item);
     if (index > -1) {
       this.currentOrder.splice(index, 1);
     }
 
-    if (this.currentOrder.length === 0) {
+    if (!this.currentOrder.length) {
       this.confirmButtonAnimation = false;
       this.closeConfirmModal();
     }
   }
 
-  /** 提交餐點訂單 */
-  async submitOrder() {
+  /** 提交訂單到後端 */
+  async submitOrder(): Promise<void> {
+    // 檢查是否正在提交或訂單為空
     if (!this.currentOrder.length) {
-      alert('請先加入餐點！');
+      this.showToast('請先加入餐點！');
       return;
     }
 
+    // 驗證桌號和 token
     if (!this.tableNumber || !this.qrCodeToken) {
-      alert('桌號或連結錯誤，請重新掃碼！');
+      this.showToast('桌號或連結錯誤，請重新掃碼！');
       return;
     }
+
+    this.isSubmitting = true;
 
     const orderData = {
       tableNumber: this.tableNumber,
       token: this.qrCodeToken,
-      items: this.currentOrder.map(item => ({
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-        spice: item.spice,
-        addons: item.addons
-      }))
+      items: this.currentOrder,
     };
 
-    console.log('orderData', orderData)
-
     try {
-      await this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/orders`, orderData);
-      alert('訂單已提交！');
+      this.showSubmittingOrder = true;
+      setTimeout(
+        () => (this.submittingOrderAnimation = true),
+        this.ANIMATION.TOAST_FADE_IN
+      );
+
+      // 記錄開始時間
+      const startTime = Date.now();
+
+      // 並行執行 API 請求和最小顯示時間
+      await Promise.all([
+        this.apiService.post<any>(`${this.apiUrl}/qrcodeOrder/orders`, orderData),
+        new Promise(resolve => setTimeout(resolve, this.ANIMATION.MIN_SUBMIT_DISPLAY)),
+      ]);
+
+      // 計算剩餘等待時間，確保最小顯示時間
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = this.ANIMATION.MIN_SUBMIT_DISPLAY - elapsedTime;
+      if (remainingTime > 0) {
+        await new Promise(resolve => setTimeout(resolve, remainingTime));
+      }
+
+      // 關閉提交提示
+      this.submittingOrderAnimation = false;
+      setTimeout(
+        () => (this.showSubmittingOrder = false),
+        this.ANIMATION.MODAL_TRANSITION
+      );
+
+      // 顯示成功提示
+      this.showToast('✅ 餐點成功提交！');
+
+      // 重置訂單狀態
       this.currentOrder = [];
       this.closeConfirmModal();
       this.confirmButtonAnimation = false;
     } catch (error) {
       console.error('提交訂單失敗:', error);
-      alert('提交訂單失敗，請稍後再試！');
+      this.submittingOrderAnimation = false;
+      setTimeout(
+        () => (this.showSubmittingOrder = false),
+        this.ANIMATION.MODAL_TRANSITION
+      );
+      this.showToast('提交訂單失敗，請稍後再試！');
+    } finally {
+      this.isSubmitting = false;
     }
   }
 }

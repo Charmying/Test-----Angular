@@ -35,6 +35,8 @@ export class QRCodeOrderAdminPanelComponent {
   showNewOrderRemindAnimation: boolean = false;
   /** 營業報表 */
   report: any = null;
+  /** 新增載入狀態 */
+  isLoading = true;
 
   /** 子層 component */
   links: any[] = [
@@ -50,13 +52,41 @@ export class QRCodeOrderAdminPanelComponent {
 
   constructor(private apiService: ApiService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngOnInit() {
-    this.fetchTables();
-    if (isPlatformBrowser(this.platformId)) {
-      this.setupSocketListeners();
+  async ngOnInit() {
+    try {
+      await this.fetchInitialData();
+      if (isPlatformBrowser(this.platformId)) {
+        this.setupSocketListeners();
+      }
+    } catch (error) {
+      console.error('初始化失敗:', error);
+    } finally {
+      this.isLoading = false;
     }
-    this.fetchOrders();
-    this.generateReport();
+  }
+
+  /** 獲取所有初始資料 */
+  async fetchInitialData() {
+    try {
+      const [tables, orders, report] = await Promise.all([
+        this.apiService.get<any[]>(`${this.apiService.getApiUrl()}/qrcodeOrder/tables`),
+        this.apiService.get<any[]>(`${this.apiService.getApiUrl()}/qrcodeOrder/orders`),
+        this.apiService.get<any>(`${this.apiService.getApiUrl()}/qrcodeOrder/reports`),
+      ]);
+
+      this.tables = tables;
+      for (let i = 1; i <= 10; i++) {
+        if (!this.tables.find(table => table.tableNumber === i.toString())) {
+          this.tables.push({ tableNumber: i.toString(), status: 'available', qrCodeUrl: null });
+        }
+      }
+
+      this.orders = orders;
+      this.report = report;
+    } catch (error) {
+      console.error('資料載入失敗:', error);
+      throw error;
+    }
   }
 
   /** 獲取桌號資料 */
