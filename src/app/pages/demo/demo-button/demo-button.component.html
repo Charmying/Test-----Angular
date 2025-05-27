@@ -73,5 +73,19 @@
         <div class="text-body1">(buttonClick) => 點擊按鈕觸發 click 事件</div>
       </td>
     </tr>
+    <tr>
+      <td class="text-center align-middle">
+        <div>
+          <app-button [text]="'按鈕'" [textColor]="'#333333'" [backgroundColor]="'#666666'" [borderColor]="'#999999'" [border]="true" (buttonClick)="click()"></app-button>
+        </div>
+      </td>
+      <td>
+        <div class="text-body1">[text] => 按鈕文字</div>
+        <div class="text-body1">[textColor] => 文字顏色</div>
+        <div class="text-body1">[backgroundColor] => 背景顏色</div>
+        <div class="text-body1">[borderColor] => 邊框顏色</div>
+        <div class="text-body1">(buttonClick) => 點擊按鈕觸發 click 事件</div>
+      </td>
+    </tr>
   </tbody>
 </table>

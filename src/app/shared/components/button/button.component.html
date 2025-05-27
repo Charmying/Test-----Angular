@@ -1,4 +1,4 @@
-<button class="w-max h-10 px-4 py-1 rounded-lg transition-colors duration-200" [ngClass]="[buttonClass, border ? 'border-2 border-solid border-black' : 'border-0']" (click)="click()">
+<button class="w-max h-10 px-4 py-1 rounded-lg transition-colors duration-200" [ngClass]="[buttonClass, border ? 'border-2 border-solid' : 'border-0']" [ngStyle]="{ color: textColor, backgroundColor: backgroundColor, borderColor: border ? borderColor : undefined }" (click)="click()">
   <div class="flex items-center">
     <ng-container *ngIf="leftIcon">
       <div class="mr-1">

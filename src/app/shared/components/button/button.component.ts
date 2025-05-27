@@ -15,6 +15,9 @@ export class ButtonComponent {
   @Input() text = '';
   @Input() buttonClass = '';
   @Input() border = true;
+  @Input() textColor: string = '#000000';
+  @Input() backgroundColor: string = '#FFFFFF';
+  @Input() borderColor: string = '#000000';
   @Output() buttonClick = new EventEmitter<void>();
 
   click(): void {
