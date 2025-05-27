@@ -23,4 +23,9 @@ export class ButtonComponent {
   click(): void {
     this.buttonClick.emit();
   }
+
+  /** 是否使用 inline style 模式 */
+  get useInlineStyle(): boolean {
+    return !this.buttonClass;
+  }
 }
