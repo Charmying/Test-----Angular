@@ -2,11 +2,7 @@
   <div *ngIf="title" class="text-lg font-semibold mb-2">{{ title }}</div>
   <div class="flex gap-4 flex-wrap">
     <div *ngFor="let item of data">
-      <app-button 
-        [text]="item.name" 
-        [buttonClass]="getButtonClass(item)" 
-        (buttonClick)="selectButton(item)">
-      </app-button>
+      <app-button [text]="item.name" [buttonClass]="getButtonClass(item)" (buttonClick)="selectButton(item)"></app-button>
     </div>
   </div>
 </div>
