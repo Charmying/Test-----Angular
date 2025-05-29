@@ -83,6 +83,12 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
   submittingOrderAnimation = false;
   /** 提交訂單按鈕禁用狀態 */
   isSubmitting = false;
+  /** 歷史訂單 */
+  historyOrders: any[] = [];
+  /** 歷史訂單彈窗顯示狀態 */
+  showHistoryModal = false;
+  /** 歷史訂單彈窗動畫狀態 */
+  historyModalAnimation = false;
 
   /** Toast 提示狀態 */
   toastState = {
@@ -122,6 +128,32 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
       this.tableNumber = params['table'] || '';
       this.qrCodeToken = params['token'] || '';
     });
+  }
+
+  /** 開啟歷史訂單彈窗並獲取歷史訂單 */
+  async openHistoryModal() {
+    try {
+      const response = await this.apiService.get<any>(`${this.apiUrl}/qrcodeOrder/tables/${this.tableNumber}/orders`);
+      this.historyOrders = response;
+      this.showHistoryModal = true;
+      setTimeout(() => (this.historyModalAnimation = true), this.ANIMATION.TOAST_FADE_IN);
+    } catch (error) {
+      console.error('獲取歷史訂單失敗:', error);
+      this.showToast('獲取歷史訂單失敗，請稍後重試');
+    }
+  }
+
+  /** 關閉歷史訂單彈窗 */
+  closeHistoryModal() {
+    this.historyModalAnimation = false;
+    setTimeout(() => {
+      this.showHistoryModal = false;
+    }, this.ANIMATION.MODAL_TRANSITION);
+  }
+
+  /** 計算訂單總金額 */
+  getTotalAmount(order: any): number {
+    return order.items.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0);
   }
 
   /** 捲動到指定菜單分類 */

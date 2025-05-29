@@ -40,6 +40,32 @@
     </div>
   </div>
 
+  <!-- 歷史訂單按鈕 -->
+  <div class="my-12 flex justify-center">
+    <app-button [text]="'點餐紀錄'" (buttonClick)="openHistoryModal()"></app-button>
+  </div>
+  <!-- 歷史訂單彈窗 -->
+  <div *ngIf="showHistoryModal" class="fixed inset-0 z-50 transition-all duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+    <div class="flex justify-center items-center h-full">
+      <div class="bg-white rounded-xl p-6 w-11/12 max-w-2xl transition-all transform duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+        <div class="text-h2 mb-4">點餐紀錄</div>
+        <div *ngFor="let order of historyOrders" class="border-t border-solid border-gray-400 pt-4 my-4">
+          <div class="text-h3">狀態：{{ order.status === 'pending' ? '餐點製作中' : '餐點已送達' }}</div>
+          <div class="text-body1">訂單詳情：</div>
+          <div *ngFor="let item of order.items">
+            <div class="text-body1">{{ item.name }} x {{ item.quantity }} - ＄{{ item.price * item.quantity }}</div>
+            <div class="text-body1" *ngIf="item.spice">辣度：{{ item.spice }}</div>
+            <div class="text-body1" *ngIf="item.addons.length">加料：{{ item.addons.join(', ') }}</div>
+          </div>
+          <div class="text-body1">總金額：＄{{ getTotalAmount(order) }}</div>
+        </div>
+        <div class="flex justify-end mt-4">
+          <app-button [text]="'關閉'" (buttonClick)="closeHistoryModal()"></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 客製化選項彈窗 -->
   <div *ngIf="showCustomized" class="fixed inset-0 z-30 transition-all duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
     <div class="flex justify-center items-center h-full">
@@ -71,7 +97,7 @@
   </div>
 
   <!-- 統一的 Toast 提示 -->
-  <div *ngIf="toastState.isVisible" class="fixed top-0 left-0 w-full z-20 transition-all duration-500 ease-in-out" [ngClass]="{ 'translate-y-0 opacity-100': toastState.animation, '-translate-y-full opacity-0': !toastState.animation }">
+  <div *ngIf="toastState.isVisible" class="fixed top-0 left-0 w-full z-30 transition-all duration-500 ease-in-out" [ngClass]="{ 'translate-y-0 opacity-100': toastState.animation, '-translate-y-full opacity-0': !toastState.animation }">
     <div class="bg-yellow-400 text-body1 text-center px-4 py-3 shadow-md">{{ toastState.message }}</div>
   </div>
 
@@ -93,7 +119,7 @@
   </div>
 
   <!-- 確認餐點訂單彈窗 -->
-  <div *ngIf="showConfirmOrder" class="fixed inset-0 flex items-center justify-center z-20 transition-all duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+  <div *ngIf="showConfirmOrder" class="fixed inset-0 flex items-center justify-center z-30 transition-all duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
     <div class="bg-white rounded-xl p-6 w-11/12 transition-all transform duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
       <div class="text-h2 mb-8 pb-4 border-b border-solid border-gray-400">當前餐點確認</div>
       <div *ngFor="let item of currentOrder">
