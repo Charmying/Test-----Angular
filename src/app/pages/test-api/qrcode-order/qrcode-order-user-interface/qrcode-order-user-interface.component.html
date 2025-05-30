@@ -1,151 +1,160 @@
-<!-- <app-header></app-header>
+<section class="text-[#F8F9FA] bg-[#1E2123]">
+  <section class="max-w-[768px] m-auto">
+    <!-- Header -->
+    <section>
+      <div class="text-body2 font-black p-4">肥宅打烊 南義 PIZZA 窯烤</div>
+    </section>
 
-<app-test-api-header></app-test-api-header> -->
+    <!-- Banner -->
+    <section class="w-full h-48 overflow-hidden sm:h-64 md:h-80 lg:h-96">
+      <img src="assets/images/shop.jpg" alt="Restaurant Banner" class="w-full h-full object-cover object-center" />
+    </section>
 
-<!-- Banner -->
-<section class="w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden">
-  <img src="assets/images/shop.jpg" alt="Restaurant Banner" class="w-full h-full object-cover object-center" />
+    <!-- Information -->
+    <app-section>
+      <div class="text-h2 my-2">肥宅打烊 總店</div>
+      <div class="text-body1 my-2">桌號：{{ tableNumber }}</div>
+      <div class="text-body1 my-2">營業時間：08:00 ~ 20:00</div>
+      <div class="text-body1 my-2">地址：台中市ｘｘ路ｘ段ｘｘｘ號</div>
+    </app-section>
+
+    <!-- 分類導航列 -->
+    <app-section>
+      <div class="flex gap-4 overflow-x-auto whitespace-nowrap no-scrollbar">
+        <div *ngFor="let category of menuCategories" class="text-[#1E2123] bg-[#F8F9FA] px-4 py-2 rounded inline-block shrink-0" (click)="scrollToCategory(category)">{{ category }}</div>
+      </div>
+    </app-section>
+
+    <!-- 菜單列表 -->
+    <app-section>
+      <div *ngFor="let category of menuCategories" [attr.id]="category" class="mb-8">
+        <div class="text-h1 p-4 mb-6">{{ category }}</div>
+        <div *ngFor="let item of groupedMenuItems[category]" class="border-2 border-[#1E2123] rounded-lg p-4 mb-4">
+          <div class="flex justify-between gap-8" (click)="openCustomizedModal(item)">
+            <div class="flex flex-col justify-between">
+              <div class="text-body1">{{ item.name }}</div>
+              <div class="limitRows text-body2 my-2">{{ item.description }}</div>
+              <div class="text-body1">＄{{ item.price }}</div>
+            </div>
+            <img [src]="item.photo" alt="menu photo" class="w-32 h-32 self-center object-cover rounded-md" />
+          </div>
+        </div>
+      </div>
+    </app-section>
+
+    <!-- 歷史訂單按鈕 -->
+    <section class="p-4 mt-4">
+      <div class="mt-8 mb-16 flex justify-center">
+        <app-button [text]="'點餐紀錄'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="openHistoryModal()"></app-button>
+      </div>
+    </section>
+
+    <!-- 彈窗區塊 -->
+    <section class="relative">
+      <!-- 歷史訂單彈窗 -->
+      <div *ngIf="showHistoryModal" class="fixed inset-0 z-50 transition-all duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+        <div class="h-full flex justify-center items-center">
+          <div class="bg-[#1E2123] w-11/12 max-w-2xl rounded-xl p-6 transition-all transform duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+            <div class="text-h2 mb-4 pb-4 border-b border-solid border-[#F8F9FA]">點餐紀錄</div>
+            <div *ngFor="let order of historyOrders" class="border-t border-solid border-[#1E2123] pt-4 my-4">
+              <div class="text-h3 mb-2">狀態：{{ order.status === 'pending' ? '餐點製作中' : '餐點已送達' }}</div>
+              <div class="text-body1">訂單詳情：</div>
+              <div *ngFor="let item of order.items">
+                <div class="text-body1">{{ item.name }} x {{ item.quantity }} - ＄{{ item.price * item.quantity }}</div>
+                <div class="text-body1" *ngIf="item.spice">辣度：{{ item.spice }}</div>
+                <div class="text-body1" *ngIf="item.addons.length">加料：{{ item.addons.join(', ') }}</div>
+              </div>
+              <div class="text-body1">總金額：＄{{ getTotalAmount(order) }}</div>
+            </div>
+            <div class="flex justify-end mt-4">
+              <app-button [text]="'關閉'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="closeHistoryModal()"></app-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 客製化選項彈窗 -->
+      <div *ngIf="showCustomized" class="fixed inset-0 z-30 transition-all duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+        <div class="h-full flex justify-center items-center">
+          <div class="bg-[#1E2123] rounded-xl p-6 w-11/12 max-w-md transition-all transform duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+            <div class="text-h2 mb-4 pb-4 border-b border-solid border-[#F8F9FA]">{{ selectedItem?.name }}</div>
+            <!-- 辣度選項 -->
+            <div *ngIf="selectedItem?.spiceOptions">
+              <app-form-button-list [form]="form" [title]="'請選擇辣度：'" [data]="spiceOptions" [formControlName]="'spice'" [multiple]="false" uncheckedTextColor="text-[#F8F9FA]" uncheckedBorderColor="border-[#F8F9FA]" uncheckedBackgroundColor="bg-[#1E2123]" checkedTextColor="text-[#1E2123]" checkedBorderColor="border-[#1E2123]" checkedBackgroundColor="bg-[#F8F9FA]"></app-form-button-list>
+            </div>
+            <!-- 加料選項 -->
+            <div *ngIf="selectedItem?.addonOptions" class="mt-4">
+              <app-form-button-list [form]="form" [title]="'請選擇加料：'" [data]="addonOptions" [formControlName]="'addons'" [multiple]="true" uncheckedTextColor="text-[#F8F9FA]" uncheckedBorderColor="border-[#F8F9FA]" uncheckedBackgroundColor="bg-[#1E2123]" checkedTextColor="text-[#1E2123]" checkedBorderColor="border-[#1E2123]" checkedBackgroundColor="bg-[#F8F9FA]"></app-form-button-list>
+            </div>
+            <!-- 數量選擇 -->
+            <div class="mt-4">
+              <div class="text-h3 mb-2">數量：</div>
+              <div class="flex items-center gap-2">
+                <div class="p-2 border border-[#1E2123] cursor-pointer" (click)="decreaseQuantity()"><app-icon name="minus"></app-icon></div>
+                <div class="text-h3 mx-2">{{ form.get('quantity')?.value }}</div>
+                <div class="p-2 border border-solid border-[#1E2123] cursor-pointer" (click)="increaseQuantity()"><app-icon name="plus"></app-icon></div>
+              </div>
+            </div>
+            <div class="mt-6 flex justify-end gap-4">
+              <app-button [text]="'取消'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="closeCustomizedModal()"></app-button>
+              <app-button [text]="'加入訂單'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="addToOrder()"></app-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 統一的 Toast 提示 -->
+      <div *ngIf="toastState.isVisible" class="w-full fixed top-0 left-0 z-30 transition-all duration-500 ease-in-out" [ngClass]="{ 'translate-y-0 opacity-100': toastState.animation, '-translate-y-full opacity-0': !toastState.animation }">
+        <div class="bg-[#1E2123] text-body1 text-center p-4 border-b-4 border-solid border-[#F8F9FA] shadow-md">{{ toastState.message }}</div>
+      </div>
+
+      <!-- 確認當前訂單按鈕 -->
+      <div *ngIf="currentOrder.length">
+        <div class="text-body1 bg-[#1E2123] border-t-4 border-solid border-[#F8F9FA] text-center px-6 py-2 fixed inset-x-0 bottom-0 cursor-pointer transition-all duration-500 ease-out transform" [ngClass]="confirmButtonAnimation ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-full scale-110 opacity-0'" (click)="openConfirmModal()">
+          <div class="flex justify-between">
+            <div class="self-center">確認餐點</div>
+            <div class="border border-[#1E2123] p-1">{{ totalQuantity }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 確認當前訂單彈窗 -->
+      <div *ngIf="showConfirmOrder" class="fixed inset-0 flex items-center justify-center z-30 transition-all duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+        <div class="bg-[#1E2123] rounded-xl p-6 w-11/12 transition-all transform duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+          <div class="text-h2 mb-8 pb-4 border-b border-solid border-[#F8F9FA]">當前餐點確認</div>
+          <div *ngFor="let item of currentOrder">
+            <div class="block mb-8 sm:mb-0 sm:flex sm:justify-between">
+              <div class="mb-4 sm:mb-8">
+                <div class="text-h3 mb-2 self-center border-b border-solid border-[#1E2123]">{{ item.name }}</div>
+                <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
+                <div *ngIf="item.addons.length" class="text-body1 mb-2">加料：{{ item.addons.join(', ') }}</div>
+              </div>
+              <div class="flex gap-2">
+                <div class="p-2 border border-[#1E2123] cursor-pointer" (click)="decreaseItemQuantity(item)"><app-icon name="minus"></app-icon></div>
+                <div class="text-h3 mt-2">{{ item.quantity }}</div>
+                <div class="p-2 border border-[#1E2123] cursor-pointer" (click)="increaseItemQuantity(item)"><app-icon name="plus"></app-icon></div>
+                <div class="text-h3 mt-2">＄{{ item.price * item.quantity }}</div>
+                <div class="p-2 border border-[#1E2123] cursor-pointer" (click)="removeItem(item)"><app-icon name="cancel"></app-icon></div>
+              </div>
+            </div>
+          </div>
+          <div class="font-bold py-4 flex justify-between border-t border-solid border-[#1E2123]">
+            <div class="text-h3">總金額</div>
+            <div class="text-h3">＄{{ totalAmount }}</div>
+          </div>
+          <div class="flex justify-end mt-4 space-x-4">
+            <app-button [text]="'繼續點餐'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="closeConfirmModal()"></app-button>
+            <app-button [text]="'確定送出'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="submitOrder()"></app-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 正在運送餐點提示 -->
+      <div *ngIf="showSubmittingOrder" class="fixed inset-0 z-30 flex items-center justify-center transition-all duration-300 ease-in-out" [ngClass]="submittingOrderAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
+        <div class="bg-[#1E2123] rounded-xl p-6 w-11/12 max-w-sm text-center transition-all transform duration-300 ease-in-out" [ngClass]="submittingOrderAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+          <div class="text-h2 mb-4">📦 正在運送餐點訂單...</div>
+        </div>
+      </div>
+    </section>
+  </section>
 </section>
-
-<app-section class="relative">
-  <!-- <div class="text-h1">QR Code 點餐系統前台</div> -->
-
-  <div class="flex justify-between">
-    <div class="text-body1">桌號：{{ tableNumber }}</div>
-    <div>
-      <div class="text-body1 text-end">營業時間：08:00 ~ 20:00</div>
-      <div class="text-body1 text-end">地址：台中市ｘｘ路ｘ段ｘｘｘ號</div>
-    </div>
-  </div>
-
-  <!-- 分類導航列 -->
-  <div class="flex gap-4 mt-8 mb-4 overflow-x-auto">
-    <div *ngFor="let category of menuCategories" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300" (click)="scrollToCategory(category)">{{ category }}</div>
-  </div>
-  
-  <!-- 菜單列表 -->
-  <div class="my-4">
-    <div *ngFor="let category of menuCategories" [attr.id]="category" class="mb-8">
-      <div class="text-h2 my-4 p-4">{{ category }}</div>
-      <div *ngFor="let item of groupedMenuItems[category]" class="border-2 border-black rounded-lg p-4 mb-4">
-        <div class="flex justify-between">
-          <img [src]="item.photo" alt="menu photo" class="w-28 h-28 object-cover rounded-md" />
-          <div class="relative">
-            <div class="text-body1 text-end">{{ item.name }}</div>
-            <div class="text-body1 text-end">＄{{ item.price }}</div>
-            <app-button class="block text-end absolute bottom-0 right-0" [text]="'加入訂單'" (buttonClick)="openCustomizedModal(item)"></app-button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 歷史訂單按鈕 -->
-  <div class="my-12 flex justify-center">
-    <app-button [text]="'點餐紀錄'" (buttonClick)="openHistoryModal()"></app-button>
-  </div>
-  <!-- 歷史訂單彈窗 -->
-  <div *ngIf="showHistoryModal" class="fixed inset-0 z-50 transition-all duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
-    <div class="flex justify-center items-center h-full">
-      <div class="bg-white rounded-xl p-6 w-11/12 max-w-2xl transition-all transform duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
-        <div class="text-h2 mb-4">點餐紀錄</div>
-        <div *ngFor="let order of historyOrders" class="border-t border-solid border-gray-400 pt-4 my-4">
-          <div class="text-h3">狀態：{{ order.status === 'pending' ? '餐點製作中' : '餐點已送達' }}</div>
-          <div class="text-body1">訂單詳情：</div>
-          <div *ngFor="let item of order.items">
-            <div class="text-body1">{{ item.name }} x {{ item.quantity }} - ＄{{ item.price * item.quantity }}</div>
-            <div class="text-body1" *ngIf="item.spice">辣度：{{ item.spice }}</div>
-            <div class="text-body1" *ngIf="item.addons.length">加料：{{ item.addons.join(', ') }}</div>
-          </div>
-          <div class="text-body1">總金額：＄{{ getTotalAmount(order) }}</div>
-        </div>
-        <div class="flex justify-end mt-4">
-          <app-button [text]="'關閉'" (buttonClick)="closeHistoryModal()"></app-button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 客製化選項彈窗 -->
-  <div *ngIf="showCustomized" class="fixed inset-0 z-30 transition-all duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
-    <div class="flex justify-center items-center h-full">
-      <div class="bg-white rounded-xl p-6 w-11/12 max-w-md transition-all transform duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
-        <div class="text-h2 border-b border-solid border-gray-400 mb-4 pb-4">{{ selectedItem?.name }}</div>
-        <!-- 辣度選項 -->
-        <div *ngIf="selectedItem?.spiceOptions">
-          <app-form-button-list [form]="form" [title]="'請選擇辣度：'" [data]="spiceOptions" [formControlName]="'spice'" [multiple]="false"></app-form-button-list>
-        </div>
-        <!-- 加料選項 -->
-        <div *ngIf="selectedItem?.addonOptions" class="mt-4">
-          <app-form-button-list [form]="form" [title]="'請選擇加料：'" [data]="addonOptions" [formControlName]="'addons'" [multiple]="true"></app-form-button-list>
-        </div>
-        <!-- 數量選擇 -->
-        <div class="mt-4">
-          <div class="text-h3 mb-2">數量：</div>
-          <div class="flex items-center gap-2">
-            <div class="border border-black p-1 cursor-pointer" (click)="decreaseQuantity()"><app-icon name="minus"></app-icon></div>
-            <div class="text-h3">{{ form.get('quantity')?.value }}</div>
-            <div class="border border-black p-1 cursor-pointer" (click)="increaseQuantity()"><app-icon name="plus"></app-icon></div>
-          </div>
-        </div>
-        <div class="flex justify-end mt-6 gap-4">
-          <app-button [text]="'取消'" (buttonClick)="closeCustomizedModal()"></app-button>
-          <app-button [text]="'加入訂單'" (buttonClick)="addToOrder()"></app-button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 統一的 Toast 提示 -->
-  <div *ngIf="toastState.isVisible" class="fixed top-0 left-0 w-full z-30 transition-all duration-500 ease-in-out" [ngClass]="{ 'translate-y-0 opacity-100': toastState.animation, '-translate-y-full opacity-0': !toastState.animation }">
-    <div class="bg-yellow-400 text-body1 text-center px-4 py-3 shadow-md">{{ toastState.message }}</div>
-  </div>
-
-  <!-- 確認當前餐點訂單按鈕 -->
-  <div *ngIf="currentOrder.length">
-    <div class="text-body1 bg-yellow-400 text-center px-6 py-2 fixed inset-x-0 bottom-0 cursor-pointer transition-all duration-500 ease-out transform" [ngClass]="confirmButtonAnimation ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-full scale-110 opacity-0'" (click)="openConfirmModal()">
-      <div class="flex justify-between">
-        <div class="self-center">確認餐點</div>
-        <div class="border border-black p-1">{{ totalQuantity }}</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 正在運送餐點提示 -->
-  <div *ngIf="showSubmittingOrder" class="fixed inset-0 z-30 flex items-center justify-center transition-all duration-300 ease-in-out" [ngClass]="submittingOrderAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
-    <div class="bg-white rounded-xl p-6 w-11/12 max-w-sm text-center transition-all transform duration-300 ease-in-out" [ngClass]="submittingOrderAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
-      <div class="text-h2 mb-4">📦 正在運送餐點訂單...</div>
-    </div>
-  </div>
-
-  <!-- 確認餐點訂單彈窗 -->
-  <div *ngIf="showConfirmOrder" class="fixed inset-0 flex items-center justify-center z-30 transition-all duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
-    <div class="bg-white rounded-xl p-6 w-11/12 transition-all transform duration-300 ease-in-out" [ngClass]="confirmOrderAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
-      <div class="text-h2 mb-8 pb-4 border-b border-solid border-gray-400">當前餐點確認</div>
-      <div *ngFor="let item of currentOrder">
-        <div class="block mb-8 sm:mb-0 sm:flex sm:justify-between">
-          <div class="mb-2 sm:mb-8">
-            <div class="text-h3 self-center mb-2">{{ item.name }}</div>
-            <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
-            <div *ngIf="item.addons.length" class="text-body1 mb-2">加料：{{ item.addons.join(', ') }}</div>
-          </div>
-          <div class="flex gap-2">
-            <div class="border border-black p-1 cursor-pointer" (click)="decreaseItemQuantity(item)"><app-icon name="minus"></app-icon></div>
-            <div class="text-h3 mt-1">{{ item.quantity }}</div>
-            <div class="border border-black p-1 cursor-pointer" (click)="increaseItemQuantity(item)"><app-icon name="plus"></app-icon></div>
-            <div class="text-h3 mt-1">＄{{ item.price * item.quantity }}</div>
-            <div class="border border-black p-1 cursor-pointer" (click)="removeItem(item)"><app-icon name="cancel"></app-icon></div>
-          </div>
-        </div>
-      </div>
-      <div class="flex justify-between py-4 border-t border-solid border-gray-400 font-bold">
-        <div class="text-h3">總金額</div>
-        <div class="text-h3">＄{{ totalAmount }}</div>
-      </div>
-      <div class="flex justify-end mt-4 space-x-4">
-        <app-button [text]="'繼續點餐'" (buttonClick)="closeConfirmModal()"></app-button>
-        <app-button [text]="'確定送出'" (buttonClick)="submitOrder()"></app-button>
-      </div>
-    </div>
-  </div>
-</app-section>

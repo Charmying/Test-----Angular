@@ -1,0 +1,23 @@
+.limitRows {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  // 非標準屬性，主流瀏覽器支援
+  -webkit-line-clamp: 2;
+
+  // 新興標準屬性，有些瀏覽器逐步支援中
+  line-clamp: 2;
+}
+
+.no-scrollbar {
+  /* IE and Edge */
+  -ms-overflow-style: none;
+  /* Firefox */
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  /* Chrome, Safari, Opera */
+  display: none;
+}

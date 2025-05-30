@@ -7,8 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../../shared/service/api/api.service';
 import { Menu } from '../shared/menu/menu-obj';
 import { BaseCommonObj } from '../../../../shared/class/common';
-import { HeaderComponent } from '../../../../shared/components/header/header.component';
-import { TestApiHeaderComponent } from '../../shared/test-api-header/test-api-header.component';
 import { SectionComponent } from '../../../../shared/components/test/section/section.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { IconComponent } from '../../../../shared/components/icon/icon.component';
@@ -20,6 +18,7 @@ interface MenuItem {
   price: number;
   category: string;
   photo: string;
+  description?: string;
   spiceOptions?: string[];
   addonOptions?: string[];
 }
@@ -38,21 +37,13 @@ interface OrderItem {
   standalone: true,
   templateUrl: './qrcode-order-user-interface.component.html',
   styleUrl: './qrcode-order-user-interface.component.scss',
-  imports: [
-    CommonModule,
-    HeaderComponent,
-    TestApiHeaderComponent,
-    SectionComponent,
-    ButtonComponent,
-    IconComponent,
-    FormButtonListComponent,
-  ],
+  imports: [ CommonModule, SectionComponent, ButtonComponent, IconComponent, FormButtonListComponent ],
 })
 export class QRCodeOrderUserInterfaceComponent implements OnInit {
   /** 客製化表單 */
   form!: FormGroup;
   /** API 基礎 URL */
-  apiUrl: string;
+  apiUrl!: string;
   /** QR Code 認證 token */
   qrCodeToken: string = '';
   /** 桌號 */
@@ -107,12 +98,13 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     MIN_SUBMIT_DISPLAY: 1000,
   };
 
-  constructor(private apiService: ApiService, private fb: FormBuilder, private viewportScroller: ViewportScroller, private route: ActivatedRoute) {
-    this.apiUrl = this.apiService.getApiUrl();
-  }
+  constructor(private apiService: ApiService, private fb: FormBuilder, private viewportScroller: ViewportScroller, private route: ActivatedRoute) {}
 
   /** 初始化組件，載入菜單和路由參數 */
   ngOnInit(): void {
+    // 取得 API 基礎 URL
+    this.apiUrl = this.apiService.getApiUrl();
+
     // 分組菜單項目
     this.groupedMenuItems = this.menuItems.reduce((acc, item) => {
       acc[item.category] = acc[item.category] || [];
@@ -130,6 +122,16 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     });
   }
 
+  /** 計算訂單總金額 */
+  getTotalAmount(order: any): number {
+    return order.items.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0);
+  }
+
+  /** 捲動到指定菜單分類 */
+  scrollToCategory(category: string): void {
+    this.viewportScroller.scrollToAnchor(category);
+  }
+
   /** 開啟歷史訂單彈窗並獲取歷史訂單 */
   async openHistoryModal() {
     try {
@@ -138,7 +140,6 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
       this.showHistoryModal = true;
       setTimeout(() => (this.historyModalAnimation = true), this.ANIMATION.TOAST_FADE_IN);
     } catch (error) {
-      console.error('獲取歷史訂單失敗:', error);
       this.showToast('獲取歷史訂單失敗，請稍後重試');
     }
   }
@@ -149,16 +150,6 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     setTimeout(() => {
       this.showHistoryModal = false;
     }, this.ANIMATION.MODAL_TRANSITION);
-  }
-
-  /** 計算訂單總金額 */
-  getTotalAmount(order: any): number {
-    return order.items.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0);
-  }
-
-  /** 捲動到指定菜單分類 */
-  scrollToCategory(category: string): void {
-    this.viewportScroller.scrollToAnchor(category);
   }
 
   /** 開啟客製化彈窗並初始化表單 */
@@ -279,7 +270,7 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     );
   }
 
-  /** 開啟確認訂單彈窗 */
+  /** 開啟確認當前訂單彈窗 */
   openConfirmModal(): void {
     if (!this.currentOrder.length) {
       this.showToast('請先加入餐點！');
@@ -292,7 +283,7 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     );
   }
 
-  /** 關閉確認訂單彈窗 */
+  /** 關閉確認當前訂單彈窗 */
   closeConfirmModal(): void {
     this.confirmOrderAnimation = false;
     setTimeout(
