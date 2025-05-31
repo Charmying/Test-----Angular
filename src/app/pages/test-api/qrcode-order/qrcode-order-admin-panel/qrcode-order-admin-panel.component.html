@@ -1,37 +1,34 @@
-<!-- <app-header></app-header>
+<section class="text-[#F8F9FA] bg-[#1E2123] min-h-screen">
+  <!-- API loading 中 -->
+  <div *ngIf="isLoading" class="flex justify-center items-center h-screen">
+    <div class="text-h1 text-[#F8F9FA]">載入中...</div>
+  </div>
 
-<app-test-api-header></app-test-api-header> -->
-
-<app-section>
-  <!-- <div class="text-h1">QR Code 點餐系統後台</div> -->
-  <div class="fixed top-0 left-0 w-full z-20 place-items-center text-center">
+  <!-- API loading 完成 -->
+  <div *ngIf="!isLoading">
+    <!-- Header -->
     <nav class="w-full">
       <ul class="flex text-h2">
-        <li class="flex-1 border border-solid border-black px-8 py-2 cursor-pointer text-center bg-yellow-400" *ngFor="let link of links" (click)="changeOptions(link.title)">
+        <li class="flex-1 text-center px-8 py-2 border border-solid border[#F8F9FA] cursor-pointer" *ngFor="let link of links" (click)="changeOptions(link.title)">
           <div>{{ link.title }}</div>
         </li>
       </ul>
     </nav>
-  </div>
-  <!-- 載入中顯示 -->
-  <div *ngIf="isLoading" class="flex justify-center items-center h-screen">
-    <div class="text-h1">載入中...</div>
-  </div>
-  <!-- 資料載入完成後顯示 -->
-  <div *ngIf="!isLoading">
-    <div class="mt-4" [ngSwitch]="options">
+    <!-- 資料載入完成後顯示 -->
+    <div class="p-4" [ngSwitch]="options">
       <app-qrcode-order-admin-table *ngSwitchCase="'桌號資訊'" [tables]="tables"></app-qrcode-order-admin-table>
       <app-qrcode-order-admin-order *ngSwitchCase="'點餐狀況'" [orders]="orders"></app-qrcode-order-admin-order>
       <app-qrcode-order-admin-report *ngSwitchCase="'營業報表'" [report]="report"></app-qrcode-order-admin-report>
     </div>
   </div>
+
   <!-- 新餐點提醒彈窗 -->
   <div *ngIf="showNewOrderRemindModal" class="fixed inset-0 z-30 transition-all duration-300 ease-in-out" [ngClass]="showNewOrderRemindAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
     <div class="flex justify-center items-center h-full">
-      <div class="bg-white rounded-xl p-6 w-11/12 max-w-sm transition-all transform duration-300 ease-in-out text-center" [ngClass]="showNewOrderRemindAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+      <div class="text-[#1E2123] bg-[#F8F9FA] rounded-xl p-6 w-11/12 max-w-sm transition-all transform duration-300 ease-in-out text-center" [ngClass]="showNewOrderRemindAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
         <div class="text-h2 mb-6">📦 有新訂單</div>
         <app-button [text]="'關閉'" (buttonClick)="closeNewOrderRemindModal()"></app-button>
       </div>
     </div>
   </div>
-</app-section>
+</section>
