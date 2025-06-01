@@ -1,47 +1,48 @@
 <!-- 桌號資訊 -->
-<div class="pt-16">
-  <div class="text-h2 mb-4">桌號資訊</div>
+
+<div class="pt-8">
+  <div class="text-h2 mb-8">桌號資訊</div>
   <div class="grid grid-cols-2 gap-4">
-    <div *ngFor="let table of tables" class="w-full flex gap-4 justify-center border-2 border-solid border-black rounded-lg p-4">
+    <div *ngFor="let table of tables" class="w-full p-4 flex gap-4 justify-center border-2 border-solid border-[#F8F9FA] rounded-lg">
       <div class="p-2 flex gap-4 justify-center items-center">
         <div>
           <div>桌號：{{ table.tableNumber }}</div>
           <div>狀態：{{ table.status === 'available' ? '空桌' : '有人' }}</div>
         </div>
         <div *ngIf="table.status === 'available'">
-          <app-button [text]="'標示有人'" (buttonClick)="occupyTable(table.tableNumber)"></app-button>
+          <app-button [text]="'標示有人'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="occupyTable(table.tableNumber)"></app-button>
         </div>
         <div *ngIf="table.status === 'occupied'">
-          <app-button [text]="'結帳'" (buttonClick)="checkoutTable(table.tableNumber)"></app-button>
+          <app-button [text]="'結帳'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="checkoutTable(table.tableNumber)"></app-button>
         </div>
       </div>
       <div *ngIf="table.qrCodeUrl" class="flex justify-center gap-4 items-center">
-        <app-button [text]="'列印給客人'" (buttonClick)="openPrintModal(table)"></app-button>
-        <app-button [text]="'後台備用'" (buttonClick)="openAdminModal(table)"></app-button>
+        <app-button [text]="'列印給客人'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="openPrintModal(table)"></app-button>
+        <app-button [text]="'後台備用'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="openAdminModal(table)"></app-button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- 列印給客人彈窗 -->
-<div *ngIf="showPrintModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-  <div class="bg-white p-8 rounded-lg w-96">
+<div *ngIf="showPrintModal" class="bg-black bg-opacity-50 fixed inset-0 flex justify-center items-center">
+  <div class="w-96 p-8 bg-[#1E2123] rounded-lg">
     <div class="text-h3 mb-4">列印給客人</div>
     <div class="text-body1 my-4">桌號：{{ selectedTable?.tableNumber }}</div>
     <div class="text-body1 my-4">入座時間：{{ selectedTable?.occupyTime | date:'yyyy-MM-dd HH:mm:ss' }}</div>
     <div class="my-4 flex justify-center">
       <img [src]="getQrImageUrl(selectedTable?.qrCodeUrl)" alt="QR Code" />
     </div>
-    <div class="flex justify-center gap-2 mt-4">
-      <app-button [text]="'列印'" (buttonClick)="printTicket()"></app-button>
-      <app-button [text]="'關閉'" (buttonClick)="closePrintModal()"></app-button>
+    <div class="flex justify-center gap-8 mt-12">
+      <app-button [text]="'列印'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="printTicket()"></app-button>
+      <app-button [text]="'關閉'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="closePrintModal()"></app-button>
     </div>
   </div>
 </div>
 
 <!-- 後台備用彈窗 -->
-<div *ngIf="showAdminModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-  <div class="bg-white p-8 rounded-lg w-96">
+<div *ngIf="showAdminModal" class="bg-black bg-opacity-50 fixed inset-0 flex justify-center items-center">
+  <div class="w-96 p-8 bg-[#1E2123] rounded-lg">
     <div class="text-h3 mb-4">後台備用</div>
     <div class="text-body1 my-4">桌號：{{ selectedTable?.tableNumber }}</div>
     <div class="text-body1 my-4">入座時間：{{ selectedTable?.occupyTime | date:'yyyy-MM-dd HH:mm:ss' }}</div>
@@ -49,8 +50,8 @@
     <div class="my-4 flex justify-center">
       <img [src]="getQrImageUrl(selectedTable?.qrCodeUrl)" alt="QR Code" />
     </div>
-    <div class="flex justify-center gap-2 mt-4">
-      <app-button [text]="'關閉'" (buttonClick)="closeAdminModal()"></app-button>
+    <div class="flex justify-center gap-8 mt-12">
+      <app-button [text]="'關閉'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="closeAdminModal()"></app-button>
     </div>
   </div>
 </div>

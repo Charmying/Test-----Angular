@@ -13,9 +13,11 @@ import { ButtonComponent } from '../../../../../../shared/components/button/butt
 export class QRCodeOrderAdminTableComponent {
   /** 桌號資訊 */
   @Input() tables!: any[];
-
+  /** 可列印彈窗 (給客人) 顯示 */
   showPrintModal = false;
+  /** 不可列印彈窗 (後臺備用) 顯示 */
   showAdminModal = false;
+  /** 選中的桌號 */
   selectedTable: any = null;
 
   constructor(private apiService: ApiService) {}
@@ -46,28 +48,25 @@ export class QRCodeOrderAdminTableComponent {
     }
   }
 
-
-
-
-  /** 開啟列印給客人彈窗 */
+  /** 開啟可列印彈窗 (給客人) */
   openPrintModal(table: any) {
     this.selectedTable = table;
     this.showPrintModal = true;
   }
 
-  /** 關閉列印給客人彈窗 */
+  /** 關閉可列印彈窗 (給客人) */
   closePrintModal() {
     this.showPrintModal = false;
     this.selectedTable = null;
   }
 
-  /** 開啟後台備用彈窗 */
+  /** 開啟不可列印彈窗 (後臺備用) */
   openAdminModal(table: any) {
     this.selectedTable = table;
     this.showAdminModal = true;
   }
 
-  /** 關閉後台備用彈窗 */
+  /** 關閉不可列印彈窗 (後臺備用) */
   closeAdminModal() {
     this.showAdminModal = false;
     this.selectedTable = null;
@@ -82,6 +81,4 @@ export class QRCodeOrderAdminTableComponent {
   printTicket() {
     window.print();
   }
-
-
 }
