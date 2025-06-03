@@ -1,25 +1,18 @@
 <!-- 營業報表 -->
-<div class="pt-16">
+
+<div class="pt-8">
   <div class="text-h2 mb-4">已完成訂單報表</div>
-
-  <!-- 使用共用按鈕列表作為時段篩選 -->
+  <!-- 時段篩選按鈕列表 -->
   <div class="my-8">
-    <app-form-button-list
-      [form]="form"
-      [title]="''"
-      [data]="periodOptions"
-      formControlName="viewMode"
-      [multiple]="false">
-    </app-form-button-list>
+    <app-form-button-list [form]="form" [title]="''" [data]="periodOptions" formControlName="viewMode" [multiple]="false"></app-form-button-list>
   </div>
-
   <!-- 全部訂單統整 -->
-  <div class="text-h2 border-b border-solid border-black pb-2 mb-6">{{ viewLabel }}</div>
+  <div class="text-h2 mb-8 pb-8 border-b border-solid border-[#F8F9FA]">{{ viewLabel }}</div>
   <ul class="mb-8">
-    <li *ngFor="let item of getConsolidatedItems()" class="mb-4">
+    <li *ngFor="let item of getConsolidatedItems()" class="py-8 border-b border-solid border-[#F8F9FA]">
       <div class="flex justify-between">
         <div>
-          <div class="text-h3 mb-2">{{ item.name }} × {{ item.quantity }}</div>
+          <div class="text-2 mb-8">{{ item.name }} × {{ item.quantity }}</div>
           <div *ngIf="item.spice" class="text-body1 mb-2">辣度：{{ item.spice }}</div>
           <div *ngIf="item.addons?.length" class="text-body1 mb-2">加料：{{ item.addons?.join(', ') }}</div>
         </div>
@@ -31,6 +24,6 @@
 </div>
 
 <!-- 清空報表 -->
-<div class="my-16 text-center">
-  <app-button [text]="'清空報表'" (buttonClick)="clearDatabase()"></app-button>
+<div class="text-center my-16">
+  <app-button [text]="'清空報表'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="clearDatabase()"></app-button>
 </div>

@@ -6,6 +6,22 @@ import { ButtonComponent } from '../../../../../../shared/components/button/butt
 import { FormButtonListComponent } from '../../../../../../shared/components/forms/form-button-list/form-button-list.component';
 import { BaseCommonObj } from '../../../../../../shared/class/common';
 
+/** 可選篩選模式 */
+type ViewMode = 'all' | 'today' | 'yesterday' | 'week' | 'month';
+
+/** 訂單項目 */
+interface Order {
+  tableNumber: string;
+  items: Array<{
+    name: string;
+    price: number;
+    quantity: number;
+    spice?: string;
+    addons?: string[];
+  }>;
+  createdAt: string;
+}
+
 @Component({
   selector: 'app-qrcode-order-admin-report',
   standalone: true,
@@ -141,19 +157,4 @@ export class QRCodeOrderAdminReportComponent implements OnInit {
       alert('清空失敗');
     }
   }
-}
-
-// 可選篩選模式
-type ViewMode = 'all' | 'today' | 'yesterday' | 'week' | 'month';
-
-interface Order {
-  tableNumber: string;
-  items: Array<{
-    name: string;
-    price: number;
-    quantity: number;
-    spice?: string;
-    addons?: string[];
-  }>;
-  createdAt: string;
 }
