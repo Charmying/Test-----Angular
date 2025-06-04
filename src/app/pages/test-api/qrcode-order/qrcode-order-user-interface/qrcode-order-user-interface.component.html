@@ -54,7 +54,7 @@
       <!-- 歷史訂單彈窗 -->
       <div *ngIf="showHistoryModal" class="fixed inset-0 z-50 transition-all duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
         <div class="h-full flex justify-center items-center">
-          <div class="bg-[#1E2123] w-11/12 max-w-2xl rounded-xl p-6 transition-all transform duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+          <div class="bg-[#1E2123] w-11/12 max-w-2xl max-h-[60vh] p-8 overflow-y-auto no-scrollbar rounded-xl transition-all transform duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
             <div class="text-h2 mb-4 pb-4 border-b border-solid border-[#F8F9FA]">點餐紀錄</div>
             <div *ngFor="let order of historyOrders" class="border-t border-solid border-[#1E2123] pt-4 my-4">
               <div class="text-h3 mb-2">狀態：{{ order.status === 'pending' ? '餐點製作中' : '餐點已送達' }}</div>
@@ -76,7 +76,7 @@
       <!-- 客製化選項彈窗 -->
       <div *ngIf="showCustomized" class="fixed inset-0 z-30 transition-all duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'bg-black bg-opacity-50 opacity-100' : 'bg-black bg-opacity-0 opacity-0'">
         <div class="h-full flex justify-center items-center">
-          <div class="bg-[#1E2123] rounded-xl p-6 w-11/12 max-w-md transition-all transform duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
+          <div class="bg-[#1E2123] w-11/12 max-w-md max-h-[60vh] p-8 overflow-y-auto no-scrollbar rounded-xl transition-all transform duration-300 ease-in-out" [ngClass]="customizedAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
             <div class="text-h2 mb-4 pb-4 border-b border-solid border-[#F8F9FA]">{{ selectedItem?.name }}</div>
             <!-- 辣度選項 -->
             <div *ngIf="selectedItem?.spiceOptions">
