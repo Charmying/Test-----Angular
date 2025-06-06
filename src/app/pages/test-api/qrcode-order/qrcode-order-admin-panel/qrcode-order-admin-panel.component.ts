@@ -7,14 +7,16 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 import { QRCodeOrderAdminTableComponent } from '../shared/component/qrcode-order-admin-table/qrcode-order-admin-table.component';
 import { QRCodeOrderAdminOrderComponent } from '../shared/component/qrcode-order-admin-order/qrcode-order-admin-order.component';
 import { QRCodeOrderAdminReportComponent } from '../shared/component/qrcode-order-admin-report/qrcode-order-admin-report.component';
+import { QRCodeOrderAdminManagementComponent } from '../shared/component/qrcode-order-admin-management/qrcode-order-admin-management.component';
 import { io } from 'socket.io-client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-qrcode-order-admin-panel',
   standalone: true,
   templateUrl: './qrcode-order-admin-panel.component.html',
   styleUrl: './qrcode-order-admin-panel.component.scss',
-  imports: [CommonModule, QRCodeOrderAdminTableComponent, QRCodeOrderAdminOrderComponent, QRCodeOrderAdminReportComponent, ButtonComponent]
+  imports: [CommonModule, ButtonComponent, QRCodeOrderAdminTableComponent, QRCodeOrderAdminOrderComponent, QRCodeOrderAdminReportComponent, QRCodeOrderAdminManagementComponent]
 })
 export class QRCodeOrderAdminPanelComponent {
   /** 載入狀態 */
@@ -24,6 +26,7 @@ export class QRCodeOrderAdminPanelComponent {
     { title: '桌號資訊' },
     { title: '點餐狀況' },
     { title: '營業報表' },
+    { title: '帳號管理' },
   ]
   /** 選擇顯示子層 component (預設) */
   options = '桌號資訊'
@@ -40,7 +43,7 @@ export class QRCodeOrderAdminPanelComponent {
   /** 新餐點提醒彈窗顯示動畫 */
   showNewOrderRemindAnimation: boolean = false;
 
-  constructor(private apiService: ApiService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private apiService: ApiService, @Inject(PLATFORM_ID) private platformId: Object, private router: Router) {}
 
   async ngOnInit() {
     try {
@@ -107,5 +110,11 @@ export class QRCodeOrderAdminPanelComponent {
     setTimeout(() => {
       this.showNewOrderRemindModal = false;
     }, 300);
+  }
+
+  /** 登出 */
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/pages/test-api/qrcode-order-login']);
   }
 }

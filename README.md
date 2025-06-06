@@ -46,3 +46,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Angular 整合 Socket.io 客戶端
 
 `npm install socket.io-client`
+
+## 解碼 JWT
+
+`npm install jwt-decode`

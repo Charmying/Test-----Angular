@@ -12,6 +12,7 @@
         <li class="flex-1 text-center px-8 py-2 border border-solid border[#F8F9FA] cursor-pointer" *ngFor="let link of links" (click)="changeOptions(link.title)">
           <div>{{ link.title }}</div>
         </li>
+        <li class="flex-1 text-center px-8 py-2 border border-solid border[#F8F9FA] cursor-pointer" (click)="logout()">登出</li>
       </ul>
     </nav>
     <!-- 資料載入完成後顯示 -->
@@ -19,6 +20,7 @@
       <app-qrcode-order-admin-table *ngSwitchCase="'桌號資訊'" [tables]="tables"></app-qrcode-order-admin-table>
       <app-qrcode-order-admin-order *ngSwitchCase="'點餐狀況'" [orders]="orders"></app-qrcode-order-admin-order>
       <app-qrcode-order-admin-report *ngSwitchCase="'營業報表'" [report]="report"></app-qrcode-order-admin-report>
+      <app-qrcode-order-admin-management *ngSwitchCase="'帳號管理'"></app-qrcode-order-admin-management>
     </div>
   </div>
 

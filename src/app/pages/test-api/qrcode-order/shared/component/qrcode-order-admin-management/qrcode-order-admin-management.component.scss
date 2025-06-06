@@ -1,0 +1,21 @@
+th, td {
+  padding: 1rem;
+  border: 1px solid #000000;
+}
+
+/* input 文字顏色 */
+::ng-deep app-form-input-text input,
+::ng-deep app-form-input-password input {
+  color: #1E2123;
+}
+
+/* placeholder 顏色 */
+::ng-deep app-form-input-text input::placeholder,
+::ng-deep app-form-input-password input::placeholder {
+  color: #1E2123;
+}
+
+/* icon 顏色 */
+::ng-deep app-form-input-password app-icon {
+  color: #1E2123;
+}

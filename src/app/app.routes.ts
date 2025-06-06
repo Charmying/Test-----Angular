@@ -18,6 +18,8 @@ import { TestApiPageComponent } from './pages/test-api/test-api-page/test-api-pa
 import { Test1AndTest2ApiPageComponent } from './pages/test-api/test1-and-test2-api-page/test1-and-test2-api-page.component';
 import { QRCodeOrderUserInterfaceComponent } from './pages/test-api/qrcode-order/qrcode-order-user-interface/qrcode-order-user-interface.component';
 import { QRCodeOrderAdminPanelComponent } from './pages/test-api/qrcode-order/qrcode-order-admin-panel/qrcode-order-admin-panel.component';
+import { AuthGuard } from './shared/guard/auth.guard';
+import { QRCodeOrderLoginComponent } from './pages/test-api/qrcode-order/qrcode-order-login/qrcode-order-login.component';
 
 export const routes: Routes = [
   /** 預設路徑 */
@@ -51,9 +53,10 @@ export const routes: Routes = [
       /** test-api */
       { path: 'test-api/test-api-page', component: TestApiPageComponent },
       { path: 'test-api/test1-and-test2-api-page', component: Test1AndTest2ApiPageComponent },
-        /** QR Code 點餐系統 */
-        { path: 'test-api/qrcode-order-user-interface', component: QRCodeOrderUserInterfaceComponent }, // QR Code 點餐系統前台
-        { path: 'test-api/qrcode-order-admin-panel', component: QRCodeOrderAdminPanelComponent }, // QR Code 點餐系統後台
+      /** QR Code 點餐系統 */
+      { path: 'test-api/qrcode-order-user-interface', component: QRCodeOrderUserInterfaceComponent }, // QR Code 點餐系統前台
+      { path: 'test-api/qrcode-order-admin-panel', component: QRCodeOrderAdminPanelComponent, canActivate: [AuthGuard] }, // QR Code 點餐系統後台
+      { path: 'test-api/qrcode-order-login', component: QRCodeOrderLoginComponent }, // QR Code 點餐系統登入頁
     ]
   }
 ];

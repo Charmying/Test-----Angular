@@ -1,0 +1,17 @@
+<section class="text-[#F8F9FA] bg-[#1E2123]">
+  <div class="h-screen flex items-center justify-center">
+    <app-section>
+      <div class="text-h1 text-center mb-8">後台登入</div>
+      <div class="my-4">
+        <app-form-input-text [form]="form" [title]="'使用者名稱'" [type]="'text'" [formControlName]="'username'" [placeHolder]="'請輸入使用者名稱'"></app-form-input-text>
+      </div>
+      <div class="my-4">
+        <app-form-input-password [form]="form" [title]="'使用者密碼'" [formControlName]="'password'" [placeHolder]="'請輸入使用者密碼'"></app-form-input-password>
+      </div>
+      <div *ngIf="errorMessage" class="text-body1 text-red-500 my-4">{{ errorMessage }}</div>
+      <div class="my-8 flex justify-center">
+        <app-button class="text-center" [text]="'登入'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="login()"></app-button>
+      </div>
+    </app-section>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+<div class="mt-8">
+  <!-- 新增使用者區塊 -->
+  <div *ngIf="isAdmin" class="w-[257px] my-16">
+    <div class="text-h2">新增帳號</div>
+    <div class="my-4">
+      <app-form-input-text [form]="form" [title]="'新帳號'" [type]="'text'" [formControlName]="'newUsername'" [placeHolder]="'新帳號'"></app-form-input-text>
+    </div>
+    <div class="my-4">
+      <app-form-input-password [form]="form" [title]="'新密碼'" [formControlName]="'newPassword'" [placeHolder]="'新密碼'"></app-form-input-password>
+    </div>
+    <div *ngIf="registerResult" class="text-body1 text-red-500 my-4">{{ registerResult }}</div>
+    <div class="my-8">
+      <app-button class="text-center" [text]="'新增使用者'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="register()"></app-button>
+    </div>
+  </div>
+
+
+  <!-- 修改密碼區塊 -->
+  <div class="w-[257px] my-16">
+    <div class="text-h2">修改密碼</div>
+    <div class="my-4">
+      <app-form-input-password [form]="form" [title]="'舊密碼'" [formControlName]="'oldPassword'" [placeHolder]="'請輸入舊密碼'"></app-form-input-password>
+    </div>
+    <div class="my-4">
+      <app-form-input-password [form]="form" [title]="'新密碼'" [formControlName]="'updatedPassword'" [placeHolder]="'請輸入新密碼'"></app-form-input-password>
+    </div>
+    <div *ngIf="updatedPasswordResult" class="text-body1 text-red-500 my-4">{{ updatedPasswordResult }}</div>
+    <div class="my-8">
+      <app-button class="text-center" [text]="'修改'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="changePassword()"></app-button>
+    </div>
+  </div>
+</div>
