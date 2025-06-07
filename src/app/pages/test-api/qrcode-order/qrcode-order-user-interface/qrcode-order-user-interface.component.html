@@ -56,16 +56,17 @@
         <div class="h-full flex justify-center items-center">
           <div class="bg-[#1E2123] w-11/12 max-w-2xl max-h-[60vh] p-8 overflow-y-auto no-scrollbar rounded-xl transition-all transform duration-300 ease-in-out" [ngClass]="historyModalAnimation ? 'scale-100 opacity-100' : 'scale-90 opacity-50'">
             <div class="text-h2 mb-4 pb-4 border-b border-solid border-[#F8F9FA]">點餐紀錄</div>
-            <div *ngFor="let order of historyOrders" class="border-t border-solid border-[#1E2123] pt-4 my-4">
-              <div class="text-h3 mb-2">狀態：{{ order.status === 'pending' ? '餐點製作中' : '餐點已送達' }}</div>
-              <div class="text-body1">訂單詳情：</div>
-              <div *ngFor="let item of order.items">
-                <div class="text-body1">{{ item.name }} x {{ item.quantity }} - ＄{{ item.price * item.quantity }}</div>
-                <div class="text-body1" *ngIf="item.spice">辣度：{{ item.spice }}</div>
-                <div class="text-body1" *ngIf="item.addons.length">加料：{{ item.addons.join(', ') }}</div>
+            <div *ngFor="let order of historyOrders" class="border-t border-solid border-[#1E2123] pt-4 mt-4 mb-8">
+              <div class="text-h3 my-2">狀態：{{ order.status === 'pending' ? '餐點製作中' : '餐點已送達' }}</div>
+              <!-- <div class="text-body1 my-2">訂單詳情：</div> -->
+              <div *ngFor="let item of order.items" class="my-4">
+                <div class="text-body1 my-2">{{ item.name }} x {{ item.quantity }}</div>
+                <div class="text-body1 my-2" *ngIf="item.spice">&nbsp;&nbsp;&nbsp;&nbsp; 辣度：{{ item.spice }}</div>
+                <div class="text-body1 my-2" *ngIf="item.addons.length">&nbsp;&nbsp;&nbsp;&nbsp; 加料：{{ item.addons.join(', ') }}</div>
               </div>
-              <div class="text-body1">總金額：＄{{ getTotalAmount(order) }}</div>
+              <div class="text-h3 my-4">總金額：＄{{ getTotalAmount(order) }}</div>
             </div>
+            <div class="text-h2 mt-16 mb-4">全部訂單總金額：＄{{ totalHistoryAmount }}</div>
             <div class="flex justify-end mt-4">
               <app-button [text]="'關閉'" [textColor]="'#F8F9FA'" [backgroundColor]="'#1E2123'" [borderColor]="'#F8F9FA'" (buttonClick)="closeHistoryModal()"></app-button>
             </div>
@@ -105,12 +106,12 @@
 
       <!-- 統一的 Toast 提示 -->
       <div *ngIf="toastState.isVisible" class="w-full fixed top-0 left-0 z-30 transition-all duration-500 ease-in-out" [ngClass]="{ 'translate-y-0 opacity-100': toastState.animation, '-translate-y-full opacity-0': !toastState.animation }">
-        <div class="bg-[#1E2123] text-body1 text-center p-4 border-b-4 border-solid border-[#F8F9FA] shadow-md">{{ toastState.message }}</div>
+        <div class="bg-[#1E2123] text-body1 text-center p-4 border-b border-solid border-[#F8F9FA] shadow-md">{{ toastState.message }}</div>
       </div>
 
       <!-- 確認當前訂單按鈕 -->
       <div *ngIf="currentOrder.length">
-        <div class="text-body1 bg-[#1E2123] border-t-4 border-solid border-[#F8F9FA] text-center px-6 py-2 fixed inset-x-0 bottom-0 cursor-pointer transition-all duration-500 ease-out transform" [ngClass]="confirmButtonAnimation ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-full scale-110 opacity-0'" (click)="openConfirmModal()">
+        <div class="text-body1 bg-[#1E2123] border-2 border-solid border-[#F8F9FA] text-center px-6 py-2 fixed inset-x-0 bottom-0 cursor-pointer transition-all duration-500 ease-out transform" [ngClass]="confirmButtonAnimation ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-full scale-110 opacity-0'" (click)="openConfirmModal()">
           <div class="flex justify-between">
             <div class="self-center">確認餐點</div>
             <div class="border border-[#1E2123] p-1">{{ totalQuantity }}</div>

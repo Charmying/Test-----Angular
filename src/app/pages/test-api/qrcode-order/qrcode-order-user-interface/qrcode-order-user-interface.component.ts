@@ -127,6 +127,11 @@ export class QRCodeOrderUserInterfaceComponent implements OnInit {
     return order.items.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0);
   }
 
+  /** 計算所有歷史訂單的總金額 */
+  get totalHistoryAmount(): number {
+    return this.historyOrders.reduce((sum, order) => sum + this.getTotalAmount(order), 0);
+  }
+
   /** 捲動到指定菜單分類 */
   scrollToCategory(category: string): void {
     this.viewportScroller.scrollToAnchor(category);
