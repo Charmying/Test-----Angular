@@ -60,7 +60,10 @@ export class QRCodeOrderAdminPanelComponent {
 
   /** 切換預顯示 component */
   changeOptions(title: string) {
-    this.options = title
+    this.options = title;
+    if (title === '點餐狀況') {
+      this.fetchOrders();
+    }
   }
 
   /** 獲取所有初始資料 */
@@ -79,7 +82,7 @@ export class QRCodeOrderAdminPanelComponent {
         }
       }
 
-      this.orders = orders;
+      this.orders = orders.filter(order => !order.completed);
       this.report = report;
     } catch (error) {
       console.error('資料載入失敗:', error);
@@ -87,12 +90,31 @@ export class QRCodeOrderAdminPanelComponent {
     }
   }
 
+  /** 獲取未完成訂單 */
+  async fetchOrders() {
+    try {
+      const orders = await this.apiService.get<any[]>(`${this.apiService.getApiUrl()}/qrcodeOrder/orders`);
+      this.orders = orders.filter(order => !order.completed);
+    } catch (error) {
+      console.error('載入訂單失敗:', error);
+    }
+  }
+
   /** Socket 監聽 */
   setupSocketListeners() {
     this.socket = io(this.apiService.getApiUrl());
+    this.socket.on('connect', () => {
+      console.log('WebSocket 已連線');
+    });
     this.socket.on('newOrder', (order: any) => {
-      this.orders.push(order);
-      this.openCustomizedModal()
+      console.log('收到新訂單:', order);
+      if (!order.completed) {
+        this.orders = [...this.orders, order];
+        this.openCustomizedModal();
+      }
+    });
+    this.socket.on('disconnect', () => {
+      console.log('WebSocket 已斷線');
     });
   }
 
