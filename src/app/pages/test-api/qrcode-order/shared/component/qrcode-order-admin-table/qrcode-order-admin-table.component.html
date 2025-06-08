@@ -27,7 +27,6 @@
 <!-- 列印給客人彈窗 -->
 <div *ngIf="showPrintModal" class="bg-black bg-opacity-50 fixed inset-0 flex justify-center items-center">
   <div class="w-96 p-8 bg-[#1E2123] rounded-lg">
-    <div class="text-h3 mb-4">列印給客人</div>
     <div class="text-body1 my-4">桌號：{{ selectedTable?.tableNumber }}</div>
     <div class="text-body1 my-4">入座時間：{{ selectedTable?.occupyTime | date:'yyyy-MM-dd HH:mm:ss' }}</div>
     <div class="my-4 flex justify-center">
@@ -43,7 +42,6 @@
 <!-- 後台備用彈窗 -->
 <div *ngIf="showAdminModal" class="bg-black bg-opacity-50 fixed inset-0 flex justify-center items-center">
   <div class="w-96 p-8 bg-[#1E2123] rounded-lg">
-    <div class="text-h3 mb-4">後台備用</div>
     <div class="text-body1 my-4">桌號：{{ selectedTable?.tableNumber }}</div>
     <div class="text-body1 my-4">入座時間：{{ selectedTable?.occupyTime | date:'yyyy-MM-dd HH:mm:ss' }}</div>
     <div class="text-body1 my-4">網址：{{ selectedTable?.qrCodeUrl }}</div>
